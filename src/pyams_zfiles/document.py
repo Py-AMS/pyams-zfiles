@@ -258,10 +258,10 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
             'version': state.version_id,
             'status': state.state,
             'creator': list(roles.creator)[0],
-            'created_time': dc.created.isoformat(),  # pylint: disable=no-member
+            'created_time': dc.created.isoformat() if dc.created else None,  # pylint: disable=no-member
             'owner': list(roles.owner)[0],
             'updater': self.updater,
-            'updated_time': dc.modified.isoformat(),  # pylint: disable=no-member
+            'updated_time': dc.modified.isoformat() if dc.modified else None,  # pylint: disable=no-member
             'status_updater': state.state_principal,
             'status_update_time': state.state_date.isoformat(),  # pylint: disable=no-member
             'access_mode': ACCESS_MODE_IDS[self.access_mode],
