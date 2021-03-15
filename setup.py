@@ -27,6 +27,11 @@ version = '1.0.0'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
+    'pyams_form',
+    'pyams_pagelet',
+    'pyams_skin',
+    'pyams_table',
+    'pyams_viewlet',
     'pyams_zmi',
     'pyramid_zcml',
     'zope.exceptions'
