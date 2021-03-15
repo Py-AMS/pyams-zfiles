@@ -1,0 +1,952 @@
+{
+    "info": {
+        "title": "PyAMS",
+        "version": "1.0"
+    },
+    "swagger": "2.0",
+    "basePath": "/",
+    "paths": {
+        "/__api__": {
+            "get": {
+                "responses": {
+                    "default": {
+                        "description": "UNDOCUMENTED RESPONSE"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "OpenAPI specification"
+            }
+        },
+        "/api/security/principals": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Search results"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Returns list of principals matching given query"
+            }
+        },
+        "/api/auth/jwt/token": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Tokens properties"
+                    },
+                    "202": {
+                        "description": "Token accepted"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    },
+                    "503": {
+                        "description": "Service unavailable"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "LoginSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "LoginSchema",
+                            "properties": {
+                                "claims": {
+                                    "type": "object",
+                                    "title": "Custom claims"
+                                },
+                                "login": {
+                                    "type": "string",
+                                    "title": "Login"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "title": "Password"
+                                }
+                            },
+                            "required": [
+                                "login",
+                                "password"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "REST login endpoint for JWT authentication"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Tokens properties"
+                    },
+                    "202": {
+                        "description": "Token accepted"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    },
+                    "503": {
+                        "description": "Service unavailable"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "multipart/form-data",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ClaimsObjectSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "ClaimsObjectSchema",
+                            "properties": {
+                                "obj": {
+                                    "type": "string",
+                                    "title": "Token object",
+                                    "enum": [
+                                        "access",
+                                        "refresh"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                ],
+                "summary": "Extract claims from provided JWT token"
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "Tokens properties"
+                    },
+                    "202": {
+                        "description": "Token accepted"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    },
+                    "503": {
+                        "description": "Service unavailable"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "multipart/form-data",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ClaimsSetterSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "ClaimsSetterSchema",
+                            "properties": {
+                                "claims": {
+                                    "type": "object",
+                                    "title": "Custom claims"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "summary": "JWT token refresh service"
+            }
+        },
+        "/api/auth/jwt/verify": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Tokens properties"
+                    },
+                    "202": {
+                        "description": "Token accepted"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    },
+                    "503": {
+                        "description": "Service unavailable"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ClaimsObjectSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "ClaimsObjectSchema",
+                            "properties": {
+                                "obj": {
+                                    "type": "string",
+                                    "title": "Token object",
+                                    "enum": [
+                                        "access",
+                                        "refresh"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                ],
+                "summary": "JWT token verification view"
+            }
+        },
+        "/api/zfiles/rest": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Document properties"
+                    },
+                    "201": {
+                        "description": "Document created"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "DocumentSearchSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "DocumentSearchSchema",
+                            "properties": {
+                                "oid": {
+                                    "type": "array",
+                                    "title": "Document unique identifiers",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "version": {
+                                    "type": "integer",
+                                    "title": "Document version"
+                                },
+                                "title": {
+                                    "type": "string",
+                                    "title": "Document title"
+                                },
+                                "application_name": {
+                                    "type": "string",
+                                    "title": "Source application name"
+                                },
+                                "hash": {
+                                    "type": "string",
+                                    "title": "SHA512 hash of document data file"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "title": "Document tags, separated with semicolons",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "title": "Document status",
+                                    "default": "draft",
+                                    "enum": [
+                                        "draft",
+                                        "published",
+                                        "archived",
+                                        "deleted"
+                                    ]
+                                },
+                                "creator": {
+                                    "type": "string",
+                                    "title": "Document creator principal ID"
+                                },
+                                "created_date": {
+                                    "type": "array",
+                                    "title": "Document creation dates range",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Range beginning date",
+                                        "format": "date"
+                                    }
+                                },
+                                "owner": {
+                                    "type": "string",
+                                    "title": "Current document owner"
+                                },
+                                "updater": {
+                                    "type": "string",
+                                    "title": "Last document updater principal ID"
+                                },
+                                "updated_date": {
+                                    "type": "array",
+                                    "title": "Document last update dates range",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Range beginning date",
+                                        "format": "date"
+                                    }
+                                },
+                                "status_updater": {
+                                    "type": "string",
+                                    "title": "Last workflow status updater principal ID"
+                                },
+                                "status_update_date": {
+                                    "type": "array",
+                                    "title": "Last workflow status update dates range",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Range beginning date",
+                                        "format": "date"
+                                    }
+                                },
+                                "fields": {
+                                    "type": "array",
+                                    "title": "List of requested field names",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "summary": "Find documents matching specified properties"
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Document properties"
+                    },
+                    "201": {
+                        "description": "Document created"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "NewDocumentSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "NewDocumentSchema",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "title": "Document title"
+                                },
+                                "application_name": {
+                                    "type": "string",
+                                    "title": "Source application name"
+                                },
+                                "filename": {
+                                    "type": "string",
+                                    "title": "Document file name"
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "title": "Document custom properties"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "title": "List of document tags",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "owner": {
+                                    "type": "string",
+                                    "title": "Current document owner"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "title": "Document status",
+                                    "default": "draft",
+                                    "enum": [
+                                        "draft",
+                                        "published",
+                                        "archived",
+                                        "deleted"
+                                    ]
+                                },
+                                "access_mode": {
+                                    "type": "string",
+                                    "title": "Access mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "readers": {
+                                    "type": "array",
+                                    "title": "Document readers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "update_mode": {
+                                    "type": "string",
+                                    "title": "Update mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "managers": {
+                                    "type": "array",
+                                    "title": "Document managers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "title": "Document data; may be provided in Base64 when using JSON"
+                                }
+                            },
+                            "required": [
+                                "title",
+                                "application_name",
+                                "filename",
+                                "data"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "Create new ZFiles document using multipart/form-data encoding"
+            }
+        },
+        "/api/zfiles/rest/{oid}*version": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Document properties"
+                    },
+                    "201": {
+                        "description": "Document created"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "FieldsNamesSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "FieldsNamesSchema",
+                            "properties": {
+                                "fields": {
+                                    "type": "array",
+                                    "title": "List of requested fields names",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "summary": "Retrieve existing document information"
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Document properties"
+                    },
+                    "201": {
+                        "description": "Document created"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "ImportDocumentSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "ImportDocumentSchema",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "title": "Document title"
+                                },
+                                "application_name": {
+                                    "type": "string",
+                                    "title": "Source application name"
+                                },
+                                "filename": {
+                                    "type": "string",
+                                    "title": "Document file name"
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "title": "Document custom properties"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "title": "List of document tags",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "owner": {
+                                    "type": "string",
+                                    "title": "Current document owner"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "title": "Document status",
+                                    "default": "draft",
+                                    "enum": [
+                                        "draft",
+                                        "published",
+                                        "archived",
+                                        "deleted"
+                                    ]
+                                },
+                                "access_mode": {
+                                    "type": "string",
+                                    "title": "Access mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "readers": {
+                                    "type": "array",
+                                    "title": "Document readers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "update_mode": {
+                                    "type": "string",
+                                    "title": "Update mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "managers": {
+                                    "type": "array",
+                                    "title": "Document managers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "title": "Document data; may be provided in Base64 when using JSON"
+                                },
+                                "created_time": {
+                                    "type": "string",
+                                    "title": "Document creation timestamp",
+                                    "format": "date-time"
+                                }
+                            },
+                            "required": [
+                                "title",
+                                "application_name",
+                                "filename",
+                                "owner",
+                                "data",
+                                "created_time"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "Import document from other ZFiles database"
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "Document properties"
+                    },
+                    "201": {
+                        "description": "Document created"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "BaseDocumentSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "BaseDocumentSchema",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "title": "Document title"
+                                },
+                                "application_name": {
+                                    "type": "string",
+                                    "title": "Source application name"
+                                },
+                                "filename": {
+                                    "type": "string",
+                                    "title": "File name"
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "title": "Document custom properties"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "title": "List of document tags",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "owner": {
+                                    "type": "string",
+                                    "title": "Current document owner"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "title": "Document status",
+                                    "default": "draft",
+                                    "enum": [
+                                        "draft",
+                                        "published",
+                                        "archived",
+                                        "deleted"
+                                    ]
+                                },
+                                "access_mode": {
+                                    "type": "string",
+                                    "title": "Access mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "readers": {
+                                    "type": "array",
+                                    "title": "Document readers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "update_mode": {
+                                    "type": "string",
+                                    "title": "Update mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "managers": {
+                                    "type": "array",
+                                    "title": "Document managers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "summary": "Update existing document properties, excluding file data"
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Document properties"
+                    },
+                    "201": {
+                        "description": "Document created"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "DocumentDataSchema",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "title": "DocumentDataSchema",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "title": "Document title"
+                                },
+                                "application_name": {
+                                    "type": "string",
+                                    "title": "Source application name"
+                                },
+                                "filename": {
+                                    "type": "string",
+                                    "title": "File name"
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "title": "Document custom properties"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "title": "List of document tags",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "owner": {
+                                    "type": "string",
+                                    "title": "Current document owner"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "title": "Document status",
+                                    "default": "draft",
+                                    "enum": [
+                                        "draft",
+                                        "published",
+                                        "archived",
+                                        "deleted"
+                                    ]
+                                },
+                                "access_mode": {
+                                    "type": "string",
+                                    "title": "Access mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "readers": {
+                                    "type": "array",
+                                    "title": "Document readers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "update_mode": {
+                                    "type": "string",
+                                    "title": "Update mode",
+                                    "default": "private",
+                                    "enum": [
+                                        "private",
+                                        "protected",
+                                        "public"
+                                    ]
+                                },
+                                "managers": {
+                                    "type": "array",
+                                    "title": "Document managers IDs",
+                                    "items": {
+                                        "type": "string",
+                                        "title": "Item value"
+                                    }
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "title": "Document data; may be provided in Base64 when using JSON"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "summary": "Update existing document content"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Document properties"
+                    },
+                    "201": {
+                        "description": "Document created"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    },
+                    "403": {
+                        "description": "Forbidden access"
+                    },
+                    "400": {
+                        "description": "Missing arguments"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete existing document content"
+            }
+        }
+    }
+}
