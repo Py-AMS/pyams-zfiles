@@ -222,6 +222,8 @@ class DocumentContainer(ProtectedObjectMixin, Folder):
         if check_permission and \
                 not request.has_permission(MANAGE_DOCUMENT_PERMISSION, context=document):
             raise HTTPForbidden()
+        if properties is None:
+            properties = {}
         if data is not None:
             document_hash = get_hash(data)
             if document_hash == document.hash:
