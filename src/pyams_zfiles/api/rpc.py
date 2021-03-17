@@ -49,15 +49,15 @@ def find_files(request, properties, fields=None):  # pylint: disable=unused-argu
 
 @jsonrpc_method(endpoint=JSONRPC_ENDPOINT,
                 method='uploadFile',
-                require_csrf=False,
-                permission=CREATE_DOCUMENT_PERMISSION)
+                require_csrf=False)
 @xmlrpc_method(endpoint=XMLRPC_ENDPOINT,
                method='uploadFile',
-               require_csrf=False,
-               permission=CREATE_DOCUMENT_PERMISSION)
+               require_csrf=False)
 def upload_file(request, data, properties):
     """Create new document through RPC"""
     container = get_utility(IDocumentContainer)
+    if not request.has_permission(CREATE_DOCUMENT_PERMISSION, context=container):
+        raise HTTPForbidden()
     if isinstance(data, Binary):
         data = data.data
     else:
@@ -88,15 +88,15 @@ def synchronize(request, imported=None, deleted=None):
 
 @jsonrpc_method(endpoint=JSONRPC_ENDPOINT,
                 method='importFile',
-                require_csrf=False,
-                permission=CREATE_DOCUMENT_WITH_OWNER_PERMISSION)
+                require_csrf=False)
 @xmlrpc_method(endpoint=XMLRPC_ENDPOINT,
                method='importFile',
-               require_csrf=False,
-               permission=CREATE_DOCUMENT_WITH_OWNER_PERMISSION)
+               require_csrf=False)
 def import_file(request, oid, data, properties):
     """Import document from outer ZFiles database through RPC"""
     container = get_utility(IDocumentContainer)
+    if not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION, context=container):
+        raise HTTPForbidden()
     if isinstance(data, Binary):
         data = data.data
     else:

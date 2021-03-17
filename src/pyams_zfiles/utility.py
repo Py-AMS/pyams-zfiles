@@ -102,7 +102,8 @@ class DocumentContainer(ProtectedObjectMixin, Folder):
         if (not title) or (not application_name) or (data is None):
             raise HTTPBadRequest("Missing arguments")
         owner = properties.get('owner')
-        if owner and not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION):
+        if owner and not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION,
+                                                context=self):
             raise HTTPForbidden()
         if not owner:
             properties['owner'] = request.principal.id

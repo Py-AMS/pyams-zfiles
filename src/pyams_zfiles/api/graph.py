@@ -23,8 +23,8 @@ from pyramid.view import view_config
 
 from pyams_utils.registry import get_utility
 from pyams_zfiles.interfaces import CREATE_DOCUMENT_PERMISSION, \
-    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, GRAPHQL_API_ROUTE, \
-    IDocumentContainer, READ_DOCUMENT_PERMISSION
+    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, GRAPHQL_API_ROUTE, IDocumentContainer, \
+    READ_DOCUMENT_PERMISSION
 
 
 __docformat__ = 'restructuredtext'
@@ -190,10 +190,10 @@ class CreateDocument(Mutation):
     def mutate(self, info, **properties):  # pylint: disable=no-self-use
         """Create new document"""
         request = info.context
-        if not request.has_permission(CREATE_DOCUMENT_PERMISSION):
+        container = get_utility(IDocumentContainer)
+        if not request.has_permission(CREATE_DOCUMENT_PERMISSION, context=container):
             raise HTTPForbidden()
         data = base64.b64decode(properties.pop('data', None))
-        container = get_utility(IDocumentContainer)
         document = container.add_document(data, properties, request=request)
         return CreateDocument(document=document.to_json())
 
@@ -230,11 +230,11 @@ class ImportDocument(Mutation):
     def mutate(self, info, **properties):  # pylint: disable=no-self-use
         """Create new document"""
         request = info.context
-        if not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION):
+        container = get_utility(IDocumentContainer)
+        if not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION, context=container):
             raise HTTPForbidden()
         oid = properties.pop('oid')
         data = base64.b64decode(properties.pop('data', None))
-        container = get_utility(IDocumentContainer)
         document = container.import_document(oid, data, properties, request=request)
         return ImportDocument(document=document.to_json())
 

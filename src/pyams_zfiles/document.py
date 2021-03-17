@@ -312,7 +312,7 @@ class DocumentPermissionChecker(ContextRequestViewAdapter):
         """Document edit permission getter"""
         document = self.context
         request = self.request
-        if request.has_permission(MANAGE_APPLICATION_PERMISSION):
+        if request.has_permission(MANAGE_APPLICATION_PERMISSION, context=self):
             return MANAGE_APPLICATION_PERMISSION
         state = IWorkflowState(document)
         if state in ZFILES_WORKFLOW.visible_states:

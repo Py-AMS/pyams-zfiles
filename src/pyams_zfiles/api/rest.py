@@ -220,20 +220,21 @@ def find_documents(request):
 
 
 @container_service.post(require_csrf=False,
-                        permission=CREATE_DOCUMENT_PERMISSION,
                         content_type=('application/json', 'multipart/form-data'),
                         schema=NewDocumentSchema(),
                         validators=(colander_body_validator,),
                         **service_params)
 def create_document(request):
     """Create new ZFiles document using multipart/form-data encoding"""
+    container = get_utility(IDocumentContainer)
+    if not request.has_permission(CREATE_DOCUMENT_PERMISSION, context=container):
+        raise HTTPForbidden()
     properties = request.params.copy() if TEST_MODE else request.validated.copy()
     if request.headers.get('Content-Type').startswith('multipart/form-data'):
         properties['data'] = request.params.get('data')
     else:
         properties['data'] = base64.b64decode(request.json.get('data'))
     data = properties.pop('data', None)
-    container = get_utility(IDocumentContainer)
     document = container.add_document(data, properties, request)
     result = document.to_json()
     request.response.status = HTTPCreated.code
@@ -276,13 +277,15 @@ def get_document(request):
 
 
 @document_service.post(require_csrf=False,
-                       permission=CREATE_DOCUMENT_WITH_OWNER_PERMISSION,
                        content_type=('application/json', 'multipart/form-data'),
                        schema=ImportDocumentSchema(),
                        validators=(colander_body_validator,),
                        **service_params)
 def import_document(request):
     """Import document from other ZFiles database"""
+    container = get_utility(IDocumentContainer)
+    if not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION, context=container):
+        raise HTTPForbidden()
     properties = request.params.copy() if TEST_MODE else request.validated.copy()
     if request.headers.get('Content-Type').startswith('multipart/form-data'):
         properties['data'] = request.params.get('data')
@@ -290,7 +293,6 @@ def import_document(request):
         properties['data'] = base64.b64decode(request.json.get('data'))
     oid = request.matchdict['oid']
     data = properties.pop('data', None)
-    container = get_utility(IDocumentContainer)
     document = container.import_document(oid, data, properties, request)
     result = document.to_json()
     request.response.status = HTTPCreated.code
