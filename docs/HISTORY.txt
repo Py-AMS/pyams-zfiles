@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.2
+-----
+ - updated application manager permissions
+
 1.0.1
 -----
  - updated context of permissions checks in REST and GraphQL APIs
