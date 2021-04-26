@@ -353,6 +353,6 @@ class ApplicationsVocabulary(SimpleVocabulary):
         catalog = get_utility(ICatalog)
         index = catalog['zfile_application']
         terms = [
-            SimpleTerm(v) for v in index.unique_values()
+            SimpleTerm(v, title=v) for v in index.unique_values()
         ]
         super().__init__(terms)
