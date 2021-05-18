@@ -55,8 +55,8 @@ class DocumentContainerElementEditor(TableElementEditor):
     modal_target = False
 
     def __new__(cls, context, request, view):  # pylint: disable=unused-argument
-        if not request.has_permission(MANAGE_APPLICATION_PERMISSION, context) and \
-                not request.has_permission(MANAGE_DOCUMENT_PERMISSION, context):
+        if not request.has_permission(MANAGE_APPLICATION_PERMISSION, context=context) and \
+                not request.has_permission(MANAGE_DOCUMENT_PERMISSION, context=context):
             return None
         return TableElementEditor.__new__(cls)
 
