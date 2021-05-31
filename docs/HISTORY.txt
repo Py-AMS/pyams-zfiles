@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.4
+-----
+ - added missing "context" argument to permission check
+
 1.0.3
 -----
  - added title to applications vocabulary terms

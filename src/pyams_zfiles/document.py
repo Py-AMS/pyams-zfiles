@@ -320,7 +320,7 @@ class DocumentPermissionChecker(ContextRequestViewAdapter):
         return MANAGE_DOCUMENT_PERMISSION
 
 
-@factory_config(provided=IDocument)
+@factory_config(IDocument)
 class Document(Persistent, Contained):
     """Main document class"""
 
