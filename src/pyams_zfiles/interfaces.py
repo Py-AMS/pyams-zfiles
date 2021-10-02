@@ -20,7 +20,7 @@ from enum import IntEnum
 from zope.container.constraints import containers, contains
 from zope.container.interfaces import IBTreeContainer
 from zope.interface import Interface, implementer
-from zope.schema import Choice, Dict, List, Password, TextLine
+from zope.schema import Bool, Choice, Dict, List, Password, TextLine
 from zope.schema.interfaces import IDict
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
@@ -290,6 +290,12 @@ class IDocumentContainer(IBTreeContainer):
                                         "into another documents container and synchronized with "
                                         "this container)"),
                           required=False)
+
+    show_home_menu = Bool(title=_("Access menu from home"),
+                          description=_("If 'yes', a menu will be displayed to get access to "
+                                        "documents container from site admin home page"),
+                          required=True,
+                          default=False)
 
     def add_document(self, data, properties, request):
         """Add new document"""

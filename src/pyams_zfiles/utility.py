@@ -63,6 +63,7 @@ class DocumentContainer(ProtectedObjectMixin, Folder):
     """Document container utility"""
 
     oid_prefix = FieldProperty(IDocumentContainer['oid_prefix'])
+    show_home_menu = FieldProperty(IDocumentContainer['show_home_menu'])
 
     def _get_folder(self, creation_date):
         """Get document storage folder"""
