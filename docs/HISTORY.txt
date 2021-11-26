@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.6
+-----
+ - updated document properties widget template
+
 1.0.5
 -----
  - added option to display menu to access documents container from ZMI home page
