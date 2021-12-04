@@ -55,6 +55,10 @@ REQUIRED_INDEXES = (
         'interface': IDocumentVersion,
         'discriminator': 'hash'
     }),
+    ('zfile_properties', KeywordIndexWithInterface, {
+        'interface': IDocumentVersion,
+        'discriminator': 'index_properties'
+    }),
     ('zfile_tags', KeywordIndexWithInterface, {
         'interface': IDocumentVersion,
         'discriminator': 'tags'

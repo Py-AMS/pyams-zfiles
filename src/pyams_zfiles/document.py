@@ -132,6 +132,16 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
         del self._data
 
     @property
+    def index_properties(self):
+        """Document properties getter used for indexing"""
+        if not self.properties:
+            return None
+        return [
+            f'{key}={val}'
+            for key, val in self.properties.items()
+        ]
+
+    @property
     def tags(self):
         """Document tags getter"""
         return self._tags
@@ -227,14 +237,23 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
         """Document properties updater"""
         if 'tags' in properties:
             self.tags = properties.pop('tags', None)
-        for name in getFieldNames(IDocumentVersion) + getFieldNames(IDocumentRoles):
-            if name in properties:
-                properties.pop(name)
-        properties = properties.pop('properties', properties)
+        # properties cleanup
+        schema = getFieldNames(IDocumentVersion) + getFieldNames(IDocumentRoles)
+        schema.remove('properties')
+        for key in list(properties.keys()):
+            if key in schema:
+                properties.pop(key)
         if properties:
-            self_properties = self.properties or {}
-            self_properties.update(properties)
-            self.properties = self_properties or None
+            # mix 'properties' value with custom properties
+            props = properties.pop('properties', {})
+            props.update(properties)
+            if props:
+                self_props = self.properties or {}
+                self_props.update(props)
+                for key, val in list(self_props.items()):
+                    if val is None:
+                        del self_props[key]
+                self.properties = self_props or None
 
     def to_json(self, fields=None, request=None):
         """Get document properties in JSON format"""

@@ -14,7 +14,7 @@
 
 This module provides ZFiles search features.
 """
-
+from pyramid.decorator import reify
 from zope.dublincore.interfaces import IZopeDublinCore
 from zope.interface import Interface, implementer
 from zope.schema import Choice, Int, TextLine
@@ -82,6 +82,14 @@ class IDocumentSearchFields(Interface):
     hash = TextLine(title=_("File hash"),
                     description=_("Document file hash"),
                     required=False)
+
+    properties = TextLine(title=_("Properties"),
+                          description=_("Document properties; you can set properties names and "
+                                        "values using URL encoding, like in \"property_name="
+                                        "value1&another_prop=value2\"; if you set the same "
+                                        "property several times, the property values will be "
+                                        "combined with an \"or\""),
+                          required=False)
 
     tags = TextLine(title=_("Tag"),
                     description=_("Document tag; you can enter several tags by separating them "
@@ -185,7 +193,7 @@ class DocumentSearchResultsTable(Table):
 class DocumentSearchResultsValues(ContextRequestViewAdapter):
     """Document search results values"""
 
-    @property
+    @reify
     def values(self):
         """Document search table results getter"""
         form = DocumentSearchForm(self.context, self.request)

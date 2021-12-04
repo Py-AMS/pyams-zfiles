@@ -154,6 +154,9 @@ class DocumentSearchSchema(MappingSchema):
     hash = SchemaNode(String(),
                       title=_("SHA512 hash of document data file"),
                       missing=drop)
+    properties = SchemaNode(PropertiesMapping(),
+                            title=_("Document properties, provided as a mapping"),
+                            missing=drop)
     tags = StringListSchema(title=_("Document tags, separated with semicolons"),
                             missing=drop)
     status = SchemaNode(String(),

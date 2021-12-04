@@ -101,6 +101,7 @@ class DocumentQuery(ObjectType):
                    title=DocumentSchema.title,
                    application_name=DocumentSchema.application_name,
                    hash=DocumentSchema.hash,
+                   properties=String(description=_("Properties query string")),
                    tags=DocumentSchema.tags,
                    status=DocumentSchema.status,
                    creator=DocumentSchema.creator,

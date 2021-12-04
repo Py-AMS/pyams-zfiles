@@ -19,7 +19,7 @@ from enum import IntEnum
 
 from zope.container.constraints import containers, contains
 from zope.container.interfaces import IBTreeContainer
-from zope.interface import Interface, implementer
+from zope.interface import Attribute, Interface, implementer
 from zope.schema import Bool, Choice, Dict, List, Password, TextLine
 from zope.schema.interfaces import IDict
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
@@ -208,6 +208,8 @@ class IDocumentVersion(IWorkflowPublicationSupport):
                                                "applied to the document; these properties can't "
                                                "be used for searching"),
                                  required=False)
+
+    index_properties = Attribute("Properties value used for indexing")
 
     tags = List(title=_("Document tags"),
                 description=_("List of free additional tags which can be applied to the "

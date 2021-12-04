@@ -87,6 +87,7 @@ Adding new documents
     ...     'owner': 'admin:admin',
     ...     'filename': 'test.txt',
     ...     'tags': ['Tag 1', 'Tag 2'],
+    ...     'properties': {'Custom 3': 'Value 3'},
     ...     'Custom 1': "Value 1",
     ...     'Custom 2': "Value 2"
     ... }
@@ -113,7 +114,7 @@ Adding new documents
      'managers': [],
      'oid': 'ZF:...',
      'owner': 'admin:admin',
-     'properties': {'Custom 1': 'Value 1', 'Custom 2': 'Value 2'},
+     'properties': {'Custom 1': 'Value 1', 'Custom 2': 'Value 2', 'Custom 3': 'Value 3'},
      'readers': [],
      'status': 'draft',
      'status_update_time': '...T...',
@@ -124,6 +125,25 @@ Adding new documents
      'updated_time': None,
      'updater': 'system:admin',
      'version': 1}
+
+You can specify a restricted set of properties when asking for JSON content:
+
+    >>> pprint(document.to_json(fields=['content_type', 'creator', 'status']))
+    {'content_type': 'text/plain',
+     'creator': 'system:admin',
+     'status': 'draft'}
+
+    >>> from pyams_workflow.interfaces import IWorkflow, IWorkflowStateLabel
+    >>> from pyams_zfiles.workflow import DRAFT_STATE
+
+    >>> wf = config.registry.getAdapter(document, IWorkflow)
+    >>> wf
+    <pyams_zfiles.workflow.DocumentWorkflow object at 0x...>
+
+    >>> label = config.registry.queryAdapter(wf, IWorkflowStateLabel, name=DRAFT_STATE)
+    >>> label.get_label(document)
+    'draft created on .../.../... at ...:...'
+
 
     >>> from pyams_utils.traversing import get_parent
     >>> from pyams_zfiles.interfaces import IDocumentFolder
@@ -158,7 +178,9 @@ Updating document
      'managers': [],
      'oid': 'ZF:...',
      'owner': 'admin:admin',
-     'properties': {'Custom 1': 'Value 1', 'Custom 2': 'Value 2'},
+     'properties': {'Custom 1': 'Value 1',
+                    'Custom 2': 'Value 2',
+                    'Custom 3': 'Value 3'},
      'readers': [],
      'status': 'published',
      'status_update_time': '...T...',
@@ -169,6 +191,10 @@ Updating document
      'updated_time': None,
      'updater': 'system:admin',
      'version': 1}
+
+    >>> label = config.registry.queryAdapter(wf, IWorkflowStateLabel)
+    >>> label.get_label(document)
+    'published on .../.../... at ...:...'
 
 
 Updating document content
@@ -198,7 +224,9 @@ Updating document content
      'managers': [],
      'oid': 'ZF:...',
      'owner': 'admin:admin',
-     'properties': {'Custom 1': 'Value 1', 'Custom 2': 'Value 2'},
+     'properties': {'Custom 1': 'Value 1',
+                    'Custom 2': 'Value 2',
+                    'Custom 3': 'Value 3'},
      'readers': [],
      'status': 'draft',
      'status_update_time': '...T...',
@@ -210,15 +238,98 @@ Updating document content
      'updater': 'system:admin',
      'version': 2}
 
+    >>> label = config.registry.queryAdapter(wf, IWorkflowStateLabel, name=DRAFT_STATE)
+    >>> label.get_label(document)
+    'new version created on .../.../... at ...:...'
+
+
+Getting document
+----------------
+
+You can get a document from it's OID; by default, it's the last version which is returned:
+
+    >>> document = utility.get_document(oid)
+    >>> document.to_json().get('version')
+    2
+
+But you can specify a specific version or a specific workflow status:
+
+    >>> document = utility.get_document(oid, version=1)
+    >>> document.to_json().get('version')
+    1
+
+    >>> document = utility.get_document(oid, status='published')
+    >>> document.to_json().get('version')
+    1
+
 
 Searching documents
 -------------------
 
-Except if requested explicitly, documents serach only return published documents:
+Empty queries always return an empty results list:
+
+    >>> list(utility.find_documents({}))
+    []
+
+The same rule applies to queries only containing null values:
+
+    >>> list(utility.find_documents({'status': None, 'properties': None}))
+    []
+
+Except if requested explicitly, documents search only return published documents:
 
     >>> documents = utility.find_documents({'application_name': 'PyAMS test application'})
     >>> pprint(list(map(lambda x: x.to_json().get('version'), documents)))
     [1]
+
+Anyway, you can search documents on any attribute, property or tag:
+
+    >>> documents = utility.find_documents({'properties': {'Custom 1': 'Value 1'}})
+    >>> len(list(documents))
+    1
+
+    >>> documents = utility.find_documents({'tags': 'Tag 1'})
+    >>> len(list(documents))
+    1
+
+Attributes can be combined, using an "and" operator:
+
+    >>> documents = utility.find_documents({'properties': {'Custom 1': 'Value 1'}, 'tags': 'Tag 1'})
+    >>> len(list(documents))
+    1
+
+If you want to get documents matching several values for a same property, you have to use
+URL params encoding; in this case, several values for a same property are combined with an "or":
+
+    >>> documents = utility.find_documents({'properties': 'Custom 1=Value 1&Custom 1=Value 2'})
+    >>> len(list(documents))
+    1
+
+Extra properties which are not from base document properties are automatically included into
+*properties*:
+
+    >>> documents = utility.find_documents({'Custom 1': 'Value 1'})
+    >>> len(list(documents))
+    1
+
+Dates parameters are using *ranges*, which are two values tuples containing the start and the
+end dates of the requested period, each of which can be *None*; results list is empty because
+documents don't have creation date:
+
+    >>> from datetime import datetime, timedelta
+    >>> begin = datetime.utcnow() - timedelta(minutes=1)
+    >>> documents = utility.find_documents({'created_date': [begin, None]})
+    >>> len(list(documents))
+    0
+
+    >>> end = begin + timedelta(minutes=1)
+    >>> documents = utility.find_documents({'created_date': [begin, end]})
+    >>> len(list(documents))
+    0
+
+    >>> documents = utility.find_documents({'created_date': [None, end]})
+    >>> len(list(documents))
+    0
 
 
 Deleting documents
