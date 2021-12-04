@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.1.0
+-----
+ - add index on properties to make them searchable
+
 1.0.6
 -----
  - updated document properties widget template
