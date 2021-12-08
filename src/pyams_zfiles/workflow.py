@@ -219,6 +219,8 @@ wf_transitions = {
 class DocumentWorkflow(Workflow):
     """PyAMS basic workflow"""
 
+    label = _("ZFiles document workflow")
+
 
 ZFILES_WORKFLOW = DocumentWorkflow(wf_transitions,
                                    states=STATES_VOCABULARY,

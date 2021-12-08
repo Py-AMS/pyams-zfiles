@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2021-12-04 01:51+0100\n"
+"POT-Creation-Date: 2021-12-08 10:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -357,20 +357,24 @@ msgstr ""
 msgid "Version deleted"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:266 ./src/pyams_zfiles/workflow.py:299
+#: ./src/pyams_zfiles/workflow.py:222
+msgid "ZFiles document workflow"
+msgstr ""
+
+#: ./src/pyams_zfiles/workflow.py:268 ./src/pyams_zfiles/workflow.py:301
 #, python-format
 msgid "{state} {date}"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:270 ./src/pyams_zfiles/workflow.py:295
+#: ./src/pyams_zfiles/workflow.py:272 ./src/pyams_zfiles/workflow.py:297
 msgid "Unknown state"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:293
+#: ./src/pyams_zfiles/workflow.py:295
 msgid "new version created"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:297
+#: ./src/pyams_zfiles/workflow.py:299
 msgid "publication refused"
 msgstr ""
 
