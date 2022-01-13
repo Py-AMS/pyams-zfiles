@@ -64,6 +64,8 @@ class DocumentSynchronizer(Persistent, Contained):
         try:
             if mode == IMPORT_MODE:
                 document = self.__parent__.get_document(oid)
+                if document is None:
+                    return mode, 'NOT_FOUND'
                 data = Binary(document.data.data)
                 properties = document.to_json(IMPORT_FIELDS)
                 client.importFile(oid, data, properties)
