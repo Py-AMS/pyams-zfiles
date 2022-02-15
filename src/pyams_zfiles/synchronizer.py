@@ -18,6 +18,7 @@ local container to a remote one.
 
 from xmlrpc.client import Binary, Fault
 
+from ZODB.POSException import POSError
 from persistent import Persistent
 from zope.container.contained import Contained
 from zope.schema.fieldproperty import FieldProperty
@@ -72,6 +73,8 @@ class DocumentSynchronizer(Persistent, Contained):
             elif mode == DELETE_MODE:
                 client.deleteFile(oid)
             return mode, 'OK'
+        except POSError:
+            return mode, 'NO_DATA'
         except Fault:
             return mode, 'ERROR'
 
