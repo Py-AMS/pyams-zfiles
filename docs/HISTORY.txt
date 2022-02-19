@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.2.0
+-----
+ - added workflow label
+ - added "NOT_FOUND" status to documents synchronizer if given OID doesn't match an existing
+   document
+ - added "NO_DATA" status to documents synchronizer if a POSError occurs when reading
+   document data
+
 1.1.0
 -----
  - add index on properties to make them searchable
