@@ -15,7 +15,7 @@
 This module defines ZFiles global package interfaces.
 """
 
-from enum import IntEnum
+from enum import Enum, IntEnum
 
 from zope.container.constraints import containers, contains
 from zope.container.interfaces import IBTreeContainer
@@ -363,6 +363,14 @@ class DocumentContainerError(Exception):
 
 IMPORT_MODE = 'import'
 DELETE_MODE = 'delete'
+
+
+class SynchronizerStatus(Enum):
+    """Synchronizer document status"""
+    NOT_FOUND = 'NOT_FOUND'
+    NO_DATA = 'NO_DATA'
+    ERROR = 'ERROR'
+    OK = 'OK'
 
 
 DOCUMENT_SYNCHRONIZER_KEY = 'pyams_zfiles.synchronizer'

@@ -27,7 +27,7 @@ from pyams_utils.adapter import adapter_config, get_annotation_adapter
 from pyams_utils.factory import factory_config
 from pyams_utils.protocol.xmlrpc import get_client
 from pyams_zfiles.interfaces import DELETE_MODE, DOCUMENT_SYNCHRONIZER_KEY, IDocumentContainer, \
-    IDocumentSynchronizer, IMPORT_MODE
+    IDocumentSynchronizer, IMPORT_MODE, SynchronizerStatus
 
 
 __docformat__ = 'restructuredtext'
@@ -66,17 +66,17 @@ class DocumentSynchronizer(Persistent, Contained):
             if mode == IMPORT_MODE:
                 document = self.__parent__.get_document(oid)
                 if document is None:
-                    return mode, 'NOT_FOUND'
+                    return mode, SynchronizerStatus.NOT_FOUND
                 data = Binary(document.data.data)
                 properties = document.to_json(IMPORT_FIELDS)
                 client.importFile(oid, data, properties)
             elif mode == DELETE_MODE:
                 client.deleteFile(oid)
-            return mode, 'OK'
+            return mode, SynchronizerStatus.OK
         except POSError:
-            return mode, 'NO_DATA'
+            return mode, SynchronizerStatus.NO_DATA
         except Fault:
-            return mode, 'ERROR'
+            return mode, SynchronizerStatus.ERROR
 
 
 @adapter_config(required=IDocumentContainer,
