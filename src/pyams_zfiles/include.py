@@ -17,8 +17,8 @@ This module is used for Pyramid integration.
 
 from pyramid_rpc.xmlrpc import XMLRPCRenderer
 
-from pyams_security.interfaces import ADMIN_USER_ID, SYSTEM_ADMIN_ROLE
 from pyams_security.interfaces.base import MANAGE_ROLES_PERMISSION, ROLE_ID
+from pyams_security.interfaces.names import ADMIN_USER_ID, SYSTEM_ADMIN_ROLE
 from pyams_zfiles.interfaces import CREATE_DOCUMENT_PERMISSION, \
     CREATE_DOCUMENT_WITH_OWNER_PERMISSION, GRAPHQL_API_ROUTE, JSONRPC_ENDPOINT, \
     MANAGE_APPLICATION_PERMISSION, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, \
