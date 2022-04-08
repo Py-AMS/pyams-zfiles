@@ -143,7 +143,8 @@ def get_range(value):
     >>> get_range((None, datetime(2021, 12, 3)))
     (None, datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
     >>> get_range((datetime(2021, 12, 1), datetime(2021, 12, 3)))
-    (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<StaticTzInfo 'GMT'>), datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
+    (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<StaticTzInfo 'GMT'>),
+     datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
     """
     return tuple(map(get_date, value))
 

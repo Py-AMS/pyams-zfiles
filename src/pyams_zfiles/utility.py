@@ -180,7 +180,7 @@ class DocumentContainer(ProtectedObjectMixin, Folder):
         else:
             results = map(lambda x: IDocumentVersion(x, None), results)
         yield from filter(lambda x: (x is not None) and
-                              request.has_permission(READ_DOCUMENT_PERMISSION, context=x),
+                                    request.has_permission(READ_DOCUMENT_PERMISSION, context=x),
                           results)
 
     @staticmethod
