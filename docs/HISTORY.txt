@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2.1
+-----
+ - added enumeration to handle synchronizer status
+ - PyAMS_security interfaces refactoring
+
 1.2.0
 -----
  - added workflow label
