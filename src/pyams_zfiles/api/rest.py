@@ -218,12 +218,18 @@ def container_options(request):
 
 @container_service.get(require_csrf=False,
                        content_type=('application/json', 'multipart/form-data'),
-                       validators=(colander_body_validator,),
+                       validators=(colander_body_validator, colander_querystring_validator),
                        schema=DocumentSearchSchema(),
                        **service_params)
 def find_documents(request):
     """Find documents matching specified properties"""
-    properties = request.params.copy() if TEST_MODE else request.validated.copy()
+    if TEST_MODE:
+        properties = request.params.copy()
+    elif request.body:
+        properties = request.validated.copy()
+    else:
+        properties = request.params.copy()
+    properties.pop('body', None)
     fields = properties.pop('fields', None)
     container = get_utility(IDocumentContainer)
     return list(map(lambda x: x.to_json(fields),
