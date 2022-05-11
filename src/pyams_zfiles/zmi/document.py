@@ -23,15 +23,17 @@ from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
 from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import get_utility
+from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zfiles.interfaces import IDocumentContainer, IDocumentVersion, READ_DOCUMENT_PERMISSION
 from pyams_zfiles.zmi.properties import PropertiesFieldWidget
 from pyams_zmi.form import AdminDisplayForm
-from pyams_zmi.interfaces import IAdminLayer, IPageTitle
+from pyams_zmi.interfaces import IAdminLayer, IObjectLabel, IPageTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IContentManagementMenu
 from pyams_zmi.table import TableElementEditor
+from pyams_zmi.utils import get_object_label
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
 
@@ -41,9 +43,16 @@ from pyams_zfiles import _  # pylint: disable=ungrouped-imports
 
 
 @adapter_config(required=IDocumentVersion,
+                provides=IObjectLabel)
+def document_version_label(context):
+    """Document version label getter"""
+    return f'{context.oid} ({context.title})'
+
+
+@adapter_config(required=IDocumentVersion,
                 provides=IPageTitle)
 def document_version_title(context):
-    """Document version title"""
+    """Document version title getter"""
     return context.title
 
 
@@ -92,3 +101,15 @@ class DocumentPropertiesDisplayForm(AdminDisplayForm):
     fields = Fields(IDocumentVersion).omit('__parent__', '__name__')
     fields['properties'].widget_factory = PropertiesFieldWidget
     fields['tags'].widget_factory = TextLinesFieldWidget
+
+
+@adapter_config(required=(IDocumentVersion, IAdminLayer, Interface),
+                provides=IPageTitle)
+def document_view_title(context, request, view):
+    """Base document view title adapter"""
+    container = get_parent(context, IDocumentContainer)
+    container_label = get_object_label(container, request, view)
+    document_label = get_object_label(context, request, view)
+    return f'{container_label} <small><small>' \
+           f' <i class="px-2 fas fa-chevron-right"></i> ' \
+           f'{document_label}</small></small>'
