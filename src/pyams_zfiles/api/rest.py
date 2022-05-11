@@ -25,7 +25,8 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPCreated, HTTPForbidden, H
     HTTPOk
 
 from pyams_utils.registry import get_utility
-from pyams_utils.rest import DateRangeSchema, FileUploadType, PropertiesMapping, StringListSchema
+from pyams_utils.rest import DateRangeSchema, FileUploadType, PropertiesMapping, StringListSchema, \
+    handle_rest_options
 from pyams_zfiles.interfaces import ACCESS_MODE_IDS, ARCHIVED_STATE, CREATE_DOCUMENT_PERMISSION, \
     CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DELETED_STATE, DRAFT_STATE, IDocumentContainer, \
     PUBLISHED_STATE, READ_DOCUMENT_PERMISSION, REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE
@@ -208,6 +209,13 @@ container_service = Service(name=REST_CONTAINER_ROUTE,
                             description="ZFiles container service")
 
 
+@container_service.options(require_csrf=False,
+                           **service_params)
+def container_options(request):
+    """Container options endpoint"""
+    return handle_rest_options(request)
+
+
 @container_service.get(require_csrf=False,
                        content_type=('application/json', 'multipart/form-data'),
                        validators=(colander_body_validator,),
@@ -248,6 +256,13 @@ def create_document(request):
 document_service = Service(name=REST_DOCUMENT_ROUTE,
                            pyramid_route=REST_DOCUMENT_ROUTE,
                            description="ZFiles document service")
+
+
+@document_service.options(require_csrf=False,
+                          **service_params)
+def document_options(request):
+    """Document OPTIONS verb handler"""
+    return handle_rest_options(request)
 
 
 def get_ids(request):
