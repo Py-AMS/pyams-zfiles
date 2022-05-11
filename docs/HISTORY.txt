@@ -4,6 +4,7 @@ Changelog
 1.3.0
 -----
  - added support for CORS preflight OPTIONS verb used by REST services
+ - updated support for search params in URL
  - updated Gitlab-CI configuration
  - small ZMI updates
 
