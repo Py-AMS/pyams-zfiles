@@ -32,6 +32,9 @@ from pyams_zfiles.interfaces import IDocumentRoles, IDocumentVersion
 __docformat__ = 'restructuredtext'
 
 
+NULL_STRING = 'null'
+
+
 def get_list(value):
     """Check and convert given value to a set, if required
 
@@ -113,6 +116,8 @@ def get_date(value):
     >>> from pyams_zfiles.search import get_date
     >>> get_date(None) is None
     True
+    >>> get_date('null') is None
+    True
     >>> get_date(datetime(2021, 12, 3))
     datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>)
     >>> get_date(datetime(2021, 12, 3).isoformat())
@@ -123,6 +128,8 @@ def get_date(value):
     datetime.datetime(2021, 12, 3, 12, 0, tzinfo=<StaticTzInfo 'GMT'>)
     """
     if value and isinstance(value, str):
+        if value == NULL_STRING:
+            return None
         value = parser.parse(value)
     if value:
         if isinstance(value, date):
@@ -140,12 +147,21 @@ def get_range(value):
     (None, None)
     >>> get_range((datetime(2021, 12, 3), None))
     (datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>), None)
+    >>> get_range('2021-12-03,null')
+    (datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>), None)
     >>> get_range((None, datetime(2021, 12, 3)))
+    (None, datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
+    >>> get_range('null,2021-12-03')
     (None, datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
     >>> get_range((datetime(2021, 12, 1), datetime(2021, 12, 3)))
     (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<StaticTzInfo 'GMT'>),
      datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
+    >>> get_range('2021-12-01,2021-12-03')
+    (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<StaticTzInfo 'GMT'>),
+     datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
     """
+    if isinstance(value, str):
+        value = value.split(',')
     return tuple(map(get_date, value))
 
 
