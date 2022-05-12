@@ -26,7 +26,7 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPCreated, HTTPForbidden, H
 
 from pyams_utils.registry import get_utility
 from pyams_utils.rest import DateRangeSchema, FileUploadType, PropertiesMapping, StringListSchema, \
-    handle_rest_options
+    handle_cors_headers
 from pyams_zfiles.interfaces import ACCESS_MODE_IDS, ARCHIVED_STATE, CREATE_DOCUMENT_PERMISSION, \
     CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DELETED_STATE, DRAFT_STATE, IDocumentContainer, \
     PUBLISHED_STATE, READ_DOCUMENT_PERMISSION, REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE
@@ -213,7 +213,8 @@ container_service = Service(name=REST_CONTAINER_ROUTE,
                            **service_params)
 def container_options(request):
     """Container options endpoint"""
-    return handle_rest_options(request)
+    handle_cors_headers(request)
+    return ''
 
 
 @container_service.get(require_csrf=False,
@@ -232,6 +233,7 @@ def find_documents(request):
     properties.pop('body', None)
     fields = properties.pop('fields', None)
     container = get_utility(IDocumentContainer)
+    handle_cors_headers(request)
     return list(map(lambda x: x.to_json(fields),
                     container.find_documents(properties)))
 
@@ -254,6 +256,7 @@ def create_document(request):
     data = properties.pop('data', None)
     document = container.add_document(data, properties, request)
     result = document.to_json()
+    handle_cors_headers(request)
     request.response.status = HTTPCreated.code
     request.response.headers['location'] = result['api']
     return result
@@ -268,7 +271,8 @@ document_service = Service(name=REST_DOCUMENT_ROUTE,
                           **service_params)
 def document_options(request):
     """Document OPTIONS verb handler"""
-    return handle_rest_options(request)
+    handle_cors_headers(request)
+    return ''
 
 
 def get_ids(request):
@@ -297,6 +301,7 @@ def get_document(request):
     fields = request.params.get('fields') if TEST_MODE else request.validated.get('fields')
     if isinstance(fields, str):
         fields = set(fields.split(';'))
+    handle_cors_headers(request)
     return document.to_json(fields)
 
 
@@ -319,6 +324,7 @@ def import_document(request):
     data = properties.pop('data', None)
     document = container.import_document(oid, data, properties, request)
     result = document.to_json()
+    handle_cors_headers(request)
     request.response.status = HTTPCreated.code
     request.response.headers['location'] = result['api']
     return result
@@ -335,6 +341,7 @@ def patch_document(request):
     container = get_utility(IDocumentContainer)
     properties = request.params.copy() if TEST_MODE else request.validated.copy()
     document = container.update_document(oid, version, properties=properties, request=request)
+    handle_cors_headers(request)
     if document is None:
         return {
             'oid': oid,
@@ -359,6 +366,7 @@ def put_document(request):
         properties['data'] = base64.b64decode(request.json.get('data'))
     data = properties.pop('data')
     document = container.update_document(oid, version, data, properties, request)
+    handle_cors_headers(request)
     if document is None:
         return {
             'oid': oid,
@@ -374,6 +382,7 @@ def delete_document(request):
     oid, _version = get_ids(request)
     container = get_utility(IDocumentContainer)
     container.delete_document(oid)
+    handle_cors_headers(request)
     return {
         'oid': oid,
         'status': 'deleted'
