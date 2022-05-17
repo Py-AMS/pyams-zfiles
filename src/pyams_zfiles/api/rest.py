@@ -24,9 +24,9 @@ from cornice.validators import colander_body_validator, colander_querystring_val
 from pyramid.httpexceptions import HTTPBadRequest, HTTPCreated, HTTPForbidden, HTTPNotFound, \
     HTTPOk
 
+from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_utils.registry import get_utility
-from pyams_utils.rest import DateRangeSchema, FileUploadType, PropertiesMapping, StringListSchema, \
-    handle_cors_headers
+from pyams_utils.rest import DateRangeSchema, FileUploadType, PropertiesMapping, StringListSchema
 from pyams_zfiles.interfaces import ACCESS_MODE_IDS, ARCHIVED_STATE, CREATE_DOCUMENT_PERMISSION, \
     CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DELETED_STATE, DRAFT_STATE, IDocumentContainer, \
     PUBLISHED_STATE, READ_DOCUMENT_PERMISSION, REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE
@@ -209,17 +209,16 @@ container_service = Service(name=REST_CONTAINER_ROUTE,
                             description="ZFiles container service")
 
 
-@container_service.options(require_csrf=False,
+@container_service.options(validators=(check_cors_origin, set_cors_headers),
                            **service_params)
-def container_options(request):
+def container_options(request):  # pylint: disable=unused-argument
     """Container options endpoint"""
-    handle_cors_headers(request)
     return ''
 
 
-@container_service.get(require_csrf=False,
-                       content_type=('application/json', 'multipart/form-data'),
-                       validators=(colander_body_validator, colander_querystring_validator),
+@container_service.get(content_type=('application/json', 'multipart/form-data'),
+                       validators=(check_cors_origin, colander_body_validator,
+                                   colander_querystring_validator, set_cors_headers),
                        schema=DocumentSearchSchema(),
                        **service_params)
 def find_documents(request):
@@ -233,7 +232,6 @@ def find_documents(request):
     properties.pop('body', None)
     fields = properties.pop('fields', None)
     container = get_utility(IDocumentContainer)
-    handle_cors_headers(request)
     return list(map(lambda x: x.to_json(fields),
                     container.find_documents(properties)))
 
@@ -241,7 +239,8 @@ def find_documents(request):
 @container_service.post(require_csrf=False,
                         content_type=('application/json', 'multipart/form-data'),
                         schema=NewDocumentSchema(),
-                        validators=(colander_body_validator,),
+                        validators=(check_cors_origin, colander_body_validator,
+                                    set_cors_headers),
                         **service_params)
 def create_document(request):
     """Create new ZFiles document using multipart/form-data encoding"""
@@ -256,7 +255,6 @@ def create_document(request):
     data = properties.pop('data', None)
     document = container.add_document(data, properties, request)
     result = document.to_json()
-    handle_cors_headers(request)
     request.response.status = HTTPCreated.code
     request.response.headers['location'] = result['api']
     return result
@@ -267,11 +265,10 @@ document_service = Service(name=REST_DOCUMENT_ROUTE,
                            description="ZFiles document service")
 
 
-@document_service.options(require_csrf=False,
+@document_service.options(validators=(check_cors_origin, set_cors_headers),
                           **service_params)
-def document_options(request):
+def document_options(request):  # pylint: disable=unused-argument
     """Document OPTIONS verb handler"""
-    handle_cors_headers(request)
     return ''
 
 
@@ -286,9 +283,9 @@ def get_ids(request):
     return oid, version or None
 
 
-@document_service.get(require_csrf=False,
-                      schema=FieldsNamesSchema(),
-                      validators=(colander_body_validator, colander_querystring_validator),
+@document_service.get(schema=FieldsNamesSchema(),
+                      validators=(check_cors_origin, colander_body_validator,
+                                  colander_querystring_validator, set_cors_headers),
                       **service_params)
 def get_document(request):
     """Retrieve existing document information"""
@@ -301,14 +298,13 @@ def get_document(request):
     fields = request.params.get('fields') if TEST_MODE else request.validated.get('fields')
     if isinstance(fields, str):
         fields = set(fields.split(';'))
-    handle_cors_headers(request)
     return document.to_json(fields)
 
 
 @document_service.post(require_csrf=False,
                        content_type=('application/json', 'multipart/form-data'),
                        schema=ImportDocumentSchema(),
-                       validators=(colander_body_validator,),
+                       validators=(check_cors_origin, colander_body_validator, set_cors_headers),
                        **service_params)
 def import_document(request):
     """Import document from other ZFiles database"""
@@ -324,7 +320,6 @@ def import_document(request):
     data = properties.pop('data', None)
     document = container.import_document(oid, data, properties, request)
     result = document.to_json()
-    handle_cors_headers(request)
     request.response.status = HTTPCreated.code
     request.response.headers['location'] = result['api']
     return result
@@ -333,7 +328,7 @@ def import_document(request):
 @document_service.patch(require_csrf=False,
                         content_type=('application/json', 'multipart/form-data'),
                         schema=BaseDocumentSchema(),
-                        validators=(colander_body_validator,),
+                        validators=(check_cors_origin, colander_body_validator, set_cors_headers),
                         **service_params)
 def patch_document(request):
     """Update existing document properties, excluding file data"""
@@ -341,7 +336,6 @@ def patch_document(request):
     container = get_utility(IDocumentContainer)
     properties = request.params.copy() if TEST_MODE else request.validated.copy()
     document = container.update_document(oid, version, properties=properties, request=request)
-    handle_cors_headers(request)
     if document is None:
         return {
             'oid': oid,
@@ -353,7 +347,7 @@ def patch_document(request):
 @document_service.put(require_csrf=False,
                       content_type=('application/json', 'multipart/form-data'),
                       schema=DocumentDataSchema(),
-                      validators=(colander_body_validator,),
+                      validators=(check_cors_origin, colander_body_validator, set_cors_headers),
                       **service_params)
 def put_document(request):
     """Update existing document content"""
@@ -366,7 +360,6 @@ def put_document(request):
         properties['data'] = base64.b64decode(request.json.get('data'))
     data = properties.pop('data')
     document = container.update_document(oid, version, data, properties, request)
-    handle_cors_headers(request)
     if document is None:
         return {
             'oid': oid,
@@ -376,13 +369,13 @@ def put_document(request):
 
 
 @document_service.delete(require_csrf=False,
+                         validators=(check_cors_origin, set_cors_headers),
                          **service_params)
 def delete_document(request):
     """Delete existing document content"""
     oid, _version = get_ids(request)
     container = get_utility(IDocumentContainer)
     container.delete_document(oid)
-    handle_cors_headers(request)
     return {
         'oid': oid,
         'status': 'deleted'
