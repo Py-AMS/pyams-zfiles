@@ -27,9 +27,12 @@ from pyams_zfiles.layer import IPyAMSZFilesLayer
 __docformat__ = 'restructuredtext'
 
 
-@view_config(context=IFile, request_type=IPyAMSZFilesLayer)
+@view_config(context=IFile,
+             request_method=('OPTIONS', 'GET'),
+             request_type=IPyAMSZFilesLayer)
 def ProtectedFileView(request):  # pylint: disable=invalid-name
     """Protected file view"""
-    if not request.has_permission(READ_DOCUMENT_PERMISSION, context=request.context):
+    if (request.method == 'GET') and \
+            not request.has_permission(READ_DOCUMENT_PERMISSION, context=request.context):
         raise HTTPForbidden()
     return FileView(request)
