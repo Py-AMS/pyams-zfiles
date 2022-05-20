@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.3
+-----
+ - removed permission check for CORS OPTIONS request on document data
+
 1.3.2
 -----
  - added new PyAMS_security CORS validators to REST services
