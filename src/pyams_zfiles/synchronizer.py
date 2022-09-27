@@ -66,17 +66,17 @@ class DocumentSynchronizer(Persistent, Contained):
             if mode == IMPORT_MODE:
                 document = self.__parent__.get_document(oid)
                 if document is None:
-                    return mode, SynchronizerStatus.NOT_FOUND
+                    return mode, SynchronizerStatus.NOT_FOUND.value
                 data = Binary(document.data.data)
                 properties = document.to_json(IMPORT_FIELDS)
                 client.importFile(oid, data, properties)
             elif mode == DELETE_MODE:
                 client.deleteFile(oid)
-            return mode, SynchronizerStatus.OK
+            return mode, SynchronizerStatus.OK.value
         except POSError:
-            return mode, SynchronizerStatus.NO_DATA
+            return mode, SynchronizerStatus.NO_DATA.value
         except Fault:
-            return mode, SynchronizerStatus.ERROR
+            return mode, SynchronizerStatus.ERROR.value
 
 
 @adapter_config(required=IDocumentContainer,
