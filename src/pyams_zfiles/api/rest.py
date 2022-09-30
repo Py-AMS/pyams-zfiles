@@ -22,14 +22,15 @@ from colander import DateTime, Int, MappingSchema, OneOf, SchemaNode, String, dr
 from cornice import Service
 from cornice.validators import colander_body_validator, colander_querystring_validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPCreated, HTTPForbidden, HTTPNotFound, \
-    HTTPOk
+    HTTPOk, HTTPServiceUnavailable
 
 from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_utils.registry import get_utility
 from pyams_utils.rest import DateRangeSchema, FileUploadType, PropertiesMapping, StringListSchema
 from pyams_zfiles.interfaces import ACCESS_MODE_IDS, ARCHIVED_STATE, CREATE_DOCUMENT_PERMISSION, \
-    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DELETED_STATE, DRAFT_STATE, IDocumentContainer, \
-    PUBLISHED_STATE, READ_DOCUMENT_PERMISSION, REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE
+    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DEFAULT_CONFIGURATION_NAME, DELETED_STATE, DRAFT_STATE, \
+    IDocumentContainer, IDocumentSynchronizer, PUBLISHED_STATE, READ_DOCUMENT_PERMISSION, \
+    REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE, REST_SYNCHRONIZER_ROUTE, SYNCHRONIZE_PERMISSION
 
 
 __docformat__ = 'restructuredtext'
@@ -188,6 +189,19 @@ class DocumentSearchSchema(MappingSchema):
                               missing=drop)
 
 
+class DocumentsSynchronizeSchema(MappingSchema):
+    """Documents synchronize schema"""
+    imported = StringListSchema(title=_("List of documents to import in remote documents "
+                                        "container"),
+                                missing=drop)
+    deleted = StringListSchema(title=_("List of documents to remove from remote documents "
+                                       "container"),
+                               missing=drop)
+    configuration_name = SchemaNode(String(),
+                                    title=_("Selected configuration name"),
+                                    missing=drop)
+
+
 document_responses = {
     HTTPOk.code: DocumentSchema(description=_("Document properties")),
     HTTPCreated.code: DocumentSchema(description=_("Document created")),
@@ -203,6 +217,10 @@ else:
         'response_schemas': document_responses
     }
 
+
+#
+# Documents container service
+#
 
 container_service = Service(name=REST_CONTAINER_ROUTE,
                             pyramid_route=REST_CONTAINER_ROUTE,
@@ -259,6 +277,49 @@ def create_document(request):
     request.response.headers['location'] = result['api']
     return result
 
+
+#
+# Documents synchronizer service
+#
+
+synchronizer_service = Service(name=REST_SYNCHRONIZER_ROUTE,
+                               pyramid_route=REST_SYNCHRONIZER_ROUTE,
+                               description="ZFiles synchronizer service")
+
+
+@synchronizer_service.options(validators=(check_cors_origin, set_cors_headers),
+                              **service_params)
+def synchronizer_options(request):  # pylint: disable=unused-argument
+    """Synchronizer OPTIONS verb handler"""
+    return ''
+
+
+@synchronizer_service.put(require_csrf=False,
+                          content_type=('application/json', 'multipart/form-data'),
+                          schema=DocumentsSynchronizeSchema(),
+                          validators=(check_cors_origin, colander_body_validator,
+                                      set_cors_headers),
+                          **service_params)
+def synchronizer_put(request):
+    """Document synchronizer request"""
+    params = request.params.copy() if TEST_MODE else request.validated.copy()
+    container = get_utility(IDocumentContainer)
+    synchronizer = IDocumentSynchronizer(container)
+    configuration_name = params.get('configuration_name', DEFAULT_CONFIGURATION_NAME)
+    configuration = synchronizer.get(configuration_name)
+    if configuration is None:
+        raise HTTPNotFound()
+    if not configuration.enabled:
+        raise HTTPServiceUnavailable()
+    if not request.has_permission(SYNCHRONIZE_PERMISSION, context=configuration):
+        raise HTTPForbidden()
+    return synchronizer.synchronize_all(params.get('imported'), params.get('deleted'),
+                                        request, configuration)
+
+
+#
+# Document service
+#
 
 document_service = Service(name=REST_DOCUMENT_ROUTE,
                            pyramid_route=REST_DOCUMENT_ROUTE,
