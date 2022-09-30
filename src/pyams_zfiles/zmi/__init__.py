@@ -53,7 +53,7 @@ class DocumentContainerMenu(NavigationMenuItem):
 
     icon_class = 'far fa-file-archive'
 
-    def __new__(cls, context, request, view, manager):  # pylint: disable=unused-arguments
+    def __new__(cls, context, request, view, manager):  # pylint: disable=unused-argument
         container = query_utility(IDocumentContainer)
         if (container is None) or not container.show_home_menu:
             return None
@@ -122,6 +122,7 @@ class DocumentContainerPropertiesMenu(NavigationMenuItem):
 class DocumentContainerConfigurationEditForm(AdminEditForm):
     """Document container properties edit form"""
 
-    legend = _("Configuration")
+    title = _("Documents container configuration")
+    legend = _("Base configuration")
 
     fields = Fields(IDocumentContainer).omit('__parent__', '__name__')

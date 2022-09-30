@@ -42,6 +42,7 @@ from pyams_zfiles import _
 
 REST_CONTAINER_ROUTE = 'zfiles.rest.container'
 REST_DOCUMENT_ROUTE = 'zfiles.rest.document'
+REST_SYNCHRONIZER_ROUTE = 'zfiles.rest.synchronizer'
 
 GRAPHQL_API_ROUTE = 'zfiles.graphql'
 
@@ -80,6 +81,9 @@ MANAGE_DOCUMENT_PERMISSION = 'pyams.ManageDocument'
 READ_DOCUMENT_PERMISSION = 'pyams.ReadDocument'
 '''Permission required to view document'''
 
+SYNCHRONIZE_PERMISSION = 'pyams.Synchronize'
+'''Permission required to call synchronization on a specific configuration'''
+
 
 ZFILES_ADMIN_ROLE = 'pyams.DocumentsAdministrator'
 '''ZFiles application administrator role'''
@@ -98,6 +102,9 @@ ZFILES_OWNER_ROLE = 'pyams.DocumentOwner'
 
 ZFILES_READER_ROLE = 'pyams.DocumentReader'
 '''Document reader role'''
+
+ZFILES_SYNCHRONIZER_ROLE = 'pyams.Synchronizer'
+'''Document synchronizer role'''
 
 
 #
@@ -126,9 +133,9 @@ STATE_LABELS = {
 
 class AccessMode(IntEnum):
     """Access modes"""
-    private = 0
-    protected = 1
-    public = 2
+    private = 0  # pylint: disable=invalid-name
+    protected = 1  # pylint: disable=invalid-name
+    public = 2  # pylint: disable=invalid-name
 
 
 PRIVATE_MODE = AccessMode.private
@@ -367,6 +374,8 @@ DELETE_MODE = 'delete'
 
 class SynchronizerStatus(Enum):
     """Synchronizer document status"""
+    MISSING_CONFIGURATION = 'MISSING_CONFIGURATION'
+    FORBIDDEN = 'FORBIDDEN'
     NOT_FOUND = 'NOT_FOUND'
     NO_DATA = 'NO_DATA'
     ERROR = 'ERROR'
@@ -375,9 +384,16 @@ class SynchronizerStatus(Enum):
 
 DOCUMENT_SYNCHRONIZER_KEY = 'pyams_zfiles.synchronizer'
 
+DEFAULT_CONFIGURATION_NAME = 'default'
 
-class IDocumentSynchronizer(Interface):
-    """Documents synchronizer interface"""
+
+class IDocumentSynchronizerConfiguration(Interface):
+    """Document synchronizer configuration interface"""
+
+    name = TextLine(title=_("Configuration name"),
+                    description=_("Unique name of the configuration"),
+                    required=True,
+                    default=DEFAULT_CONFIGURATION_NAME)
 
     target = TextLine(title=_("Remote XML-RPC endpoint"),
                       description=_("URL of the remote documents container XML-RPC endpoint "
@@ -392,5 +408,33 @@ class IDocumentSynchronizer(Interface):
                         description=_("Password of the remote user used for synchronization"),
                         required=False)
 
-    def synchronize(self, oid, mode=IMPORT_MODE, request=None):
+    enabled = Bool(title=_("Enabled configuration"),
+                   description=_("If 'no', this configuration will not be usable for "
+                                 "synchronization"),
+                   required=True,
+                   default=True)
+
+    def get_client(self):
+        """Remote XML-RPC client getter"""
+
+
+class IDocumentSynchronizerConfigurationRoles(IContentRoles):
+    """Document synchronizer configuration roles interface"""
+
+    users = PrincipalsSetField(title=_("Configuration users"),
+                               description=_("Principals which are granted permission to "
+                                             "call this configuration"),
+                               role_id=ZFILES_SYNCHRONIZER_ROLE,
+                               required=False)
+
+
+class IDocumentSynchronizer(IBTreeContainer):
+    """Documents synchronizer interface"""
+
+    contains(IDocumentSynchronizerConfiguration)
+
+    def synchronize(self, oid, mode=IMPORT_MODE, request=None, configuration=None):
         """Synchronize given OID to remote container"""
+
+    def synchronize_all(self, imported=None, deleted=None, request=None, configuration=None):
+        """Synchronize all imported and deleted OIDs with remote container"""

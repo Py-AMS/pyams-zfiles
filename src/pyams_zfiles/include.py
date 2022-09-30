@@ -22,9 +22,11 @@ from pyams_security.interfaces.names import ADMIN_USER_ID, SYSTEM_ADMIN_ROLE
 from pyams_zfiles.interfaces import CREATE_DOCUMENT_PERMISSION, \
     CREATE_DOCUMENT_WITH_OWNER_PERMISSION, GRAPHQL_API_ROUTE, JSONRPC_ENDPOINT, \
     MANAGE_APPLICATION_PERMISSION, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, \
-    REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE, XMLRPC_ENDPOINT, ZFILES_ADMIN_ROLE, \
+    REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE, REST_SYNCHRONIZER_ROUTE, SYNCHRONIZE_PERMISSION, \
+    XMLRPC_ENDPOINT, \
+    ZFILES_ADMIN_ROLE, \
     ZFILES_CREATOR_ROLE, ZFILES_IMPORTER_ROLE, ZFILES_MANAGER_ROLE, ZFILES_OWNER_ROLE, \
-    ZFILES_READER_ROLE
+    ZFILES_READER_ROLE, ZFILES_SYNCHRONIZER_ROLE
 
 
 __docformat__ = 'restructuredtext'
@@ -42,6 +44,10 @@ def include_package(config):
     config.register_permission({
         'id': MANAGE_APPLICATION_PERMISSION,
         'title': _("Manage ZFiles application")
+    })
+    config.register_permission({
+        'id': SYNCHRONIZE_PERMISSION,
+        'title': _("Synchronize documents")
     })
     config.register_permission({
         'id': CREATE_DOCUMENT_PERMISSION,
@@ -82,6 +88,18 @@ def include_package(config):
         'managers': {
             ADMIN_USER_ID,
             ROLE_ID.format(SYSTEM_ADMIN_ROLE)
+        }
+    })
+    config.register_role({
+        'id': ZFILES_SYNCHRONIZER_ROLE,
+        'title': _("Documents synchronizer (role)"),
+        'permissions': {
+            SYNCHRONIZE_PERMISSION
+        },
+        'managers': {
+            ADMIN_USER_ID,
+            ROLE_ID.format(SYSTEM_ADMIN_ROLE),
+            ROLE_ID.format(ZFILES_ADMIN_ROLE)
         }
     })
     config.register_role({
@@ -154,6 +172,9 @@ def include_package(config):
     config.add_route(REST_CONTAINER_ROUTE,
                      config.registry.settings.get('pyams.zfiles.rest_container_route',
                                                   '/api/zfiles/rest'))
+    config.add_route(REST_SYNCHRONIZER_ROUTE,
+                     config.registry.settings.get('pyams.zfiles.rest_synchronize_roue',
+                                                  '/api/zfiles/rest/synchronize'))
     config.add_route(REST_DOCUMENT_ROUTE,
                      config.registry.settings.get('pyams.zfiles.rest_document_route',
                                                   '/api/zfiles/rest/{oid}*version'))

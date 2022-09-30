@@ -18,17 +18,18 @@ This module defines features which are common to all RPC APIs.
 import base64
 from xmlrpc.client import Binary
 
-from pyramid.httpexceptions import HTTPForbidden, HTTPNotFound, HTTPServiceUnavailable
 from pyramid_rpc.jsonrpc import jsonrpc_method
 from pyramid_rpc.xmlrpc import xmlrpc_method
 
 from pyams_file.interfaces.thumbnail import IThumbnails
 from pyams_utils.registry import get_utility
+from pyams_utils.rpc import RPC_FORBIDDEN, RPC_OBJECT_NOT_FOUND, RPC_SERVICE_UNAVAILABLE, \
+    raise_rpc_exception
 from pyams_workflow.interfaces import IWorkflowState, IWorkflowVersions
 from pyams_zfiles.interfaces import ARCHIVED_STATE, CREATE_DOCUMENT_PERMISSION, \
-    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DELETE_MODE, IDocumentContainer, IDocumentSynchronizer, \
-    IMPORT_MODE, JSONRPC_ENDPOINT, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, \
-    XMLRPC_ENDPOINT
+    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DEFAULT_CONFIGURATION_NAME, IDocumentContainer, \
+    IDocumentSynchronizer, JSONRPC_ENDPOINT, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, \
+    SYNCHRONIZE_PERMISSION, XMLRPC_ENDPOINT
 
 
 __docformat__ = 'restructuredtext'
@@ -57,7 +58,7 @@ def upload_file(request, data, properties):
     """Create new document through RPC"""
     container = get_utility(IDocumentContainer)
     if not request.has_permission(CREATE_DOCUMENT_PERMISSION, context=container):
-        raise HTTPForbidden()
+        raise_rpc_exception(request, RPC_FORBIDDEN)
     if isinstance(data, Binary):
         data = data.data
     else:
@@ -72,18 +73,22 @@ def upload_file(request, data, properties):
 @xmlrpc_method(endpoint=XMLRPC_ENDPOINT,
                method='synchronize',
                require_csrf=False)
-def synchronize(request, imported=None, deleted=None):
+def synchronize(request, imported=None, deleted=None,
+                configuration_name=DEFAULT_CONFIGURATION_NAME):
     """Synchronize documents to remote container"""
     container = get_utility(IDocumentContainer)
     synchronizer = IDocumentSynchronizer(container)
-    if not synchronizer.target:
-        raise HTTPServiceUnavailable()
-    result = {}
-    for oid in (imported or ()):
-        result[oid] = synchronizer.synchronize(oid, IMPORT_MODE, request)  # pylint: disable=assignment-from-no-return
-    for oid in (deleted or ()):
-        result[oid] = synchronizer.synchronize(oid, DELETE_MODE, request)  # pylint: disable=assignment-from-no-return
-    return result
+    configuration = synchronizer.get(configuration_name)
+    if configuration is None:
+        raise_rpc_exception(request, RPC_OBJECT_NOT_FOUND,
+                            data={'context': "can't find requested configuration"})
+    if not configuration.enabled:
+        raise_rpc_exception(request, RPC_SERVICE_UNAVAILABLE,
+                            data={'context': "requested configuration is disabled"})
+    if not request.has_permission(SYNCHRONIZE_PERMISSION, context=configuration):
+        raise_rpc_exception(request, RPC_FORBIDDEN,
+                            data={'context': "access to requested configuration is forbidden"})
+    return synchronizer.synchronize_all(imported, deleted, request, configuration)
 
 
 @jsonrpc_method(endpoint=JSONRPC_ENDPOINT,
@@ -96,7 +101,7 @@ def import_file(request, oid, data, properties):
     """Import document from outer ZFiles database through RPC"""
     container = get_utility(IDocumentContainer)
     if not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION, context=container):
-        raise HTTPForbidden()
+        raise_rpc_exception(request, RPC_FORBIDDEN)
     if isinstance(data, Binary):
         data = data.data
     else:
@@ -110,9 +115,9 @@ def get_document(request, oid, version=None, status=None, permission=READ_DOCUME
     container = get_utility(IDocumentContainer)
     document = container.get_document(oid, version, status)
     if document is None:
-        raise HTTPNotFound()
+        raise_rpc_exception(request, RPC_OBJECT_NOT_FOUND)
     if permission and not request.has_permission(permission, context=document):
-        raise HTTPForbidden()
+        raise_rpc_exception(request, RPC_FORBIDDEN)
     return document
 
 

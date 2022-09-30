@@ -16,6 +16,9 @@ This module is checking for registered documents container utility and required
 catalog indexes.
 """
 
+import sys
+from importlib import import_module
+
 from zope.dublincore.interfaces import IZopeDublinCore
 
 from pyams_catalog.generations import check_required_indexes
@@ -108,9 +111,17 @@ class ZFilesGenerationsChecker:
     """ZFiles generations checker"""
 
     order = 70
-    generation = 1
+    generation = 2
 
     def evolve(self, site, current=None):  # pylint: disable=unused-argument, no-self-use
         """Check for required utilities"""
         check_required_utilities(site, REQUIRED_UTILITIES)
         check_required_indexes(site, REQUIRED_INDEXES)
+        if not current:
+            current = 1
+        for generation in range(current, self.generation):
+            module_name = 'pyams_zfiles.generations.evolve{}'.format(generation)
+            module = sys.modules.get(module_name)
+            if module is None:
+                module = import_module(module_name)
+            module.evolve(site)
