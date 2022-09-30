@@ -20,13 +20,11 @@ from datetime import date
 from urllib.parse import parse_qsl
 
 from dateutil import parser
-from hypatia.query import All, Any, Comparator, Eq, Ge, Le, NotEq, Or
-from zope.schema import getFieldNames
+from hypatia.query import All, Any, Comparator, Eq, Ge, Le
 
 from pyams_catalog.query import and_, or_
 from pyams_utils.date import date_to_datetime
 from pyams_utils.timezone import gmtime
-from pyams_zfiles.interfaces import IDocumentRoles, IDocumentVersion
 
 
 __docformat__ = 'restructuredtext'

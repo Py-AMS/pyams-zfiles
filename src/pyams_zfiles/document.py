@@ -272,7 +272,7 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
             'content_type': self.data.content_type,
             'href': absolute_url(self.data, request),
             'hash': self.hash,
-            'properties': self.properties,
+            'properties': self.properties or {},
             'tags': list(self.tags or ()),
             'version': state.version_id,
             'status': state.state,
