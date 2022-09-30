@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.1
+-----
+ - updated generation evolve
+
 1.4.0
 -----
  - added multiple synchronizer configurations
