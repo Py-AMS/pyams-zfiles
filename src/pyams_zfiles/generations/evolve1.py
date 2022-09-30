@@ -39,19 +39,20 @@ def evolve(site):
             annotations = IAnnotations(container)
             synchronizer = annotations.get(DOCUMENT_SYNCHRONIZER_KEY)  # pylint: disable=assignment-from-no-return
             if synchronizer is not None:
-                del annotations[DOCUMENT_SYNCHRONIZER_KEY]
-                new_synchronizer = IDocumentSynchronizer(container)
-                if synchronizer.target:
-                    LOGGER.warning("Upgrading ZFiles documents container synchronizer")
-                    configuration = create_object(IDocumentSynchronizerConfiguration)
-                    if configuration is not None:
-                        configuration.name = DEFAULT_CONFIGURATION_NAME
-                        configuration.target = synchronizer.target
-                        configuration.username = synchronizer.username
-                        configuration.password = synchronizer.password
-                        new_synchronizer[DEFAULT_CONFIGURATION_NAME] = configuration
-                del synchronizer.target
-                del synchronizer.username
-                del synchronizer.password
+                if not synchronizer.__name__:  # previous version
+                    del annotations[DOCUMENT_SYNCHRONIZER_KEY]
+                    new_synchronizer = IDocumentSynchronizer(container)
+                    if getattr(synchronizer, 'target', None):
+                        LOGGER.warning("Upgrading ZFiles documents container synchronizer")
+                        configuration = create_object(IDocumentSynchronizerConfiguration)
+                        if configuration is not None:
+                            configuration.name = DEFAULT_CONFIGURATION_NAME
+                            configuration.target = synchronizer.target
+                            configuration.username = synchronizer.username
+                            configuration.password = synchronizer.password
+                            new_synchronizer[DEFAULT_CONFIGURATION_NAME] = configuration
+                        del synchronizer.target
+                        del synchronizer.username
+                        del synchronizer.password
     finally:
         set_local_registry(registry)
