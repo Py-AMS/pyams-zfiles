@@ -39,6 +39,10 @@ This package is composed of a set of utility functions, usable into any Pyramid 
     >>> include_security(config)
     >>> from pyams_workflow import includeme as include_workflow
     >>> include_workflow(config)
+    >>> from pyams_zmi import includeme as include_zmi
+    >>> include_zmi(config)
+    >>> from pyams_form import includeme as include_form
+    >>> include_form(config)
     >>> from pyams_zfiles import includeme as include_zfiles
     >>> include_zfiles(config)
 

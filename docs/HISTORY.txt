@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.4.0
+-----
+ - added multiple synchronizer configurations
+ - added synchronizer access to REST API
+
 1.3.4
 -----
  - updated synchronizer call result to return enums values instead of enums, which can't be
