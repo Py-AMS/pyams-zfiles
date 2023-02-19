@@ -24,32 +24,43 @@ from pyams_zfiles.interfaces import IDocumentContainer, IDocumentVersion, \
 
 __docformat__ = 'restructuredtext'
 
+from pyams_zmi.form import BaseFormMixin
+
+
+class BaseWorkflowForm(WorkflowContentTransitionForm):
+    """Base workflow form"""
+
+    @property
+    def title(self):
+        """Title getter"""
+        return super(WorkflowContentTransitionForm, self).title
+
 
 @ajax_form_config(name='wf-publish.html',  # pylint: disable=abstract-method
                   context=IDocumentVersion, layer=IPyAMSLayer,
                   permission=MANAGE_DOCUMENT_PERMISSION)
-class DocumentVersionPublishForm(WorkflowContentTransitionForm):
+class DocumentVersionPublishForm(BaseWorkflowForm):
     """Document version publish form"""
 
 
 @ajax_form_config(name='wf-archive.html',  # pylint: disable=abstract-method
                   context=IDocumentVersion, layer=IPyAMSLayer,
                   permission=MANAGE_DOCUMENT_PERMISSION)
-class DocumentVersionArchiveForm(WorkflowContentTransitionForm):
+class DocumentVersionArchiveForm(BaseWorkflowForm):
     """Document version archive form"""
 
 
 @ajax_form_config(name='wf-clone.html',  # pylint: disable=abstract-method
                   context=IDocumentVersion, layer=IPyAMSLayer,
                   permission=MANAGE_DOCUMENT_PERMISSION)
-class DocumentVersionCloneForm(WorkflowContentTransitionForm):
+class DocumentVersionCloneForm(BaseWorkflowForm):
     """Document version clone form"""
 
 
 @ajax_form_config(name='wf-delete.html',  # pylint: disable=abstract-method
                   context=IDocumentVersion, layer=IPyAMSLayer,
                   permission=MANAGE_DOCUMENT_PERMISSION)
-class DocumentVersionDeleteForm(WorkflowContentTransitionForm):
+class DocumentVersionDeleteForm(BaseWorkflowForm):
     """Document version delete form"""
 
     @property

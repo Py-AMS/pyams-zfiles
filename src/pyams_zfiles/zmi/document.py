@@ -21,6 +21,7 @@ from pyams_form.browser.textlines import TextLinesFieldWidget
 from pyams_form.field import Fields
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
+from pyams_skin.interfaces.view import IModalPage
 from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import get_utility
 from pyams_utils.traversing import get_parent
@@ -30,6 +31,7 @@ from pyams_zfiles.interfaces import IDocumentContainer, IDocumentVersion, READ_D
 from pyams_zfiles.zmi.properties import PropertiesFieldWidget
 from pyams_zmi.form import AdminDisplayForm
 from pyams_zmi.interfaces import IAdminLayer, IObjectLabel, IPageTitle
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IContentManagementMenu
 from pyams_zmi.table import TableElementEditor
@@ -113,3 +115,18 @@ def document_view_title(context, request, view):
     return f'{container_label} <small><small>' \
            f' <i class="px-2 fas fa-chevron-right"></i> ' \
            f'{document_label}</small></small>'
+
+
+@adapter_config(required=(IDocumentVersion, IAdminLayer, IModalPage),
+                provides=IPageTitle)
+def document_modal_page_title(context, request, view):
+    """Document modal page title"""
+    container = get_parent(context, IDocumentContainer)
+    return get_object_label(container, request, view)
+
+
+@adapter_config(required=(IDocumentVersion, IAdminLayer, IModalPage),
+                provides=IFormTitle)
+def document_modal_form_title(context, request, view):
+    """Document modal view title adapter"""
+    return get_object_label(context, request, view)
