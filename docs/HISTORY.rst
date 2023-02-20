@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.2
+-----
+ - updated workflow delete view
+
 1.4.1
 -----
  - updated generation evolve
