@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PyAMS zfiles 1.0.0\n"
-"POT-Creation-Date: 2022-09-30 19:27+0200\n"
+"POT-Creation-Date: 2023-02-20 11:41+0100\n"
 "Last-Translator: Thierry Florac <tflorac@ulthar.net>\n"
 "Language-Team: FRENCH <FR@li.org>\n"
 "Language: French\n"
@@ -16,55 +16,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 3.10.dev0\n"
 
-#: src/pyams_zfiles/include.py:45
+#: src/pyams_zfiles/include.py:46
 msgid "Manage ZFiles application"
 msgstr "Gérer l'application ZFiles"
 
-#: src/pyams_zfiles/include.py:49
+#: src/pyams_zfiles/include.py:50
 msgid "Synchronize documents"
 msgstr "Synchroniser des documents"
 
-#: src/pyams_zfiles/include.py:53
+#: src/pyams_zfiles/include.py:54
 msgid "Create new document"
 msgstr "Créer un nouveau document"
 
-#: src/pyams_zfiles/include.py:57
+#: src/pyams_zfiles/include.py:58
 msgid "Create new document (with specified owner)"
 msgstr "Créer un nouveau document (avec un propriétaire spécifique)"
 
-#: src/pyams_zfiles/include.py:61
+#: src/pyams_zfiles/include.py:62
 msgid "Manage document"
 msgstr "Gérer les documents"
 
-#: src/pyams_zfiles/include.py:65
+#: src/pyams_zfiles/include.py:66
 msgid "Read document"
 msgstr "Voir les documents"
 
-#: src/pyams_zfiles/include.py:81
+#: src/pyams_zfiles/include.py:82
 msgid "ZFiles application manager (role)"
 msgstr "Gestionnaire ZFiles (rôle)"
 
-#: src/pyams_zfiles/include.py:94
+#: src/pyams_zfiles/include.py:95
 msgid "Documents synchronizer (role)"
 msgstr "Synchroniseur de documents (rôle)"
 
-#: src/pyams_zfiles/include.py:106
+#: src/pyams_zfiles/include.py:107
 msgid "Documents importer (role)"
 msgstr "Importateur de documents (rôle)"
 
-#: src/pyams_zfiles/include.py:121
+#: src/pyams_zfiles/include.py:122
 msgid "Document manager (role)"
 msgstr "Gestionnaire de document (rôle)"
 
-#: src/pyams_zfiles/include.py:135
+#: src/pyams_zfiles/include.py:136
 msgid "Document creator (role)"
 msgstr "Créateur de document (rôle)"
 
-#: src/pyams_zfiles/include.py:144
+#: src/pyams_zfiles/include.py:145
 msgid "Document owner (role)"
 msgstr "Propriétaire de document (rôle)"
 
-#: src/pyams_zfiles/include.py:157
+#: src/pyams_zfiles/include.py:158
 msgid "Document reader (role)"
 msgstr "Lecteur de document (rôle)"
 
@@ -72,36 +72,36 @@ msgstr "Lecteur de document (rôle)"
 msgid "PyAMS ZFiles skin"
 msgstr "Thème PyAMS ZFiles"
 
-#: src/pyams_zfiles/interfaces.py:126 src/pyams_zfiles/workflow.py:51
+#: src/pyams_zfiles/interfaces.py:127 src/pyams_zfiles/workflow.py:51
 msgid "Draft"
 msgstr "Brouillon"
 
-#: src/pyams_zfiles/interfaces.py:127 src/pyams_zfiles/workflow.py:52
+#: src/pyams_zfiles/interfaces.py:128 src/pyams_zfiles/workflow.py:52
 msgid "Published"
 msgstr "Publié"
 
-#: src/pyams_zfiles/interfaces.py:128 src/pyams_zfiles/workflow.py:53
+#: src/pyams_zfiles/interfaces.py:129 src/pyams_zfiles/workflow.py:53
 msgid "Archived"
 msgstr "Archivé"
 
-#: src/pyams_zfiles/interfaces.py:129 src/pyams_zfiles/workflow.py:54
+#: src/pyams_zfiles/interfaces.py:130 src/pyams_zfiles/workflow.py:54
 msgid "Deleted"
 msgstr "Supprimé"
 
-#: src/pyams_zfiles/interfaces.py:151
+#: src/pyams_zfiles/interfaces.py:152
 msgid "Private"
 msgstr "Privé"
 
-#: src/pyams_zfiles/interfaces.py:152
+#: src/pyams_zfiles/interfaces.py:153
 msgid "Protected"
 msgstr "Protégé"
 
-#: src/pyams_zfiles/interfaces.py:153
+#: src/pyams_zfiles/interfaces.py:154
 msgid "Public"
 msgstr "Public"
 
-#: src/pyams_zfiles/interfaces.py:180 src/pyams_zfiles/interfaces.py:272
-#: src/pyams_zfiles/zmi/search.py:66 src/pyams_zfiles/api/rest.py:127
+#: src/pyams_zfiles/interfaces.py:181 src/pyams_zfiles/interfaces.py:273
+#: src/pyams_zfiles/zmi/search.py:66 src/pyams_zfiles/api/rest.py:128
 #: src/pyams_zfiles/api/graph.py:71 src/pyams_zfiles/api/graph.py:129
 #: src/pyams_zfiles/api/graph.py:147 src/pyams_zfiles/api/graph.py:207
 msgid "Document unique identifier"
@@ -109,65 +109,65 @@ msgstr "Identifiant unique du document"
 
 #.
 #. read-write attributes
-#: src/pyams_zfiles/interfaces.py:183 src/pyams_zfiles/zmi/search.py:72
-#: src/pyams_zfiles/api/rest.py:56 src/pyams_zfiles/api/rest.py:107
-#: src/pyams_zfiles/api/rest.py:150 src/pyams_zfiles/api/graph.py:58
+#: src/pyams_zfiles/interfaces.py:184 src/pyams_zfiles/zmi/search.py:72
+#: src/pyams_zfiles/api/rest.py:57 src/pyams_zfiles/api/rest.py:108
+#: src/pyams_zfiles/api/rest.py:151 src/pyams_zfiles/api/graph.py:58
 #: src/pyams_zfiles/api/graph.py:173 src/pyams_zfiles/api/graph.py:209
 msgid "Document title"
 msgstr "Libellé du document"
 
-#: src/pyams_zfiles/interfaces.py:184 src/pyams_zfiles/zmi/search.py:73
+#: src/pyams_zfiles/interfaces.py:185 src/pyams_zfiles/zmi/search.py:73
 msgid "User friendly name of the document"
 msgstr "Libellé utilisateur associé au document"
 
-#: src/pyams_zfiles/interfaces.py:187 src/pyams_zfiles/api/rest.py:59
-#: src/pyams_zfiles/api/rest.py:109 src/pyams_zfiles/api/rest.py:153
+#: src/pyams_zfiles/interfaces.py:188 src/pyams_zfiles/api/rest.py:60
+#: src/pyams_zfiles/api/rest.py:110 src/pyams_zfiles/api/rest.py:154
 #: src/pyams_zfiles/api/graph.py:59
 msgid "Source application name"
 msgstr "Application source"
 
-#: src/pyams_zfiles/interfaces.py:188 src/pyams_zfiles/zmi/search.py:77
+#: src/pyams_zfiles/interfaces.py:189 src/pyams_zfiles/zmi/search.py:77
 msgid "Name of the application which submitted the document"
 msgstr "Nom de l'application ayant soumis le document"
 
-#: src/pyams_zfiles/interfaces.py:192
+#: src/pyams_zfiles/interfaces.py:193
 msgid "Document data"
 msgstr "Contenu du document"
 
-#: src/pyams_zfiles/interfaces.py:193
+#: src/pyams_zfiles/interfaces.py:194
 msgid "This is where document content is stored"
 msgstr "Contenu utile du document"
 
-#: src/pyams_zfiles/interfaces.py:196
+#: src/pyams_zfiles/interfaces.py:197
 msgid "Document data hash"
 msgstr "Hash"
 
-#: src/pyams_zfiles/interfaces.py:197
+#: src/pyams_zfiles/interfaces.py:198
 msgid "This unique signature is built using SHA512 algorithm"
 msgstr "Signature du contenu du fichier basé sur l'algorithme SHA512"
 
-#: src/pyams_zfiles/interfaces.py:200 src/pyams_zfiles/api/rest.py:79
+#: src/pyams_zfiles/interfaces.py:201 src/pyams_zfiles/api/rest.py:80
 msgid "Access mode"
 msgstr "Mode d'accès"
 
-#: src/pyams_zfiles/interfaces.py:201
+#: src/pyams_zfiles/interfaces.py:202
 msgid "Access mode on this document"
 msgstr "Mode d'accès au document en lecture"
 
-#: src/pyams_zfiles/interfaces.py:206 src/pyams_zfiles/api/rest.py:86
+#: src/pyams_zfiles/interfaces.py:207 src/pyams_zfiles/api/rest.py:87
 msgid "Update mode"
 msgstr "Mode de mise à jour"
 
-#: src/pyams_zfiles/interfaces.py:207
+#: src/pyams_zfiles/interfaces.py:208
 msgid "Update mode on this document"
 msgstr "Mode d'accès au document en modification"
 
-#: src/pyams_zfiles/interfaces.py:212 src/pyams_zfiles/zmi/search.py:86
-#: src/pyams_zfiles/zmi/document.py:74
+#: src/pyams_zfiles/interfaces.py:213 src/pyams_zfiles/zmi/search.py:86
+#: src/pyams_zfiles/zmi/document.py:76
 msgid "Properties"
 msgstr "Propriétés"
 
-#: src/pyams_zfiles/interfaces.py:213
+#: src/pyams_zfiles/interfaces.py:214
 msgid ""
 "List of free additional properties which can be applied to the document; "
 "these properties can't be used for searching"
@@ -176,11 +176,11 @@ msgstr ""
 "sont libres mais ne sont pas indexées et donc non utilisables pour effectuer "
 "des recherches"
 
-#: src/pyams_zfiles/interfaces.py:220 src/pyams_zfiles/api/graph.py:62
+#: src/pyams_zfiles/interfaces.py:221 src/pyams_zfiles/api/graph.py:62
 msgid "Document tags"
 msgstr "Tags"
 
-#: src/pyams_zfiles/interfaces.py:221
+#: src/pyams_zfiles/interfaces.py:222
 msgid ""
 "List of free additional tags which can be applied to the document; these "
 "tags can be used for searching"
@@ -188,51 +188,51 @@ msgstr ""
 "Liste de tags appliqués au document ; ces tags peuvent être appliqués pour "
 "effectuer des recherches"
 
-#: src/pyams_zfiles/interfaces.py:226
+#: src/pyams_zfiles/interfaces.py:227
 msgid "Last document updater"
 msgstr "Mise à jour"
 
-#: src/pyams_zfiles/interfaces.py:227
+#: src/pyams_zfiles/interfaces.py:228
 msgid "Name of the last principal which updated the document"
 msgstr "Nom du dernier mandataire ayant mis à jour le document"
 
-#: src/pyams_zfiles/interfaces.py:244
+#: src/pyams_zfiles/interfaces.py:245
 msgid "Document creator"
 msgstr "Créateur"
 
-#: src/pyams_zfiles/interfaces.py:245 src/pyams_zfiles/zmi/search.py:105
+#: src/pyams_zfiles/interfaces.py:246 src/pyams_zfiles/zmi/search.py:105
 msgid "Name of the principal which created the document"
 msgstr "Nom du mandataire ayant créé le document"
 
-#: src/pyams_zfiles/interfaces.py:249
+#: src/pyams_zfiles/interfaces.py:250
 msgid "Document owner"
 msgstr "Propriétaire"
 
-#: src/pyams_zfiles/interfaces.py:250
+#: src/pyams_zfiles/interfaces.py:251
 msgid "Name of the principal which is owner of the document"
 msgstr "Nom du mandataire propriétaire du document"
 
-#: src/pyams_zfiles/interfaces.py:254
+#: src/pyams_zfiles/interfaces.py:255
 msgid "Document readers"
 msgstr "Lecteurs"
 
-#: src/pyams_zfiles/interfaces.py:255
+#: src/pyams_zfiles/interfaces.py:256
 msgid "Name of principals allowed to read the document"
 msgstr "Nom des mandataire autorisés à lire le contenu du document"
 
-#: src/pyams_zfiles/interfaces.py:259
+#: src/pyams_zfiles/interfaces.py:260
 msgid "Document managers"
 msgstr "Contributeurs"
 
-#: src/pyams_zfiles/interfaces.py:260
+#: src/pyams_zfiles/interfaces.py:261
 msgid "Name of principals allowed to update the document"
 msgstr "Nom des mandataires autorisés à modifier le document"
 
-#: src/pyams_zfiles/interfaces.py:295
+#: src/pyams_zfiles/interfaces.py:296
 msgid "Documents OID prefix"
 msgstr "Préfixe des OID"
 
-#: src/pyams_zfiles/interfaces.py:296
+#: src/pyams_zfiles/interfaces.py:297
 msgid ""
 "Prefix used to identify documents which were created locally (unlike "
 "documents which were created into another documents container and "
@@ -242,11 +242,11 @@ msgstr ""
 "importer des documents en provenance d'un autre conteneur de documents, à la "
 "condition qu'ils utilisent un préfixe différent"
 
-#: src/pyams_zfiles/interfaces.py:302
+#: src/pyams_zfiles/interfaces.py:303
 msgid "Access menu from home"
 msgstr "Accès depuis l'accueil"
 
-#: src/pyams_zfiles/interfaces.py:303
+#: src/pyams_zfiles/interfaces.py:304
 msgid ""
 "If 'yes', a menu will be displayed to get access to documents container from "
 "site admin home page"
@@ -254,11 +254,11 @@ msgstr ""
 "Si 'oui', un menu d'accès au conteneur de documents sera affiché depuis la "
 "page d'accueil de l'interface d'administration du site"
 
-#: src/pyams_zfiles/interfaces.py:335
+#: src/pyams_zfiles/interfaces.py:336
 msgid "Application managers"
 msgstr "Gestionnaires de l'application"
 
-#: src/pyams_zfiles/interfaces.py:336
+#: src/pyams_zfiles/interfaces.py:337
 msgid ""
 "These principals can only manage application properties; documents manager "
 "role is required to manage documents!"
@@ -267,46 +267,46 @@ msgstr ""
 "ils peuvent également gérer les propriétés des documents, et créer de "
 "nouveaux documents au nom d'autres utilisateurs"
 
-#: src/pyams_zfiles/interfaces.py:343
+#: src/pyams_zfiles/interfaces.py:344
 msgid "Documents creators"
 msgstr "Créateurs de documents"
 
-#: src/pyams_zfiles/interfaces.py:344
+#: src/pyams_zfiles/interfaces.py:345
 msgid "These principals will be allowed to create or import new documents"
 msgstr ""
 "Ces mandataires sont autorisés à créer ou importer de nouveaux documents, en "
 "leur nom propre ou au nom d'autres mandataires"
 
-#: src/pyams_zfiles/interfaces.py:349
+#: src/pyams_zfiles/interfaces.py:350
 msgid "Documents managers"
 msgstr "Gestionnaires de documents"
 
-#: src/pyams_zfiles/interfaces.py:350
+#: src/pyams_zfiles/interfaces.py:351
 msgid "These principals will be allowed to manage any document properties"
 msgstr ""
 "Ces mandataires sont autorisés à gérer les propriétés de tous les documents"
 
-#: src/pyams_zfiles/interfaces.py:355
+#: src/pyams_zfiles/interfaces.py:356
 msgid "Documents readers"
 msgstr "Lecteurs de documents"
 
-#: src/pyams_zfiles/interfaces.py:356
+#: src/pyams_zfiles/interfaces.py:357
 msgid "These principals will be allowed to read any document properties"
 msgstr "Ces mandataires sont autorisés à consulter tous les documents"
 
-#: src/pyams_zfiles/interfaces.py:392
+#: src/pyams_zfiles/interfaces.py:393
 msgid "Configuration name"
 msgstr "Nom de la configuration"
 
-#: src/pyams_zfiles/interfaces.py:393
+#: src/pyams_zfiles/interfaces.py:394
 msgid "Unique name of the configuration"
 msgstr "Nom unique donné à la configuration"
 
-#: src/pyams_zfiles/interfaces.py:397
+#: src/pyams_zfiles/interfaces.py:398
 msgid "Remote XML-RPC endpoint"
 msgstr "Point d'accès XML-RPC"
 
-#: src/pyams_zfiles/interfaces.py:398
+#: src/pyams_zfiles/interfaces.py:399
 msgid ""
 "URL of the remote documents container XML-RPC endpoint used for "
 "synchronization"
@@ -314,37 +314,37 @@ msgstr ""
 "URL du point d'accès XML-RPC du conteneur distant vers lequel doit "
 "s'effectuer la synchronisation"
 
-#: src/pyams_zfiles/interfaces.py:402
+#: src/pyams_zfiles/interfaces.py:403
 msgid "User name"
 msgstr "Code utilisateur"
 
-#: src/pyams_zfiles/interfaces.py:403
+#: src/pyams_zfiles/interfaces.py:404
 msgid "Name of the remote user used for synchronization"
 msgstr "Nom de l'utilisateur distant utilisé pour la synchronisation"
 
-#: src/pyams_zfiles/interfaces.py:406
+#: src/pyams_zfiles/interfaces.py:407
 msgid "Password"
 msgstr "Mot de passe"
 
-#: src/pyams_zfiles/interfaces.py:407
+#: src/pyams_zfiles/interfaces.py:408
 msgid "Password of the remote user used for synchronization"
 msgstr "Mot de passe de l'utilisateur distant"
 
-#: src/pyams_zfiles/interfaces.py:410
+#: src/pyams_zfiles/interfaces.py:411
 msgid "Enabled configuration"
 msgstr "Configuration active"
 
-#: src/pyams_zfiles/interfaces.py:411
+#: src/pyams_zfiles/interfaces.py:412
 msgid "If 'no', this configuration will not be usable for synchronization"
 msgstr ""
 "Si 'non', cette configuration sera désactivée et ne pourra pas être utilisée "
 "pour effectuer une synchronisation de documents"
 
-#: src/pyams_zfiles/interfaces.py:423
+#: src/pyams_zfiles/interfaces.py:424
 msgid "Configuration users"
 msgstr "Synchroniseurs"
 
-#: src/pyams_zfiles/interfaces.py:424
+#: src/pyams_zfiles/interfaces.py:425
 msgid "Principals which are granted permission to call this configuration"
 msgstr "Liste des mandataires autorisés à utiliser cette configuration"
 
@@ -430,57 +430,57 @@ msgstr "publication refusée"
 msgid "Document content update"
 msgstr "Mise à jour du contenu du document"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:86
+#: src/pyams_zfiles/zmi/synchronizer.py:88
 msgid "Click icon to enable or disable configuration"
 msgstr "Cliquer pour activer ou désactiver la configuration"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:114
+#: src/pyams_zfiles/zmi/synchronizer.py:116
 msgid "Users roles"
 msgstr "Habilitations"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:127
+#: src/pyams_zfiles/zmi/synchronizer.py:129
 msgid "Name"
 msgstr "Nom de la configuration"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:140
+#: src/pyams_zfiles/zmi/synchronizer.py:142
 msgid "Target"
 msgstr "Point d'accès"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:169
+#: src/pyams_zfiles/zmi/synchronizer.py:171
 msgid "Synchronizer configurations"
 msgstr "Configurations de synchronisation"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:186
+#: src/pyams_zfiles/zmi/synchronizer.py:188
 msgid "Add configuration"
 msgstr "Ajouter une configuration"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:200
-#: src/pyams_zfiles/zmi/synchronizer.py:239
+#: src/pyams_zfiles/zmi/synchronizer.py:202
+#: src/pyams_zfiles/zmi/synchronizer.py:241
 msgid "Documents synchronizer"
 msgstr "Synchronisation de documents"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:201
+#: src/pyams_zfiles/zmi/synchronizer.py:203
 msgid "Add new configuration"
 msgstr "Nouvelle configuration"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:204
+#: src/pyams_zfiles/zmi/synchronizer.py:206
 msgid "New configuration properties"
 msgstr "Propriétés de la configuration"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:220
+#: src/pyams_zfiles/zmi/synchronizer.py:222
 msgid "Provided name is already used!"
 msgstr "Le nom de configuration indiqué est déjà utilisé !"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:240
+#: src/pyams_zfiles/zmi/synchronizer.py:242
 #, python-format
 msgid "<i>{}</i> configuration properties"
 msgstr "Propriétés de la configuration <i>{}</i>"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:243
+#: src/pyams_zfiles/zmi/synchronizer.py:245
 msgid "Configuration properties"
 msgstr "Propriétés de la configuration"
 
-#: src/pyams_zfiles/zmi/synchronizer.py:259
+#: src/pyams_zfiles/zmi/synchronizer.py:281
 #, python-format
 msgid "Synchronizer configuration: {} "
 msgstr "Configuration de synchronisation : {}"
@@ -493,8 +493,8 @@ msgstr "Rechercher un document"
 msgid "Document OID"
 msgstr "OID"
 
-#: src/pyams_zfiles/zmi/search.py:69 src/pyams_zfiles/api/rest.py:128
-#: src/pyams_zfiles/api/rest.py:147 src/pyams_zfiles/api/graph.py:76
+#: src/pyams_zfiles/zmi/search.py:69 src/pyams_zfiles/api/rest.py:129
+#: src/pyams_zfiles/api/rest.py:148 src/pyams_zfiles/api/graph.py:76
 #: src/pyams_zfiles/api/graph.py:131 src/pyams_zfiles/api/graph.py:149
 msgid "Document version"
 msgstr "Version du document"
@@ -536,8 +536,8 @@ msgstr ""
 "Vous pouvez sélectionner plusieurs tags en les séparant avec des points-"
 "virgules"
 
-#: src/pyams_zfiles/zmi/search.py:99 src/pyams_zfiles/api/rest.py:73
-#: src/pyams_zfiles/api/rest.py:164 src/pyams_zfiles/api/graph.py:132
+#: src/pyams_zfiles/zmi/search.py:99 src/pyams_zfiles/api/rest.py:74
+#: src/pyams_zfiles/api/rest.py:165 src/pyams_zfiles/api/graph.py:132
 #: src/pyams_zfiles/api/graph.py:150
 msgid "Document status"
 msgstr "Statut du document"
@@ -574,8 +574,8 @@ msgstr "Nom du mandataire propriétaire du document"
 msgid "Updater"
 msgstr "Mise à jour"
 
-#: src/pyams_zfiles/zmi/search.py:119 src/pyams_zfiles/api/rest.py:136
-#: src/pyams_zfiles/api/rest.py:178 src/pyams_zfiles/api/graph.py:79
+#: src/pyams_zfiles/zmi/search.py:119 src/pyams_zfiles/api/rest.py:137
+#: src/pyams_zfiles/api/rest.py:179 src/pyams_zfiles/api/graph.py:79
 msgid "Last document updater principal ID"
 msgstr "ID du dernier mandataire ayant modifié le document"
 
@@ -595,8 +595,8 @@ msgstr ""
 msgid "Status updater"
 msgstr "Changement de statut"
 
-#: src/pyams_zfiles/zmi/search.py:130 src/pyams_zfiles/api/rest.py:138
-#: src/pyams_zfiles/api/rest.py:183
+#: src/pyams_zfiles/zmi/search.py:130 src/pyams_zfiles/api/rest.py:139
+#: src/pyams_zfiles/api/rest.py:184
 msgid "Last workflow status updater principal ID"
 msgstr "ID du dernier mandataire ayant modifié le statut du document"
 
@@ -664,131 +664,147 @@ msgstr "Configuration du conteneur de documents"
 msgid "Base configuration"
 msgstr "Configuration de base"
 
-#: src/pyams_zfiles/zmi/document.py:97 src/pyams_zfiles/api/rest.py:192
+#: src/pyams_zfiles/zmi/workflow.py:79
+msgid "Delete definitively"
+msgstr "Supprimer définitivement"
+
+#: src/pyams_zfiles/zmi/document.py:99 src/pyams_zfiles/api/rest.py:206
 msgid "Document properties"
 msgstr "Propriétés du document"
 
-#: src/pyams_zfiles/api/rest.py:49
+#: src/pyams_zfiles/api/rest.py:50
 msgid "List of requested fields names"
 msgstr "Liste des champs sélectionnés"
 
-#: src/pyams_zfiles/api/rest.py:62 src/pyams_zfiles/api/rest.py:100
+#: src/pyams_zfiles/api/rest.py:63 src/pyams_zfiles/api/rest.py:101
 #: src/pyams_zfiles/api/graph.py:60 src/pyams_zfiles/api/graph.py:177
 msgid "File name"
 msgstr "Nom de fichier"
 
-#: src/pyams_zfiles/api/rest.py:65 src/pyams_zfiles/api/graph.py:61
+#: src/pyams_zfiles/api/rest.py:66 src/pyams_zfiles/api/graph.py:61
 msgid "Document custom properties"
 msgstr "Propriétés du document"
 
-#: src/pyams_zfiles/api/rest.py:67
+#: src/pyams_zfiles/api/rest.py:68
 msgid "List of document tags"
 msgstr "Tags du document"
 
-#: src/pyams_zfiles/api/rest.py:70 src/pyams_zfiles/api/rest.py:121
-#: src/pyams_zfiles/api/rest.py:135 src/pyams_zfiles/api/rest.py:175
+#: src/pyams_zfiles/api/rest.py:71 src/pyams_zfiles/api/rest.py:122
+#: src/pyams_zfiles/api/rest.py:136 src/pyams_zfiles/api/rest.py:176
 #: src/pyams_zfiles/api/graph.py:64 src/pyams_zfiles/api/graph.py:217
 msgid "Current document owner"
 msgstr "Propriétaire du document"
 
-#: src/pyams_zfiles/api/rest.py:83 src/pyams_zfiles/api/graph.py:66
+#: src/pyams_zfiles/api/rest.py:84 src/pyams_zfiles/api/graph.py:66
 msgid "Document readers IDs"
 msgstr "Liste des lecteurs du document"
 
-#: src/pyams_zfiles/api/rest.py:90 src/pyams_zfiles/api/graph.py:68
+#: src/pyams_zfiles/api/rest.py:91 src/pyams_zfiles/api/graph.py:68
 msgid "Document managers IDs"
 msgstr "Liste des gestionnaires du document"
 
-#: src/pyams_zfiles/api/rest.py:97 src/pyams_zfiles/api/rest.py:113
+#: src/pyams_zfiles/api/rest.py:98 src/pyams_zfiles/api/rest.py:114
 msgid "Document data; may be provided in Base64 when using JSON"
 msgstr "Contenu du document, encodé en Base64 en JSON"
 
-#: src/pyams_zfiles/api/rest.py:111 src/pyams_zfiles/api/graph.py:213
+#: src/pyams_zfiles/api/rest.py:112 src/pyams_zfiles/api/graph.py:213
 msgid "Document file name"
 msgstr "Nom du fichier"
 
-#: src/pyams_zfiles/api/rest.py:119 src/pyams_zfiles/api/rest.py:134
+#: src/pyams_zfiles/api/rest.py:120 src/pyams_zfiles/api/rest.py:135
 #: src/pyams_zfiles/api/graph.py:78
 msgid "Document creation timestamp"
 msgstr "Date et heure de création"
 
 #.
 #. read-only attributes
-#: src/pyams_zfiles/api/rest.py:126 src/pyams_zfiles/api/graph.py:70
+#: src/pyams_zfiles/api/rest.py:127 src/pyams_zfiles/api/graph.py:70
 msgid "Document base REST API URL"
 msgstr "URl de base de l'API REST du document"
 
-#: src/pyams_zfiles/api/rest.py:129 src/pyams_zfiles/api/graph.py:72
+#: src/pyams_zfiles/api/rest.py:130 src/pyams_zfiles/api/graph.py:72
 msgid "Absolute URL of document data file"
 msgstr "URL absolue d'accès au contenu du document"
 
-#: src/pyams_zfiles/api/rest.py:130 src/pyams_zfiles/api/rest.py:156
+#: src/pyams_zfiles/api/rest.py:131 src/pyams_zfiles/api/rest.py:157
 #: src/pyams_zfiles/api/graph.py:73
 msgid "SHA512 hash of document data file"
 msgstr "Hash du contenu du fichier au format SHA512"
 
-#: src/pyams_zfiles/api/rest.py:131 src/pyams_zfiles/api/graph.py:74
+#: src/pyams_zfiles/api/rest.py:132 src/pyams_zfiles/api/graph.py:74
 msgid "Document file size"
 msgstr "Taille du fichier"
 
-#: src/pyams_zfiles/api/rest.py:132 src/pyams_zfiles/api/graph.py:75
+#: src/pyams_zfiles/api/rest.py:133 src/pyams_zfiles/api/graph.py:75
 msgid "Document content type"
 msgstr "Type de contenu"
 
-#: src/pyams_zfiles/api/rest.py:133 src/pyams_zfiles/api/rest.py:170
+#: src/pyams_zfiles/api/rest.py:134 src/pyams_zfiles/api/rest.py:171
 #: src/pyams_zfiles/api/graph.py:77
 msgid "Document creator principal ID"
 msgstr "ID du mandataire créateur du document"
 
-#: src/pyams_zfiles/api/rest.py:137 src/pyams_zfiles/api/graph.py:80
+#: src/pyams_zfiles/api/rest.py:138 src/pyams_zfiles/api/graph.py:80
 msgid "Last document update timestamp"
 msgstr "Dernière mise à jour"
 
-#: src/pyams_zfiles/api/rest.py:139 src/pyams_zfiles/api/graph.py:82
+#: src/pyams_zfiles/api/rest.py:140 src/pyams_zfiles/api/graph.py:82
 msgid "Last document status update timestamp"
 msgstr "Dernier changement de statut"
 
-#: src/pyams_zfiles/api/rest.py:144
+#: src/pyams_zfiles/api/rest.py:145
 msgid "Document unique identifiers"
 msgstr "Identifiants uniques de documents"
 
-#: src/pyams_zfiles/api/rest.py:159
+#: src/pyams_zfiles/api/rest.py:160
 msgid "Document properties, provided as a mapping"
 msgstr "Propriétés du document"
 
-#: src/pyams_zfiles/api/rest.py:161
+#: src/pyams_zfiles/api/rest.py:162
 msgid "Document tags, separated with semicolons"
 msgstr "Liste des tags du document"
 
-#: src/pyams_zfiles/api/rest.py:172 src/pyams_zfiles/api/graph.py:109
+#: src/pyams_zfiles/api/rest.py:173 src/pyams_zfiles/api/graph.py:109
 msgid "Document creation dates range"
 msgstr "Dates de création"
 
-#: src/pyams_zfiles/api/rest.py:180
+#: src/pyams_zfiles/api/rest.py:181
 msgid "Document last update dates range"
 msgstr "Dates de mise à jour"
 
-#: src/pyams_zfiles/api/rest.py:185
+#: src/pyams_zfiles/api/rest.py:186
 msgid "Last workflow status update dates range"
 msgstr "Dates de changement de statut"
 
-#: src/pyams_zfiles/api/rest.py:187
+#: src/pyams_zfiles/api/rest.py:188
 msgid "List of requested field names"
 msgstr "Liste des champs sélectionnés"
 
-#: src/pyams_zfiles/api/rest.py:193
+#: src/pyams_zfiles/api/rest.py:194
+msgid "List of documents to import in remote documents container"
+msgstr "Liste des documents à importer dans la GED distante"
+
+#: src/pyams_zfiles/api/rest.py:197
+msgid "List of documents to remove from remote documents container"
+msgstr "Liste des documents à supprimer de la GED distante"
+
+#: src/pyams_zfiles/api/rest.py:201
+msgid "Selected configuration name"
+msgstr "Nom de la configuration sélectionnée"
+
+#: src/pyams_zfiles/api/rest.py:207
 msgid "Document created"
 msgstr "Document créé"
 
-#: src/pyams_zfiles/api/rest.py:194
+#: src/pyams_zfiles/api/rest.py:208
 msgid "Document not found"
 msgstr "Document non trouvé"
 
-#: src/pyams_zfiles/api/rest.py:195
+#: src/pyams_zfiles/api/rest.py:209
 msgid "Forbidden access"
 msgstr "Accès interdit"
 
-#: src/pyams_zfiles/api/rest.py:196
+#: src/pyams_zfiles/api/rest.py:210
 msgid "Missing arguments"
 msgstr "Arguments manquants"
 
