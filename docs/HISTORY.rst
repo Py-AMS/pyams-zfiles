@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.3
+-----
+ - updated translations
+
 1.4.2
 -----
  - updated workflow delete view
