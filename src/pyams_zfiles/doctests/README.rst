@@ -25,6 +25,8 @@ This package is composed of a set of utility functions, usable into any Pyramid 
     >>> include_jsonrpc(config)
     >>> from cornice import includeme as include_cornice
     >>> include_cornice(config)
+    >>> from cornice_swagger import includeme as include_swagger
+    >>> include_swagger(config)
     >>> from pyams_utils import includeme as include_utils
     >>> include_utils(config)
     >>> from pyams_site import includeme as include_site
@@ -138,13 +140,13 @@ You can specify a restricted set of properties when asking for JSON content:
      'status': 'draft'}
 
     >>> from pyams_workflow.interfaces import IWorkflow, IWorkflowStateLabel
-    >>> from pyams_zfiles.workflow import DRAFT_STATE
+    >>> from pyams_zfiles.interfaces import STATE
 
     >>> wf = config.registry.getAdapter(document, IWorkflow)
     >>> wf
     <pyams_zfiles.workflow.DocumentWorkflow object at 0x...>
 
-    >>> label = config.registry.queryAdapter(wf, IWorkflowStateLabel, name=DRAFT_STATE)
+    >>> label = config.registry.queryAdapter(wf, IWorkflowStateLabel, name=STATE.DRAFT.value)
     >>> label.get_label(document)
     'draft created on .../.../... at ...:...'
 
@@ -242,7 +244,7 @@ Updating document content
      'updater': 'system:admin',
      'version': 2}
 
-    >>> label = config.registry.queryAdapter(wf, IWorkflowStateLabel, name=DRAFT_STATE)
+    >>> label = config.registry.queryAdapter(wf, IWorkflowStateLabel, name=STATE.DRAFT.value)
     >>> label.get_label(document)
     'new version created on .../.../... at ...:...'
 
@@ -262,7 +264,7 @@ But you can specify a specific version or a specific workflow status:
     >>> document.to_json().get('version')
     1
 
-    >>> document = utility.get_document(oid, status='published')
+    >>> document = utility.get_document(oid, status=STATE.PUBLISHED.value)
     >>> document.to_json().get('version')
     1
 

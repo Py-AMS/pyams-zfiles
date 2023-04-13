@@ -26,10 +26,9 @@ from pyams_utils.registry import get_utility
 from pyams_utils.rpc import RPC_FORBIDDEN, RPC_OBJECT_NOT_FOUND, RPC_SERVICE_UNAVAILABLE, \
     raise_rpc_exception
 from pyams_workflow.interfaces import IWorkflowState, IWorkflowVersions
-from pyams_zfiles.interfaces import ARCHIVED_STATE, CREATE_DOCUMENT_PERMISSION, \
-    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DEFAULT_CONFIGURATION_NAME, IDocumentContainer, \
-    IDocumentSynchronizer, JSONRPC_ENDPOINT, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, \
-    SYNCHRONIZE_PERMISSION, XMLRPC_ENDPOINT
+from pyams_zfiles.interfaces import CREATE_DOCUMENT_PERMISSION, CREATE_DOCUMENT_WITH_OWNER_PERMISSION, \
+    DEFAULT_CONFIGURATION_NAME, IDocumentContainer, IDocumentSynchronizer, JSONRPC_ENDPOINT, MANAGE_DOCUMENT_PERMISSION, \
+    READ_DOCUMENT_PERMISSION, STATE, SYNCHRONIZE_PERMISSION, XMLRPC_ENDPOINT
 
 
 __docformat__ = 'restructuredtext'
@@ -248,7 +247,7 @@ def archive_file(request, oid, version=None):
     """Archive document"""
     document = get_document(request, oid, version, MANAGE_DOCUMENT_PERMISSION)
     document.update_status({
-        'status': ARCHIVED_STATE
+        'status': STATE.ARCHIVED.value
     })
 
 
