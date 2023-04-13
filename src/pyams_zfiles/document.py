@@ -45,9 +45,9 @@ from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_utils.vocabulary import vocabulary_config
 from pyams_workflow.interfaces import IWorkflowInfo, IWorkflowState
-from pyams_zfiles.interfaces import ACCESS_MODE_IDS, DocumentContainerError, IDocument, \
+from pyams_zfiles.interfaces import ACCESS_MODE, ACCESS_MODE_NAMES, DocumentContainerError, IDocument, \
     IDocumentContainer, IDocumentRoles, IDocumentVersion, MANAGE_APPLICATION_PERMISSION, \
-    MANAGE_DOCUMENT_PERMISSION, PRIVATE_MODE, PUBLIC_MODE, \
+    MANAGE_DOCUMENT_PERMISSION, \
     PYAMS_ZFILES_APPLICATIONS_VOCABULARY, READ_DOCUMENT_PERMISSION, ZFILES_WORKFLOW_NAME
 from pyams_zfiles.workflow import ZFILES_WORKFLOW
 
@@ -204,27 +204,33 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
         protection = IRoleProtectedObject(self)
         granted = protection.authenticated_granted or set()
         if (not self.access_mode) or ('access_mode' in properties):
-            access_mode = properties.pop('access_mode', PRIVATE_MODE)
-            if access_mode in ACCESS_MODE_IDS:
-                access_mode = ACCESS_MODE_IDS.index(access_mode)
-            self.access_mode = access_mode
-            if access_mode == PUBLIC_MODE:
-                granted |= {READ_DOCUMENT_PERMISSION}
+            mode = properties.pop('access_mode', ACCESS_MODE.PRIVATE.value)
+            try:
+                access_mode = ACCESS_MODE(mode).value
+            except ValueError:
+                pass
             else:
-                granted -= {READ_DOCUMENT_PERMISSION}
-                if access_mode == PRIVATE_MODE:
-                    roles.readers = set()
+                self.access_mode = access_mode
+                if access_mode == ACCESS_MODE.PUBLIC.value:
+                    granted |= {READ_DOCUMENT_PERMISSION}
+                else:
+                    granted -= {READ_DOCUMENT_PERMISSION}
+                    if access_mode == ACCESS_MODE.PRIVATE.value:
+                        roles.readers = set()
         if (not self.update_mode) or ('update_mode' in properties):
-            update_mode = properties.pop('update_mode', PRIVATE_MODE)
-            if update_mode in ACCESS_MODE_IDS:
-                update_mode = ACCESS_MODE_IDS.index(update_mode)
-            self.update_mode = update_mode
-            if update_mode == PUBLIC_MODE:
-                granted |= {MANAGE_DOCUMENT_PERMISSION}
+            mode = properties.pop('update_mode', ACCESS_MODE.PRIVATE.value)
+            try:
+                update_mode = ACCESS_MODE(mode).value
+            except ValueError:
+                pass
             else:
-                granted -= {MANAGE_DOCUMENT_PERMISSION}
-                if update_mode == PRIVATE_MODE:
-                    roles.managers = set()
+                self.update_mode = update_mode
+                if update_mode == ACCESS_MODE.PUBLIC.value:
+                    granted |= {MANAGE_DOCUMENT_PERMISSION}
+                else:
+                    granted -= {MANAGE_DOCUMENT_PERMISSION}
+                    if update_mode == ACCESS_MODE.PRIVATE.value:
+                        roles.managers = set()
         protection.authenticated_granted = granted or None
 
     def update_status(self, properties, request=None):
@@ -283,9 +289,9 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
             'updated_time': dc.modified.isoformat() if dc.modified else None,  # pylint: disable=no-member
             'status_updater': state.state_principal,
             'status_update_time': state.state_date.isoformat(),  # pylint: disable=no-member
-            'access_mode': ACCESS_MODE_IDS[self.access_mode],
+            'access_mode': ACCESS_MODE_NAMES[self.access_mode],
             'readers': list(roles.readers or ()),
-            'update_mode': ACCESS_MODE_IDS[self.update_mode],
+            'update_mode': ACCESS_MODE_NAMES[self.update_mode],
             'managers': list(roles.managers or ())
         }
         if fields:

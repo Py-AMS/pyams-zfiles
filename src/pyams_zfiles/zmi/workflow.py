@@ -24,9 +24,10 @@ from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_workflow.interfaces import IWorkflowState, IWorkflowVersion, IWorkflowVersions
 from pyams_workflow.zmi.transition import WorkflowContentTransitionForm
-from pyams_zfiles.interfaces import DELETED_STATE, IDocument, IDocumentContainer, IDocumentFolder, IDocumentVersion, \
-    MANAGE_DOCUMENT_PERMISSION
+from pyams_zfiles.interfaces import IDocument, IDocumentContainer, IDocumentFolder, IDocumentVersion, \
+    MANAGE_DOCUMENT_PERMISSION, STATE
 from pyams_zmi.interfaces import IAdminLayer
+
 
 __docformat__ = 'restructuredtext'
 
@@ -88,7 +89,7 @@ class DocumentVersionDeleteForm(BaseWorkflowForm):
         else:
             versions = IWorkflowVersions(self.context)
             versions.remove_version(state.version_id,
-                                    state=DELETED_STATE,
+                                    state=STATE.DELETED.value,
                                     comment=data.get('comment'))
             target = versions.get_last_versions(count=1)[0]
         return target

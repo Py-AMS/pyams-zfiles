@@ -46,9 +46,8 @@ from pyams_workflow.interfaces import IWorkflowInfo, IWorkflowState, IWorkflowVe
 from pyams_workflow.versions import get_last_version
 from pyams_zfiles.document import Document, DocumentVersion, get_hash
 from pyams_zfiles.folder import DocumentFolder
-from pyams_zfiles.interfaces import CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DELETED_STATE, \
-    DRAFT_STATE, IDocumentContainer, IDocumentContainerRoles, IDocumentFolder, \
-    IDocumentVersion, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION
+from pyams_zfiles.interfaces import CREATE_DOCUMENT_WITH_OWNER_PERMISSION, IDocumentContainer, IDocumentContainerRoles, \
+    IDocumentFolder, IDocumentVersion, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, STATE
 from pyams_zfiles.search import make_query
 
 
@@ -237,17 +236,17 @@ class DocumentContainer(ProtectedObjectMixin, Folder):
                 if request is None:
                     request = check_request()
                 state = IWorkflowState(document)
-                if state.state != DRAFT_STATE:
+                if state.state != STATE.DRAFT.value:
                     translate = request.localizer.translate
                     workflow_info = IWorkflowInfo(document)
                     document = workflow_info.fire_transition_toward(  # pylint: disable=assignment-from-no-return
-                        DRAFT_STATE,
+                        STATE.DRAFT.value,
                         comment=translate(_("Document content update")),
                         request=request)
                     request.response.status = HTTPCreated.code
         state = document.update(data, properties)
         request.registry.notify(ObjectModifiedEvent(document))
-        if state.state == DELETED_STATE:
+        if state.state == STATE.DELETED.value:
             return None
         return document
 

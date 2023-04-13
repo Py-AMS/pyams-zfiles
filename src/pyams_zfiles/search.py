@@ -31,6 +31,7 @@ __docformat__ = 'restructuredtext'
 
 
 NULL_STRING = 'null'
+LIST_SEPARATOR = ','
 
 
 def get_list(value):
@@ -41,11 +42,13 @@ def get_list(value):
     True
     >>> get_list('') is None
     True
-    >>> get_list('value1;value2')
+    >>> get_list('value1,value2')
+    ['value1', 'value2']
+    >>> get_list('value1, value2 ')
     ['value1', 'value2']
     """
     if value and isinstance(value, str):
-        value = list(map(str.strip, value.split(';')))
+        value = list(map(str.strip, value.split(LIST_SEPARATOR)))
     return value or None
 
 
@@ -159,7 +162,7 @@ def get_range(value):
      datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
     """
     if isinstance(value, str):
-        value = value.split(',')
+        value = value.split(LIST_SEPARATOR)
     return tuple(map(get_date, value))
 
 

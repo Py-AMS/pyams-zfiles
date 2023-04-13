@@ -20,7 +20,6 @@ from datetime import datetime
 from zope.copy import copy
 from zope.interface import implementer
 from zope.location import locate
-from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 from pyams_utils.adapter import ContextAdapter, adapter_config
 from pyams_utils.date import format_datetime
@@ -30,9 +29,8 @@ from pyams_utils.traversing import get_parent
 from pyams_workflow.interfaces import IWorkflow, IWorkflowInfo, IWorkflowPublicationInfo, \
     IWorkflowState, IWorkflowStateLabel, IWorkflowVersions, ObjectClonedEvent
 from pyams_workflow.workflow import Transition, Workflow
-from pyams_zfiles.interfaces import ARCHIVED_STATE, DELETED_STATE, DRAFT_STATE, \
-    IDocument, IDocumentFolder, IDocumentWorkflow, MANAGE_DOCUMENT_PERMISSION, PUBLISHED_STATE, \
-    ZFILES_WORKFLOW_NAME
+from pyams_zfiles.interfaces import IDocument, IDocumentFolder, IDocumentWorkflow, MANAGE_DOCUMENT_PERMISSION, STATE, \
+    STATES_HEADERS, STATES_VOCABULARY, ZFILES_WORKFLOW_NAME
 
 
 __docformat__ = 'restructuredtext'
@@ -40,35 +38,10 @@ __docformat__ = 'restructuredtext'
 from pyams_zfiles import _
 
 
-STATES_IDS = (
-    DRAFT_STATE,
-    PUBLISHED_STATE,
-    ARCHIVED_STATE,
-    DELETED_STATE
-)
-
-STATES_LABELS = (
-    _("Draft"),
-    _("Published"),
-    _("Archived"),
-    _("Deleted")
-)
-
-STATES_VOCABULARY = SimpleVocabulary([
-    SimpleTerm(STATES_IDS[i], title=t)
-    for i, t in enumerate(STATES_LABELS)
-])
-
-STATES_HEADERS = {
-    DRAFT_STATE: _("draft created"),
-    PUBLISHED_STATE: _("published"),
-    ARCHIVED_STATE: _("archived")
-}
-
-UPDATE_STATES = (DRAFT_STATE, PUBLISHED_STATE)
+UPDATE_STATES = (STATE.DRAFT.value, STATE.PUBLISHED.value)
 '''Default states available in update mode'''
 
-READONLY_STATES = (ARCHIVED_STATE, DELETED_STATE)
+READONLY_STATES = (STATE.ARCHIVED.value, STATE.DELETED.value)
 '''Retired and archived contents can't be modified'''
 
 PROTECTED_STATES = ()
@@ -77,17 +50,17 @@ PROTECTED_STATES = ()
 MANAGER_STATES = ()
 '''No custom state available to managers!'''
 
-PUBLISHED_STATES = (PUBLISHED_STATE,)
+PUBLISHED_STATES = (STATE.PUBLISHED.value,)
 '''Pre-published and published states are marked as published'''
 
-VISIBLE_STATES = (PUBLISHED_STATE,)
+VISIBLE_STATES = (STATE.PUBLISHED.value,)
 '''Only published state is visible in front-office'''
 
 WAITING_STATES = ()
 
 RETIRED_STATES = ()
 
-ARCHIVED_STATES = (ARCHIVED_STATE,)
+ARCHIVED_STATES = (STATE.ARCHIVED.value,)
 
 
 #
@@ -98,7 +71,7 @@ def can_create_new_version(wf, context):  # pylint: disable=invalid-name,unused-
     """Check if we can create a new version"""
     # can't create new version when previous draft already exists
     versions = IWorkflowVersions(context)
-    return not versions.has_version(DRAFT_STATE)
+    return not versions.has_version(STATE.DRAFT.value)
 
 
 #
@@ -113,10 +86,10 @@ def publish_action(wf, context):  # pylint: disable=invalid-name,unused-argument
     publication_info.publication_date = datetime.utcnow()
     publication_info.publisher = request.principal.id
     version_id = IWorkflowState(context).version_id
-    for version in IWorkflowVersions(context).get_versions((PUBLISHED_STATE, )):
+    for version in IWorkflowVersions(context).get_versions((STATE.PUBLISHED.value, )):
         if version is not context:
             IWorkflowInfo(version).fire_transition_toward(
-                ARCHIVED_STATE,
+                STATE.ARCHIVED.value,
                 comment=translate(_("Published version {0}")).format(version_id))
 
 
@@ -146,13 +119,13 @@ def delete_action(wf, context):  # pylint: disable=invalid-name,unused-argument
 init = Transition(transition_id='init',
                   title=_("Initialize"),
                   source=None,
-                  destination=DRAFT_STATE,
+                  destination=STATE.DRAFT.value,
                   history_label=_("Draft creation"))
 
 draft_to_published = Transition(transition_id='draft_to_published',
                                 title=_("Publish"),
-                                source=DRAFT_STATE,
-                                destination=PUBLISHED_STATE,
+                                source=STATE.DRAFT.value,
+                                destination=STATE.PUBLISHED.value,
                                 permission=MANAGE_DOCUMENT_PERMISSION,
                                 action=publish_action,
                                 menu_icon_class='far fa-fw fa-thumbs-up',
@@ -162,8 +135,8 @@ draft_to_published = Transition(transition_id='draft_to_published',
 
 published_to_archived = Transition(transition_id='published_to_archived',
                                    title=_("Archive content"),
-                                   source=PUBLISHED_STATE,
-                                   destination=ARCHIVED_STATE,
+                                   source=STATE.PUBLISHED.value,
+                                   destination=STATE.ARCHIVED.value,
                                    permission=MANAGE_DOCUMENT_PERMISSION,
                                    menu_icon_class='fas fa-fw fa-archive',
                                    view_name='wf-archive.html',
@@ -172,8 +145,8 @@ published_to_archived = Transition(transition_id='published_to_archived',
 
 published_to_draft = Transition(transition_id='published_to_draft',
                                 title=_("Create new version"),
-                                source=PUBLISHED_STATE,
-                                destination=DRAFT_STATE,
+                                source=STATE.PUBLISHED.value,
+                                destination=STATE.DRAFT.value,
                                 permission=MANAGE_DOCUMENT_PERMISSION,
                                 condition=can_create_new_version,
                                 action=clone_action,
@@ -184,8 +157,8 @@ published_to_draft = Transition(transition_id='published_to_draft',
 
 archived_to_draft = Transition(transition_id='archived_to_draft',
                                title=_("Create new version"),
-                               source=ARCHIVED_STATE,
-                               destination=DRAFT_STATE,
+                               source=STATE.ARCHIVED.value,
+                               destination=STATE.DRAFT.value,
                                permission=MANAGE_DOCUMENT_PERMISSION,
                                condition=can_create_new_version,
                                action=clone_action,
@@ -196,8 +169,8 @@ archived_to_draft = Transition(transition_id='archived_to_draft',
 
 delete = Transition(transition_id='delete',
                     title=_("Delete version"),
-                    source=DRAFT_STATE,
-                    destination=DELETED_STATE,
+                    source=STATE.DRAFT.value,
+                    destination=STATE.DELETED.value,
                     permission=MANAGE_DOCUMENT_PERMISSION,
                     action=delete_action,
                     menu_icon_class='fa fa-fw fa-trash',
@@ -224,7 +197,7 @@ class DocumentWorkflow(Workflow):
 
 ZFILES_WORKFLOW = DocumentWorkflow(wf_transitions,
                                    states=STATES_VOCABULARY,
-                                   initial_state=DRAFT_STATE,
+                                   initial_state=STATE.DRAFT.value,
                                    update_states=UPDATE_STATES,
                                    readonly_states=READONLY_STATES,
                                    protected_states=PROTECTED_STATES,
@@ -273,7 +246,7 @@ class WorkflowStateLabelAdapter(ContextAdapter):
         return state_label
 
 
-@adapter_config(name=DRAFT_STATE,
+@adapter_config(name=STATE.DRAFT.value,
                 required=IDocumentWorkflow,
                 provides=IWorkflowStateLabel)
 class DraftWorkflowStateLabelAdapter(ContextAdapter):

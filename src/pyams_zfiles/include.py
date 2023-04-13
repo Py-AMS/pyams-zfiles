@@ -173,7 +173,7 @@ def include_package(config):
                      config.registry.settings.get('pyams.zfiles.rest_container_route',
                                                   '/api/zfiles/rest'))
     config.add_route(REST_SYNCHRONIZER_ROUTE,
-                     config.registry.settings.get('pyams.zfiles.rest_synchronize_roue',
+                     config.registry.settings.get('pyams.zfiles.rest_synchronize_route',
                                                   '/api/zfiles/rest/synchronize'))
     config.add_route(REST_DOCUMENT_ROUTE,
                      config.registry.settings.get('pyams.zfiles.rest_document_route',

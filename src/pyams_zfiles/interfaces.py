@@ -27,8 +27,7 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from pyams_file.schema import FileField
 from pyams_security.interfaces import IContentRoles
 from pyams_security.schema import PrincipalField, PrincipalsSetField
-from pyams_workflow.interfaces import IWorkflow, IWorkflowManagedContent, \
-    IWorkflowPublicationSupport
+from pyams_workflow.interfaces import IWorkflow, IWorkflowManagedContent, IWorkflowPublicationSupport
 
 
 __docformat__ = 'restructuredtext'
@@ -118,45 +117,63 @@ class IDocumentWorkflow(IWorkflow):
     """Document workflow marker interface"""
 
 
-DRAFT_STATE = 'draft'
-PUBLISHED_STATE = 'published'
-ARCHIVED_STATE = 'archived'
-DELETED_STATE = 'deleted'
+class STATE(Enum):
+    """State modes"""
+    DRAFT = 'draft'
+    PUBLISHED = 'published'
+    ARCHIVED = 'archived'
+    DELETED = 'deleted'
+
+
+STATES_VALUES = tuple(map(lambda x: x.value, STATE))
+
 
 STATE_LABELS = {
-    DRAFT_STATE: _("Draft"),
-    PUBLISHED_STATE: _("Published"),
-    ARCHIVED_STATE: _("Archived"),
-    DELETED_STATE: _("Deleted")
+    STATE.DRAFT.value: _("Draft"),
+    STATE.PUBLISHED.value: _("Published"),
+    STATE.ARCHIVED.value: _("Archived"),
+    STATE.DELETED.value: _("Deleted")
+}
+
+STATES_HEADERS = {
+    STATE.DRAFT.value: _("draft created"),
+    STATE.PUBLISHED.value: _("published"),
+    STATE.ARCHIVED.value: _("archived")
+}
+
+STATES_VOCABULARY = SimpleVocabulary([
+    SimpleTerm(i, title=t)
+    for i, t in STATE_LABELS.items()
+])
+
+
+class ACCESS_MODE(IntEnum):
+    """Security policy access modes"""
+    PRIVATE = 0
+    PROTECTED = 1
+    PUBLIC = 2
+
+
+# Keep for compatibility reason
+AccessMode = ACCESS_MODE
+
+
+ACCESS_MODE_NAMES = {
+    ACCESS_MODE.PRIVATE.value: 'private',
+    ACCESS_MODE.PROTECTED.value: 'protected',
+    ACCESS_MODE.PUBLIC.value: 'public'
+}
+
+ACCESS_MODE_LABELS = {
+    ACCESS_MODE.PRIVATE.value: _("Private"),
+    ACCESS_MODE.PROTECTED.value: _("Protected"),
+    ACCESS_MODE.PUBLIC.value: _("Public")
 }
 
 
-class AccessMode(IntEnum):
-    """Access modes"""
-    private = 0  # pylint: disable=invalid-name
-    protected = 1  # pylint: disable=invalid-name
-    public = 2  # pylint: disable=invalid-name
-
-
-PRIVATE_MODE = AccessMode.private
-PROTECTED_MODE = AccessMode.protected
-PUBLIC_MODE = AccessMode.public
-
-ACCESS_MODE_IDS = [
-    'private',
-    'protected',
-    'public'
-]
-
-ACCESS_MODE_LABELS = (
-    _("Private"),
-    _("Protected"),
-    _("Public")
-)
-
-
 ACCESS_MODE_VOCABULARY = SimpleVocabulary([
-    SimpleTerm(i, t, t) for i, t in enumerate(ACCESS_MODE_LABELS)
+    SimpleTerm(i, title=t)
+    for i, t in ACCESS_MODE_LABELS.items()
 ])
 
 
@@ -202,13 +219,13 @@ class IDocumentVersion(IWorkflowPublicationSupport):
                          description=_("Access mode on this document"),
                          required=True,
                          vocabulary=ACCESS_MODE_VOCABULARY,
-                         default=PRIVATE_MODE)
+                         default=ACCESS_MODE.PRIVATE.value)
 
     update_mode = Choice(title=_("Update mode"),
                          description=_("Update mode on this document"),
                          required=True,
                          vocabulary=ACCESS_MODE_VOCABULARY,
-                         default=PRIVATE_MODE)
+                         default=ACCESS_MODE.PRIVATE.value)
 
     properties = PropertiesField(title=_("Properties"),
                                  description=_("List of free additional properties which can be "
