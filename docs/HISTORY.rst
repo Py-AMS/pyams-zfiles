@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.4.4
+-----
+ - updated Colander API schemas for better OpenAPI specifications
+ - added enums for workflow states
+
 1.4.3
 -----
  - updated translations
