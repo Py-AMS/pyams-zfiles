@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.5
+-----
+ - updated access and update modes management
+
 1.4.4
 -----
  - updated Colander API schemas for better OpenAPI specifications
