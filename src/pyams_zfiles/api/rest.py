@@ -29,10 +29,9 @@ from pyams_utils.dict import merge_dict
 from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.rest import BaseResponseSchema, DateRangeSchema, FileUploadType, PropertiesMapping, STATUS, \
     StringListSchema, http_error, rest_responses
-from pyams_zfiles.interfaces import ACCESS_MODE, ACCESS_MODE_NAMES, CREATE_DOCUMENT_PERMISSION, \
-    CREATE_DOCUMENT_WITH_OWNER_PERMISSION, DEFAULT_CONFIGURATION_NAME, IDocumentContainer, IDocumentSynchronizer, \
-    READ_DOCUMENT_PERMISSION, REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE, REST_SYNCHRONIZER_ROUTE, STATE, \
-    SYNCHRONIZE_PERMISSION
+from pyams_zfiles.interfaces import ACCESS_MODE, CREATE_DOCUMENT_PERMISSION, CREATE_DOCUMENT_WITH_OWNER_PERMISSION, \
+    DEFAULT_CONFIGURATION_NAME, IDocumentContainer, IDocumentSynchronizer, READ_DOCUMENT_PERMISSION, \
+    REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE, REST_SYNCHRONIZER_ROUTE, STATE, SYNCHRONIZE_PERMISSION
 
 
 __docformat__ = 'restructuredtext'
@@ -85,15 +84,19 @@ class EmptyDocumentInfo(MappingSchema):
                         missing=drop)
     access_mode = SchemaNode(String(),
                              description="Access mode",
-                             validator=OneOf([v for v in ACCESS_MODE_NAMES.values()]),
-                             default=ACCESS_MODE_NAMES[ACCESS_MODE.PRIVATE.value],
+                             validator=OneOf([ACCESS_MODE.PRIVATE.value,
+                                              ACCESS_MODE.PROTECTED.value,
+                                              ACCESS_MODE.PUBLIC.value]),
+                             default=ACCESS_MODE.PRIVATE.value,
                              missing=drop)
     readers = StringListSchema(description="Document readers IDs",
                                missing=drop)
     update_mode = SchemaNode(String(),
                              description="Update mode",
-                             validator=OneOf([v for v in ACCESS_MODE_NAMES.values()]),
-                             default=ACCESS_MODE_NAMES[ACCESS_MODE.PRIVATE.value],
+                             validator=OneOf([ACCESS_MODE.PRIVATE.value,
+                                              ACCESS_MODE.PROTECTED.value,
+                                              ACCESS_MODE.PUBLIC.value]),
+                             default=ACCESS_MODE.PRIVATE.value,
                              missing=drop)
     managers = StringListSchema(description="Document managers IDs",
                                 missing=drop)

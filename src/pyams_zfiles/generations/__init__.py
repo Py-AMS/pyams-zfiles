@@ -111,7 +111,7 @@ class ZFilesGenerationsChecker:
     """ZFiles generations checker"""
 
     order = 70
-    generation = 2
+    generation = 3
 
     def evolve(self, site, current=None):  # pylint: disable=unused-argument, no-self-use
         """Check for required utilities"""

@@ -45,10 +45,10 @@ from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_utils.vocabulary import vocabulary_config
 from pyams_workflow.interfaces import IWorkflowInfo, IWorkflowState
-from pyams_zfiles.interfaces import ACCESS_MODE, ACCESS_MODE_NAMES, DocumentContainerError, IDocument, \
+from pyams_zfiles.interfaces import ACCESS_MODE, DocumentContainerError, IDocument, \
     IDocumentContainer, IDocumentRoles, IDocumentVersion, MANAGE_APPLICATION_PERMISSION, \
-    MANAGE_DOCUMENT_PERMISSION, \
-    PYAMS_ZFILES_APPLICATIONS_VOCABULARY, READ_DOCUMENT_PERMISSION, ZFILES_WORKFLOW_NAME
+    MANAGE_DOCUMENT_PERMISSION, PYAMS_ZFILES_APPLICATIONS_VOCABULARY, READ_DOCUMENT_PERMISSION, \
+    ZFILES_WORKFLOW_NAME
 from pyams_zfiles.workflow import ZFILES_WORKFLOW
 
 
@@ -289,9 +289,9 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
             'updated_time': dc.modified.isoformat() if dc.modified else None,  # pylint: disable=no-member
             'status_updater': state.state_principal,
             'status_update_time': state.state_date.isoformat(),  # pylint: disable=no-member
-            'access_mode': ACCESS_MODE_NAMES[self.access_mode],
+            'access_mode': self.access_mode,
             'readers': list(roles.readers or ()),
-            'update_mode': ACCESS_MODE_NAMES[self.update_mode],
+            'update_mode': self.update_mode,
             'managers': list(roles.managers or ())
         }
         if fields:

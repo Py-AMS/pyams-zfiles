@@ -15,7 +15,7 @@
 This module defines ZFiles global package interfaces.
 """
 
-from enum import Enum, IntEnum
+from enum import Enum
 
 from zope.container.constraints import containers, contains
 from zope.container.interfaces import IBTreeContainer
@@ -147,22 +147,25 @@ STATES_VOCABULARY = SimpleVocabulary([
 ])
 
 
-class ACCESS_MODE(IntEnum):
+class ACCESS_MODE(Enum):
     """Security policy access modes"""
-    PRIVATE = 0
-    PROTECTED = 1
-    PUBLIC = 2
+    PRIVATE = 'private'
+    PROTECTED = 'protected'
+    PUBLIC = 'public'
+
+    @classmethod
+    def _missing_(cls, value):
+        if isinstance(value, int):
+            try:
+                return list(ACCESS_MODE)[value]
+            except IndexError:
+                pass
+        raise ValueError("%r is not a valid %s" % (value, cls.__name__))
 
 
 # Keep for compatibility reason
 AccessMode = ACCESS_MODE
 
-
-ACCESS_MODE_NAMES = {
-    ACCESS_MODE.PRIVATE.value: 'private',
-    ACCESS_MODE.PROTECTED.value: 'protected',
-    ACCESS_MODE.PUBLIC.value: 'public'
-}
 
 ACCESS_MODE_LABELS = {
     ACCESS_MODE.PRIVATE.value: _("Private"),
