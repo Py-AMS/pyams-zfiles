@@ -41,7 +41,7 @@ def evolve(site):
                     access_mode = version.access_mode
                     if isinstance(access_mode, int):
                         access_mode = modes[access_mode].value
-                    if  isinstance(access_mode, Enum):
+                    if isinstance(access_mode, Enum):
                         access_mode = access_mode.value
                     version.access_mode = access_mode
                     update_mode = version.update_mode
