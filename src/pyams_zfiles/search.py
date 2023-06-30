@@ -24,6 +24,7 @@ from hypatia.query import All, Any, Comparator, Eq, Ge, Le
 
 from pyams_catalog.query import and_, or_
 from pyams_utils.date import date_to_datetime
+from pyams_utils.interfaces.form import NO_VALUE_STRING
 from pyams_utils.timezone import gmtime
 
 
@@ -223,7 +224,7 @@ def make_query(catalog, params):
     """Make query from input parameters"""
     query = None
     for key, value in params.copy().items():
-        if (value is None) or (value == {'--NOVALUE--'}):
+        if (value is None) or (value == {NO_VALUE_STRING}):
             params.pop(key)
         elif key not in INDEX_ARGS:
             params.setdefault('properties', {}).setdefault(key, params.pop(key))
