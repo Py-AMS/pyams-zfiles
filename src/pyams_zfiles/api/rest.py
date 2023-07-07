@@ -28,7 +28,7 @@ from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_utils.dict import merge_dict
 from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.rest import BaseResponseSchema, DateRangeSchema, FileUploadType, PropertiesMapping, STATUS, \
-    StringListSchema, http_error, rest_responses
+    StringArraySchema, StringListSchema, http_error, rest_responses
 from pyams_zfiles.interfaces import ACCESS_MODE, CREATE_DOCUMENT_PERMISSION, CREATE_DOCUMENT_WITH_OWNER_PERMISSION, \
     DEFAULT_CONFIGURATION_NAME, IDocumentContainer, IDocumentSynchronizer, READ_DOCUMENT_PERMISSION, \
     REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE, REST_SYNCHRONIZER_ROUTE, STATE, SYNCHRONIZE_PERMISSION
@@ -307,6 +307,9 @@ class DocumentSearchQueryString(DocumentSearchQuery):
                                     description="Last workflow status update dates range in ISO-8601 format, separated "
                                                 "by commas; unset values should be replaced by *null*",
                                     missing=drop)
+    tags = SchemaNode(StringArraySchema(),
+                      description="List of documents tags, separated by commas",
+                      missing=drop)
     fields = SchemaNode(String(),
                         description="List of requested field names, separated by commas",
                         missing=drop)
