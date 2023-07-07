@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.6
+-----
+ - updated REST document search API schema
+
 1.4.5
 -----
  - updated access and update modes management
