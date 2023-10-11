@@ -15,8 +15,9 @@
 This module defines management views for synchronization utility.
 """
 
-from pyramid.events import subscriber
+from pyramid.decorator import reify
 from pyramid.view import view_config
+from pyramid.events import subscriber
 from zope.interface import Interface, Invalid
 
 from pyams_form.ajax import ajax_form_config
@@ -55,7 +56,7 @@ class DocumentSynchronizerConfigurationTable(Table):
 
     display_if_empty = True
 
-    @property
+    @reify
     def data_attributes(self):
         attributes = super().data_attributes
         synchronizer = IDocumentSynchronizer(self.context)
