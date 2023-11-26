@@ -22,10 +22,9 @@ from colander import DateTime, Int, MappingSchema, OneOf, SchemaNode, SequenceSc
 from cornice import Service
 from cornice.validators import colander_body_validator, colander_validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPCreated, HTTPError, HTTPForbidden, HTTPNotFound, HTTPOk, \
-    HTTPServiceUnavailable, HTTPUnauthorized
-from pyramid.security import Authenticated
+    HTTPServiceUnavailable
 
-from pyams_security.rest import check_cors_origin, set_cors_headers
+from pyams_security.rest import check_authentication, check_cors_origin, set_cors_headers
 from pyams_utils.dict import merge_dict
 from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.rest import BaseResponseSchema, DateRangeSchema, FileUploadType, PropertiesMapping, STATUS, \
@@ -33,7 +32,6 @@ from pyams_utils.rest import BaseResponseSchema, DateRangeSchema, FileUploadType
 from pyams_zfiles.interfaces import ACCESS_MODE, CREATE_DOCUMENT_PERMISSION, CREATE_DOCUMENT_WITH_OWNER_PERMISSION, \
     DEFAULT_CONFIGURATION_NAME, IDocumentContainer, IDocumentSynchronizer, READ_DOCUMENT_PERMISSION, \
     REST_CONTAINER_ROUTE, REST_DOCUMENT_ROUTE, REST_SYNCHRONIZER_ROUTE, STATE, SYNCHRONIZE_PERMISSION
-
 
 __docformat__ = 'restructuredtext'
 
@@ -374,12 +372,11 @@ container_get_responses[HTTPOk.code] = DocumentSearchResponse(
 
 @container_service.get(content_type=('application/json', 'multipart/form-data'),
                        schema=DocumentSearchRequest(),
-                       validators=(check_cors_origin, colander_validator, set_cors_headers),
+                       validators=(check_cors_origin, check_authentication,
+                                   colander_validator, set_cors_headers),
                        response_schemas=container_get_responses)
 def find_documents(request):
     """Find documents matching specified properties"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     if TEST_MODE:
         properties = request.params.copy()
     else:
@@ -409,12 +406,11 @@ container_post_responses[HTTPOk.code] = ContainerCreationResponse(
 
 @container_service.post(content_type=('application/json', 'multipart/form-data'),
                         schema=NewDocumentInfo(),
-                        validators=(check_cors_origin, colander_body_validator, set_cors_headers),
+                        validators=(check_cors_origin, check_authentication,
+                                    colander_body_validator, set_cors_headers),
                         require_csrf=False)
 def create_document(request):
     """Create new ZFiles document using multipart/form-data encoding"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     container = query_utility(IDocumentContainer)
     if container is None:
         return http_error(request, HTTPServiceUnavailable)
@@ -464,13 +460,12 @@ synchronizer_put_responses[HTTPOk.code] = SynchronizerPutResponse(
 
 @synchronizer_service.put(content_type=('application/json', 'multipart/form-data'),
                           schema=DocumentsSynchronizeInfo(),
-                          validators=(check_cors_origin, colander_body_validator, set_cors_headers),
+                          validators=(check_cors_origin, check_authentication,
+                                      colander_body_validator, set_cors_headers),
                           require_csrf=False,
                           response_schemas=synchronizer_put_responses)
 def synchronizer_put(request):
     """Document synchronizer request"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     params = request.params.copy() if TEST_MODE else request.validated.copy()
     container = get_utility(IDocumentContainer)
     synchronizer = IDocumentSynchronizer(container)
@@ -529,12 +524,11 @@ document_get_responses[HTTPOk.code] = DocumentGetResponse(
 
 
 @document_service.get(schema=DocumentGetRequest(),
-                      validators=(check_cors_origin, colander_validator, set_cors_headers),
+                      validators=(check_cors_origin, check_authentication,
+                                  colander_validator, set_cors_headers),
                       response_schemas=document_get_responses)
 def get_document(request):
     """Retrieve existing document information"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     container = get_utility(IDocumentContainer)
     document = container.get_document(*get_ids(request))
     if document is None:
@@ -563,13 +557,12 @@ document_import_responses[HTTPOk.code] = DocumentImportResponse(
 
 @document_service.post(content_type=('application/json', 'multipart/form-data'),
                        schema=ImportedDocumentInfo(),
-                       validators=(check_cors_origin, colander_body_validator, set_cors_headers),
+                       validators=(check_cors_origin, check_authentication,
+                                   colander_body_validator, set_cors_headers),
                        require_csrf=False,
                        response_schemas=document_import_responses)
 def import_document(request):
     """Import document from other ZFiles database"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     container = get_utility(IDocumentContainer)
     if not request.has_permission(CREATE_DOCUMENT_WITH_OWNER_PERMISSION, context=container):
         raise HTTPForbidden()
@@ -602,13 +595,12 @@ document_update_responses[HTTPOk.code] = DocumentUpdateResponse(
 
 @document_service.patch(content_type=('application/json', 'multipart/form-data'),
                         schema=EmptyDocumentInfo(),
-                        validators=(check_cors_origin, colander_body_validator, set_cors_headers),
+                        validators=(check_cors_origin, check_authentication,
+                                    colander_body_validator, set_cors_headers),
                         require_csrf=False,
                         response_schemas=document_update_responses)
 def patch_document(request):
     """Update existing document properties, excluding file data"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     oid, version = get_ids(request)
     container = get_utility(IDocumentContainer)
     properties = request.params.copy() if TEST_MODE else request.validated.copy()
@@ -636,13 +628,12 @@ document_data_update_responses[HTTPOk.code] = DocumentDataUpdateResponse(
 
 @document_service.put(content_type=('application/json', 'multipart/form-data'),
                       schema=DocumentInfoWithData(),
-                      validators=(check_cors_origin, colander_body_validator, set_cors_headers),
+                      validators=(check_cors_origin, check_authentication,
+                                  colander_body_validator, set_cors_headers),
                       require_csrf=False,
                       response_schemas=document_data_update_responses)
 def put_document(request):
     """Update existing document content"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     oid, version = get_ids(request)
     container = get_utility(IDocumentContainer)
     properties = request.params.copy() if TEST_MODE else request.validated.copy()
@@ -674,12 +665,11 @@ document_delete_responses[HTTPOk.code] = DocumentDeleteResponse(
 
 
 @document_service.delete(require_csrf=False,
-                         validators=(check_cors_origin, set_cors_headers),
+                         validators=(check_cors_origin, check_authentication,
+                                     set_cors_headers),
                          response_schemas=document_delete_responses)
 def delete_document(request):
     """Delete existing document content"""
-    if Authenticated not in request.effective_principals:
-        return http_error(request, HTTPUnauthorized)
     oid, _version = get_ids(request)
     container = get_utility(IDocumentContainer)
     try:
