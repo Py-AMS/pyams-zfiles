@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.1
+-----
+ - upgraded to Pyramid 2.0
+ - updated tests for unauthenticated requests
+
 1.4.6
 -----
  - updated REST document search API schema

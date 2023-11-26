@@ -23,7 +23,7 @@ DOCS = os.path.join(os.path.dirname(__file__),
 README = os.path.join(DOCS, 'README.rst')
 HISTORY = os.path.join(DOCS, 'HISTORY.rst')
 
-version = '1.4.6'
+version = '2.0.0'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
@@ -81,7 +81,7 @@ setup(name='pyams_zfiles',
           'pyams_site',
           'pyams_utils >= 1.14.0',
           'pyams_workflow',
-          'pyramid',
+          'pyramid >= 2.0.0',
           'pyramid_rpc',
           'python-dateutil',
           'zope.container',
