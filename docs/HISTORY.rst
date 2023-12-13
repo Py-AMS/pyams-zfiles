@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.1
+-----
+ - updated modal forms title
+ - small updates in documents workflow
+
 2.0.0
 -----
  - upgraded to Pyramid 2.0
