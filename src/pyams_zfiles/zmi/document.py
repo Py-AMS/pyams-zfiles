@@ -19,6 +19,7 @@ from zope.interface import Interface
 
 from pyams_form.browser.textlines import TextLinesFieldWidget
 from pyams_form.field import Fields
+from pyams_form.interfaces.form import IForm
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
 from pyams_skin.interfaces.view import IModalPage
@@ -38,7 +39,6 @@ from pyams_zmi.table import TableElementEditor
 from pyams_zmi.utils import get_object_label
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
-
 __docformat__ = 'restructuredtext'
 
 from pyams_zfiles import _  # pylint: disable=ungrouped-imports
@@ -48,7 +48,7 @@ from pyams_zfiles import _  # pylint: disable=ungrouped-imports
                 provides=IObjectLabel)
 def document_version_label(context):
     """Document version label getter"""
-    return f'{context.oid} ({context.title})'
+    return f'{context.title} ({context.oid})'
 
 
 @adapter_config(required=IDocumentVersion,
@@ -91,11 +91,6 @@ class DocumentPropertiesDisplayForm(AdminDisplayForm):
 
     back_url_target = None
 
-    @property
-    def title(self):
-        """Title getter"""
-        return self.context.title
-
     legend = _("Document properties")
     label_css_class = 'col-sm-3'
     input_css_class = 'col-sm-9'
@@ -123,6 +118,13 @@ def document_modal_page_title(context, request, view):
     """Document modal page title"""
     container = get_parent(context, IDocumentContainer)
     return get_object_label(container, request, view)
+
+
+@adapter_config(required=(IDocumentVersion, IAdminLayer, IForm),
+                provides=IFormTitle)
+def document_form_title(context, request, view):
+    """Document form title adapter"""
+    return f'{document_version_title(context)} - {context.application_name}'
 
 
 @adapter_config(required=(IDocumentVersion, IAdminLayer, IModalPage),

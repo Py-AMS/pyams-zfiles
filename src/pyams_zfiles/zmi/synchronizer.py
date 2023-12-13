@@ -25,6 +25,7 @@ from pyams_form.field import Fields
 from pyams_form.interfaces import DISPLAY_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_layer.interfaces import IPyAMSLayer
+from pyams_skin.interfaces.view import IModalEditForm
 from pyams_skin.interfaces.viewlet import IFormFooterViewletManager
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.column import GetAttrColumn
@@ -39,11 +40,13 @@ from pyams_zfiles.zmi import DocumentContainerConfigurationEditForm
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.helper.container import delete_container_element, switch_element_attribute
 from pyams_zmi.helper.event import get_json_table_row_refresh_callback
-from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
+from pyams_zmi.interfaces import IAdminLayer, IObjectLabel, TITLE_SPAN_BREAK
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IToolbarViewletManager
 from pyams_zmi.table import ActionColumn, AttributeSwitcherColumn, I18nColumnMixin, \
     InnerTableAdminView, Table, TableElementEditor, TrashColumn
+from pyams_zmi.utils import get_object_label
 
 
 __docformat__ = 'restructuredtext'
@@ -196,14 +199,7 @@ class ConfigurationAddAction(ContextAddAction):
 class ConfigurationAddForm(AdminModalAddForm):
     """Documents synchronizer configuration add form"""
 
-    @property
-    def title(self):
-        translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Documents synchronizer")),
-            translate(_("Add new configuration"))
-        )
-
+    subtitle = _("New configuration")
     legend = _("New configuration properties")
 
     fields = Fields(IDocumentSynchronizerConfiguration).omit('enabled')
@@ -212,6 +208,16 @@ class ConfigurationAddForm(AdminModalAddForm):
     def add(self, obj):
         synchronizer = IDocumentSynchronizer(self.context)
         synchronizer[obj.name] = obj
+
+
+@adapter_config(required=(IDocumentContainer, IAdminLayer, ConfigurationAddForm),
+                provides=IFormTitle)
+def document_container_form_title(context, request, form):
+    """Document container synchronizer configuration add form title"""
+    translate = request.localizer.translate
+    return TITLE_SPAN_BREAK.format(
+        get_object_label(context, request, form),
+        translate(_("Documents synchronizer")))
 
 
 @subscriber(IDataExtractedEvent, form_selector=ConfigurationAddForm)
@@ -236,12 +242,9 @@ class ConfigurationEditForm(AdminModalEditForm):
     """Documents synchronizer configuration edit form"""
 
     @property
-    def title(self):
+    def subtitle(self):
         translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Documents synchronizer")),
-            translate(_("<i>{}</i> configuration properties")).format(self.context.name)
-        )
+        return translate(_("Configuration: {}")).format(self.context.name)
 
     legend = _("Configuration properties")
 
@@ -252,6 +255,14 @@ class ConfigurationEditForm(AdminModalEditForm):
         name = self.widgets.get('name')
         if name is not None:
             name.mode = DISPLAY_MODE
+
+
+@adapter_config(required=(IDocumentSynchronizerConfiguration, IAdminLayer, IModalEditForm),
+                provides=IFormTitle)
+def document_synchronizer_edit_form_title(context, request, form):
+    """Document synchronizer configuration edit form title"""
+    container = get_parent(context, IDocumentContainer)
+    return document_container_form_title(container, request, form)
 
 
 @adapter_config(name='apply',
