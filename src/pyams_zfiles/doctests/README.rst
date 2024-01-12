@@ -93,7 +93,7 @@ Adding new documents
     ...     'owner': 'admin:admin',
     ...     'filename': 'test.txt',
     ...     'tags': ['Tag 1', 'Tag 2'],
-    ...     'properties': {'Custom 3': 'Value 3'},
+    ...     'properties': {'Custom 3': 'Value 3', 'Custom 4': 'Value 4;Value 5'},
     ...     'Custom 1': "Value 1",
     ...     'Custom 2': "Value 2"
     ... }
@@ -120,7 +120,7 @@ Adding new documents
      'managers': [],
      'oid': 'ZF:...',
      'owner': 'admin:admin',
-     'properties': {'Custom 1': 'Value 1', 'Custom 2': 'Value 2', 'Custom 3': 'Value 3'},
+     'properties': {'Custom 1': 'Value 1', 'Custom 2': 'Value 2', 'Custom 3': 'Value 3', 'Custom 4': 'Value 4;Value 5'},
      'readers': [],
      'status': 'draft',
      'status_update_time': '...T...',
@@ -186,7 +186,8 @@ Updating document
      'owner': 'admin:admin',
      'properties': {'Custom 1': 'Value 1',
                     'Custom 2': 'Value 2',
-                    'Custom 3': 'Value 3'},
+                    'Custom 3': 'Value 3',
+                    'Custom 4': 'Value 4;Value 5'},
      'readers': [],
      'status': 'published',
      'status_update_time': '...T...',
@@ -232,7 +233,8 @@ Updating document content
      'owner': 'admin:admin',
      'properties': {'Custom 1': 'Value 1',
                     'Custom 2': 'Value 2',
-                    'Custom 3': 'Value 3'},
+                    'Custom 3': 'Value 3',
+                    'Custom 4': 'Value 4;Value 5'},
      'readers': [],
      'status': 'draft',
      'status_update_time': '...T...',
@@ -315,6 +317,13 @@ Extra properties which are not from base document properties are automatically i
 *properties*:
 
     >>> documents = utility.find_documents({'Custom 1': 'Value 1'})
+    >>> len(list(documents))
+    1
+
+When defining "multi-values" properties separated with semicolons, you can search documents by individual
+values:
+
+    >>> documents = utility.find_documents({'Custom 4': 'Value 4'})
     >>> len(list(documents))
     1
 
