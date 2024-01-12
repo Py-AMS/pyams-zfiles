@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.3
+-----
+ - updated properties index values getter to correctly split values
+
 2.0.2
 -----
  - version mismatch
