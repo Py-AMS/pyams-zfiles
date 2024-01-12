@@ -138,7 +138,9 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
             return None
         return [
             f'{key}={val}'
-            for key, val in self.properties.items()
+            for key, value in self.properties.items()
+            for val in value.split(';')
+            if val
         ]
 
     @property
