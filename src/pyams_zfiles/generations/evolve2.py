@@ -21,7 +21,7 @@ from enum import Enum
 
 import transaction
 
-from pyams_utils.container import find_objects_providing
+from pyams_utils.finder import find_objects_providing
 from pyams_utils.registry import get_local_registry, query_utility, set_local_registry
 from pyams_workflow.interfaces import IWorkflowVersions
 from pyams_zfiles.interfaces import ACCESS_MODE, IDocument, IDocumentContainer, IDocumentVersion
