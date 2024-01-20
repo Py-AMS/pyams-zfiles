@@ -39,14 +39,41 @@ from pyams_zfiles import _
 # API endpoints
 #
 
-REST_CONTAINER_ROUTE = 'zfiles.rest.container'
-REST_DOCUMENT_ROUTE = 'zfiles.rest.document'
-REST_SYNCHRONIZER_ROUTE = 'zfiles.rest.synchronizer'
+REST_CONTAINER_ROUTE = 'pyams_zfiles.rest.container'
+'''ZFiles container REST API route name'''
 
-GRAPHQL_API_ROUTE = 'zfiles.graphql'
+REST_CONTAINER_PATH = '/api/zfiles/rest'
+'''ZFiles container REST API default path'''
 
-JSONRPC_ENDPOINT = 'zfiles.jsonrpc'
-XMLRPC_ENDPOINT = 'zfiles.xmlrpc'
+REST_DOCUMENT_ROUTE = 'pyams_zfiles.rest.document'
+'''ZFiles document REST API route name'''
+
+REST_DOCUMENT_PATH = '/api/zfiles/rest/{oid}*version'
+'''ZFiles document REST API default path'''
+
+REST_SYNCHRONIZER_ROUTE = 'pyams_zfiles.rest.synchronizer'
+'''ZFiles synchronizer REST API route name'''
+
+REST_SYNCHRONIZER_PATH = '/api/zfiles/rest/synchronize'
+'''ZFiles synchronizer REST API default path'''
+
+GRAPHQL_API_ROUTE = 'pyams_zfiles.graphql'
+'''ZFiles GraphQL API route name'''
+
+GRAPHQL_API_PATH = '/api/zfiles/graphql'
+'''ZFiles GraphQL API default path'''
+
+JSONRPC_ENDPOINT = 'pyams_zfiles.jsonrpc'
+'''ZFiles JSON-RPC endpoint name'''
+
+JSONRPC_PATH = '/api/zfiles/jsonrpc'
+'''ZFiles JSON-RPC default path'''
+
+XMLRPC_ENDPOINT = 'pyams_zfiles.xmlrpc'
+'''ZFiles XML-RPC endpoint name'''
+
+XMLRPC_PATH = '/api/zfiles/xmlrpc'
+'''ZFiles XML-RPC default path'''
 
 
 #
@@ -54,11 +81,11 @@ XMLRPC_ENDPOINT = 'zfiles.xmlrpc'
 #
 
 PYAMS_ZFILES_SKIN_NAME = 'PyAMS.zfiles.skin'
-"""Custom ZFiles skin name"""
+'''Custom ZFiles skin name'''
 
 
 PYAMS_ZFILES_APPLICATIONS_VOCABULARY = 'PyAMS.zfiles.applications'
-"""Name of registered applications vocabulary"""
+'''Name of registered applications vocabulary'''
 
 
 #
