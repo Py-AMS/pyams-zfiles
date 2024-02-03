@@ -13,6 +13,7 @@
 """
 This module contains PyAMS zfiles package
 """
+
 import os
 from setuptools import setup, find_packages
 
@@ -23,7 +24,7 @@ DOCS = os.path.join(os.path.dirname(__file__),
 README = os.path.join(DOCS, 'README.rst')
 HISTORY = os.path.join(DOCS, 'HISTORY.rst')
 
-version = '2.0.5'
+version = '2.0.6'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
