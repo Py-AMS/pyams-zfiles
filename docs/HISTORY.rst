@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.5
+-----
+ - corrected faulty import
+
 2.0.4
 -----
  - updated REST API route name and configuration setting name
