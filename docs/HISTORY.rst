@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.4
+-----
+ - updated REST API route name and configuration setting name
+ - moved objects finder helper to new module
+ - updated doctests
+
 2.0.3
 -----
  - updated properties index values getter to correctly split values

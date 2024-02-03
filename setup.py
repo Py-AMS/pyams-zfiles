@@ -23,7 +23,7 @@ DOCS = os.path.join(os.path.dirname(__file__),
 README = os.path.join(DOCS, 'README.rst')
 HISTORY = os.path.join(DOCS, 'HISTORY.rst')
 
-version = '2.0.3'
+version = '2.0.4'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
@@ -79,7 +79,7 @@ setup(name='pyams_zfiles',
           'pyams_layer',
           'pyams_security >= 1.10.5',
           'pyams_site',
-          'pyams_utils >= 1.14.0',
+          'pyams_utils >= 2.2.0',
           'pyams_workflow',
           'pyramid >= 2.0.0',
           'pyramid_rpc',
