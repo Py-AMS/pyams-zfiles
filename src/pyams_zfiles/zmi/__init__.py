@@ -30,7 +30,7 @@ from pyams_viewlet.viewlet import viewlet_config
 from pyams_zfiles.interfaces import IDocumentContainer, MANAGE_APPLICATION_PERMISSION, \
     MANAGE_DOCUMENT_PERMISSION
 from pyams_zmi.form import AdminEditForm
-from pyams_zmi.interfaces import IAdminLayer
+from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IControlPanelMenu, IMenuHeader, IPropertiesMenu, \
     ISiteManagementMenu
@@ -38,10 +38,16 @@ from pyams_zmi.table import TableElementEditor
 from pyams_zmi.zmi.viewlet.breadcrumb import AdminLayerBreadcrumbItem
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
-
 __docformat__ = 'restructuredtext'
 
 from pyams_zfiles import _  # pylint: disable=ungrouped-imports
+
+
+@adapter_config(required=IDocumentContainer,
+                provides=IObjectLabel)
+def document_container_label(context):
+    """Document container label getter"""
+    return context.__name__
 
 
 @viewlet_config(name='document-container.menu',
