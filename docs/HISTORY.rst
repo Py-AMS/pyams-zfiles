@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.7
+-----
+ - switched default timezone to UTC
+
 2.0.6
 -----
  - added missing documents container label provider
