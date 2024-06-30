@@ -29,7 +29,6 @@ from pyams_security.interfaces import IContentRoles
 from pyams_security.schema import PrincipalField, PrincipalsSetField
 from pyams_workflow.interfaces import IWorkflow, IWorkflowManagedContent, IWorkflowPublicationSupport
 
-
 __docformat__ = 'restructuredtext'
 
 from pyams_zfiles import _
@@ -370,7 +369,8 @@ class IDocumentContainer(IBTreeContainer):
         """
 
     # pylint: disable=too-many-arguments
-    def update_document(self, oid, version=None, data=None, properties=None, request=None):
+    def update_document(self, oid, version=None, data=None, properties=None, request=None,
+                        check_permission=True):
         """Update document data or properties"""
 
     def delete_document(self, oid):
