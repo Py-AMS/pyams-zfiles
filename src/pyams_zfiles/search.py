@@ -121,13 +121,13 @@ def get_date(value):
     >>> get_date('null') is None
     True
     >>> get_date(datetime(2021, 12, 3))
-    datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>)
+    datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>)
     >>> get_date(datetime(2021, 12, 3).isoformat())
-    datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>)
+    datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>)
     >>> get_date(datetime(2021, 12, 3, 12, 0, 0))
-    datetime.datetime(2021, 12, 3, 12, 0, tzinfo=<StaticTzInfo 'GMT'>)
+    datetime.datetime(2021, 12, 3, 12, 0, tzinfo=<UTC>)
     >>> get_date(datetime(2021, 12, 3, 12, 0, 0).isoformat())
-    datetime.datetime(2021, 12, 3, 12, 0, tzinfo=<StaticTzInfo 'GMT'>)
+    datetime.datetime(2021, 12, 3, 12, 0, tzinfo=<UTC>)
     """
     if value and isinstance(value, str):
         if value == NULL_STRING:
@@ -148,19 +148,19 @@ def get_range(value):
     >>> get_range((None, None))
     (None, None)
     >>> get_range((datetime(2021, 12, 3), None))
-    (datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>), None)
+    (datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>), None)
     >>> get_range('2021-12-03,null')
-    (datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>), None)
+    (datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>), None)
     >>> get_range((None, datetime(2021, 12, 3)))
-    (None, datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
+    (None, datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>))
     >>> get_range('null,2021-12-03')
-    (None, datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
+    (None, datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>))
     >>> get_range((datetime(2021, 12, 1), datetime(2021, 12, 3)))
-    (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<StaticTzInfo 'GMT'>),
-     datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
+    (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<UTC>),
+     datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>))
     >>> get_range('2021-12-01,2021-12-03')
-    (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<StaticTzInfo 'GMT'>),
-     datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<StaticTzInfo 'GMT'>))
+    (datetime.datetime(2021, 12, 1, 0, 0, tzinfo=<UTC>),
+     datetime.datetime(2021, 12, 3, 0, 0, tzinfo=<UTC>))
     """
     if isinstance(value, str):
         value = value.split(LIST_SEPARATOR)
