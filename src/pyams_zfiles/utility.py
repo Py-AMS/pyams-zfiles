@@ -16,7 +16,7 @@ This module provides main documents container utility classes.
 """
 
 import datetime
-from datetime import datetime
+from datetime import datetime, timezone
 from xmlrpc.client import DateTime
 
 from dateutil import parser
@@ -49,7 +49,6 @@ from pyams_zfiles.folder import DocumentFolder
 from pyams_zfiles.interfaces import CREATE_DOCUMENT_WITH_OWNER_PERMISSION, IDocumentContainer, IDocumentContainerRoles, \
     IDocumentFolder, IDocumentVersion, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, STATE
 from pyams_zfiles.search import make_query
-
 
 __docformat__ = 'restructuredtext'
 
@@ -109,7 +108,7 @@ class DocumentContainer(ProtectedObjectMixin, Folder):
             properties['owner'] = request.principal.id
         properties['creator'] = request.principal.id
         # check storage folders
-        folder = self._get_folder(datetime.utcnow())
+        folder = self._get_folder(datetime.now(timezone.utc))
         # create document and first version
         document, version = self._create_document(registry, folder)
         # update document data and properties

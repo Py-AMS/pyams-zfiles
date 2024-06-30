@@ -15,7 +15,7 @@
 This module defines base ZFiles workflow.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from zope.copy import copy
 from zope.interface import implementer
@@ -31,7 +31,6 @@ from pyams_workflow.interfaces import IWorkflow, IWorkflowInfo, IWorkflowPublica
 from pyams_workflow.workflow import Transition, Workflow
 from pyams_zfiles.interfaces import IDocument, IDocumentFolder, IDocumentWorkflow, MANAGE_DOCUMENT_PERMISSION, STATE, \
     STATES_HEADERS, STATES_VOCABULARY, ZFILES_WORKFLOW_NAME
-
 
 __docformat__ = 'restructuredtext'
 
@@ -83,7 +82,7 @@ def publish_action(wf, context):  # pylint: disable=invalid-name,unused-argument
     request = check_request()
     translate = request.localizer.translate
     publication_info = IWorkflowPublicationInfo(context)
-    publication_info.publication_date = datetime.utcnow()
+    publication_info.publication_date = datetime.now(timezone.utc)
     publication_info.publisher = request.principal.id
     version_id = IWorkflowState(context).version_id
     for version in IWorkflowVersions(context).get_versions((STATE.PUBLISHED.value, )):
