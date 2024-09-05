@@ -108,7 +108,13 @@ class DocumentContainer(ProtectedObjectMixin, Folder):
             properties['owner'] = request.principal.id
         properties['creator'] = request.principal.id
         # check storage folders
-        folder = self._get_folder(datetime.now(timezone.utc))
+        created_time = properties.pop('created_time', None)
+        if isinstance(created_time, DateTime):
+            folder = self._get_folder(parser.parse(created_time.value))
+        elif isinstance(created_time, str):
+            folder = self._get_folder(parser.parse(created_time))
+        else:
+            folder = self._get_folder(datetime.now(timezone.utc))
         # create document and first version
         document, version = self._create_document(registry, folder)
         # update document data and properties

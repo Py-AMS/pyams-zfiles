@@ -119,6 +119,9 @@ class NewDocumentInfo(DocumentInfoWithData):
                                   description="Source application name")
     filename = SchemaNode(String(),
                           description="Document file name")
+    created_time = SchemaNode(String(),
+                              description="Document creation timestamp",
+                              missing=drop)
     data = SchemaNode(FileUploadType(),
                       description="Document data; may be provided in Base64 when using JSON",
                       missing=drop)
