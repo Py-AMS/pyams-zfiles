@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.1.0
+-----
+ - added optional "created_time" argument to document creation API
+
 2.0.7
 -----
  - switched default timezone to UTC
