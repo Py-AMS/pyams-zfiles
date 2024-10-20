@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.2.0
+-----
+ - added support for custom catalog indexes for selected documents properties
+
 2.1.0
 -----
  - added optional "created_time" argument to document creation API
