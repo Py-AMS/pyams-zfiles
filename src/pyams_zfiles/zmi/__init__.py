@@ -26,6 +26,7 @@ from pyams_skin.interfaces.viewlet import IBreadcrumbItem
 from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.url import absolute_url
+from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zfiles.interfaces import IDocumentContainer, MANAGE_APPLICATION_PERMISSION, \
     MANAGE_DOCUMENT_PERMISSION
@@ -109,11 +110,11 @@ class DocumentContainerBreadcrumbItem(AdminLayerBreadcrumbItem):
     label = _("Documents container")
 
 
-@viewlet_config(name='configuration.menu',
-                context=IDocumentContainer, layer=IAdminLayer,
-                manager=ISiteManagementMenu, weight=20,
-                permission=MANAGE_APPLICATION_PERMISSION,
-                provides=IPropertiesMenu)
+@viewletmanager_config(name='configuration.menu',
+                       context=IDocumentContainer, layer=IAdminLayer,
+                       manager=ISiteManagementMenu, weight=20,
+                       permission=MANAGE_APPLICATION_PERMISSION,
+                       provides=IPropertiesMenu)
 class DocumentContainerPropertiesMenu(NavigationMenuItem):
     """Document container properties menu"""
 

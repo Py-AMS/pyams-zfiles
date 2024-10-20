@@ -25,11 +25,13 @@ from hypatia.query import All, Any, Comparator, Eq, Ge, Le
 from pyams_catalog.query import and_, or_
 from pyams_utils.date import date_to_datetime
 from pyams_utils.interfaces.form import NO_VALUE_STRING
+from pyams_utils.registry import get_utility
 from pyams_utils.timezone import gmtime
 
 
 __docformat__ = 'restructuredtext'
 
+from pyams_zfiles.interfaces import ICatalogPropertiesIndexesContainer, IDocumentContainer
 
 NULL_STRING = 'null'
 LIST_SEPARATOR = ','
@@ -167,7 +169,7 @@ def get_range(value):
     return tuple(map(get_date, value))
 
 
-class InList:
+class InPropertiesList:
     """Check for list items
 
     Items are provided as a dict of sets, where dict keys are the names of searched properties
@@ -175,12 +177,21 @@ class InList:
     values are combined with an "or"; different properties are combined with an "and".
     """
 
+    def __init__(self):
+        container = get_utility(IDocumentContainer)
+        self.index_names = ICatalogPropertiesIndexesContainer(container).index_names
+        
     def __call__(self, params, catalog, index, value):
         for key, vals in value.items():
             queries = None
             for val in vals:
-                queries = or_(queries,
-                              Eq(catalog[index], f'{key}={val}'))
+                if key in self.index_names:
+                    index = f'zfile_property::{key}'
+                    queries = or_(queries,
+                                  Eq(catalog[index], val))
+                else:
+                    queries = or_(queries,
+                                  Eq(catalog[index], f'{key}={val}'))
             params = and_(params, queries)
         return params
 
@@ -207,7 +218,7 @@ INDEX_ARGS = {
     'title': (str.strip, Eq, 'zfile_title'),
     'application_name': (str.strip, Eq, 'zfile_application'),
     'hash': (str.strip, Eq, 'zfile_hash'),
-    'properties': (get_properties, InList, 'zfile_properties'),
+    'properties': (get_properties, InPropertiesList, 'zfile_properties'),
     'tags': (get_list, All, 'zfile_tags'),
     'status': (get_list, Any, 'workflow_state'),
     'creator': (get_list, Any, 'zfile_creator'),

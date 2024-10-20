@@ -485,3 +485,30 @@ class IDocumentSynchronizer(IBTreeContainer):
 
     def synchronize_all(self, imported=None, deleted=None, request=None, configuration=None):
         """Synchronize all imported and deleted OIDs with remote container"""
+
+
+#
+# Custom catalog properties indexes
+#
+
+CATALOG_PROPERTIES_INDEXES_KEY = 'pyams_zfiles.catalog.indexes'
+
+
+class ICatalogPropertyIndex(Interface):
+    """Catalog property index interface"""
+    
+    property_name = TextLine(title=_("Property name"),
+                             description=_("Name of the property used to create index"),
+                             required=True)
+
+
+class ICatalogPropertiesIndexesContainer(IBTreeContainer):
+    """Catalog properties indexes container interface"""
+    
+    contains(ICatalogPropertyIndex)
+    
+    index_names = Attribute("List of properties indexes names")
+
+
+class ICatalogPropertiesIndexesContainerTarget(Interface):
+    """Catalog properties indexes container target marker interface"""

@@ -68,14 +68,25 @@ Adding new documents
     >>> from pyams_utils.registry import set_local_registry
     >>> set_local_registry(app.getSiteManager())
 
+    >>> from pyams_utils.factory import create_object
     >>> from pyams_utils.registry import get_utility
-    >>> from pyams_zfiles.interfaces import IDocumentContainer
+    >>> from pyams_zfiles.interfaces import IDocumentContainer, ICatalogPropertyIndex, ICatalogPropertiesIndexesContainer
 
     >>> utility = get_utility(IDocumentContainer)
     >>> utility
     <pyams_zfiles.utility.DocumentContainer object at 0x...>
 
     >>> utility.oid_prefix = 'ZF:'
+
+    >>> indexes = ICatalogPropertiesIndexesContainer(utility)
+    >>> index = create_object(ICatalogPropertyIndex)
+    >>> index.property_name = 'Custom 4'
+    >>> indexes.append(index)
+
+    >>> from hypatia.interfaces import ICatalog
+    >>> from pyams_zfiles.index import DocumentPropertyIndex
+    >>> catalog = get_utility(ICatalog)
+    >>> catalog['zfile_property::Custom 4'] = DocumentPropertyIndex('Custom 4')
 
     >>> import base64
     >>> from pyams_security.principal import PrincipalInfo

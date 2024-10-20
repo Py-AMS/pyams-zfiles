@@ -46,7 +46,8 @@ from pyams_workflow.interfaces import IWorkflowInfo, IWorkflowState, IWorkflowVe
 from pyams_workflow.versions import get_last_version
 from pyams_zfiles.document import Document, DocumentVersion, get_hash
 from pyams_zfiles.folder import DocumentFolder
-from pyams_zfiles.interfaces import CREATE_DOCUMENT_WITH_OWNER_PERMISSION, IDocumentContainer, IDocumentContainerRoles, \
+from pyams_zfiles.interfaces import CREATE_DOCUMENT_WITH_OWNER_PERMISSION, ICatalogPropertiesIndexesContainerTarget, \
+    IDocumentContainer, IDocumentContainerRoles, \
     IDocumentFolder, IDocumentVersion, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, STATE
 from pyams_zfiles.search import make_query
 
@@ -56,7 +57,7 @@ from pyams_zfiles import _
 
 
 @factory_config(IDocumentContainer)
-@implementer(IDefaultProtectionPolicy)
+@implementer(IDefaultProtectionPolicy, ICatalogPropertiesIndexesContainerTarget)
 class DocumentContainer(ProtectedObjectMixin, Folder):
     """Document container utility"""
 

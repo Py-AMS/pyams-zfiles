@@ -45,7 +45,7 @@ from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_utils.vocabulary import vocabulary_config
 from pyams_workflow.interfaces import IWorkflowInfo, IWorkflowState
-from pyams_zfiles.interfaces import ACCESS_MODE, DocumentContainerError, IDocument, \
+from pyams_zfiles.interfaces import ACCESS_MODE, DocumentContainerError, ICatalogPropertiesIndexesContainer, IDocument, \
     IDocumentContainer, IDocumentRoles, IDocumentVersion, MANAGE_APPLICATION_PERMISSION, \
     MANAGE_DOCUMENT_PERMISSION, PYAMS_ZFILES_APPLICATIONS_VOCABULARY, READ_DOCUMENT_PERMISSION, \
     ZFILES_WORKFLOW_NAME
@@ -53,6 +53,9 @@ from pyams_zfiles.workflow import ZFILES_WORKFLOW
 
 
 __docformat__ = 'restructuredtext'
+
+
+_marker = object()
 
 
 def is_file_like(data):
@@ -136,12 +139,23 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
         """Document properties getter used for indexing"""
         if not self.properties:
             return None
+        container = get_utility(IDocumentContainer)
+        catalog_indexes = ICatalogPropertiesIndexesContainer(container)
         return [
             f'{key}={val}'
             for key, value in self.properties.items()
             for val in value.split(';')
-            if val
+            if val and (key not in catalog_indexes.index_names)
         ]
+    
+    def get_index_property(self, property_name, default=None):
+        """Get specific index property value"""
+        if not self.properties:
+            return default
+        value = self.properties.get(property_name, _marker)
+        if value is _marker:
+            return default
+        return value.split(';') if value else None
 
     @property
     def tags(self):
