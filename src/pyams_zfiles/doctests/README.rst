@@ -61,6 +61,11 @@ This package is composed of a set of utility functions, usable into any Pyramid 
     >>> from zope.dublincore.annotatableadapter import ZDCAnnotatableAdapter
     >>> config.registry.registerAdapter(ZDCAnnotatableAdapter, (IAttributeAnnotatable, ), IZopeDublinCore)
 
+    >>> from beaker.cache import CacheManager, cache_regions
+    >>> cache = CacheManager(**{'cache.type': 'memory'})
+    >>> cache_regions.update({'default': {'type': 'memory', 'expire': 3600}})
+    >>> cache_regions.update({'persistent': {'type': 'memory', 'expire': 3600}})
+
 
 Adding new documents
 --------------------
@@ -77,16 +82,6 @@ Adding new documents
     <pyams_zfiles.utility.DocumentContainer object at 0x...>
 
     >>> utility.oid_prefix = 'ZF:'
-
-    >>> indexes = ICatalogPropertiesIndexesContainer(utility)
-    >>> index = create_object(ICatalogPropertyIndex)
-    >>> index.property_name = 'Custom 4'
-    >>> indexes.append(index)
-
-    >>> from hypatia.interfaces import ICatalog
-    >>> from pyams_zfiles.index import DocumentPropertyIndex
-    >>> catalog = get_utility(ICatalog)
-    >>> catalog['zfile_property::Custom 4'] = DocumentPropertyIndex('Custom 4')
 
     >>> import base64
     >>> from pyams_security.principal import PrincipalInfo
@@ -357,6 +352,44 @@ documents don't have creation date:
     >>> documents = utility.find_documents({'created_date': [None, end]})
     >>> len(list(documents))
     0
+
+
+Properties indexes
+------------------
+
+We can create custom properties indexes. These indexes dedicated to a given property can reduce
+the "properties" index size and the probability of database conflicts on write.
+
+Adding or removing a new property index required reindexing of the new property index as weel as the previous
+common properties index, which can be quite long if you have many documents!
+
+    >>> from zope.lifecycleevent import ObjectAddedEvent, ObjectRemovedEvent
+    >>> from hypatia.interfaces import ICatalog
+    >>> from pyams_zfiles.index import DocumentPropertyIndex
+
+    >>> indexes = ICatalogPropertiesIndexesContainer(utility)
+    >>> index = create_object(ICatalogPropertyIndex)
+    >>> index.property_name = 'Custom 4'
+    >>> indexes.append(index)
+    >>> request.registry.notify(ObjectAddedEvent(index, indexes))
+
+    >>> catalog = get_utility(ICatalog)
+    >>> catalog.get('zfile_property::Custom 4')
+    <pyams_zfiles.index.DocumentPropertyIndex object at 0x... oid 0x... in <ZODB.Connection.Connection object at 0x...>>
+
+    >>> documents = utility.find_documents({'Custom 4': 'Value 4'})
+    >>> len(list(documents))
+    1
+
+    >>> del indexes[index.__name__]
+    >>> request.registry.notify(ObjectRemovedEvent(index, indexes))
+
+    >>> catalog.get('zfile_property::Custom 4') is None
+    True
+
+    >>> documents = utility.find_documents({'Custom 4': 'Value 4'})
+    >>> len(list(documents))
+    1
 
 
 Deleting documents
