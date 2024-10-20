@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.2.1
+-----
+ - updated doctests
+
 2.2.0
 -----
  - added support for custom catalog indexes for selected documents properties
