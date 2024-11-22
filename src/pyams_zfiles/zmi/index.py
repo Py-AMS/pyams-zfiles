@@ -27,8 +27,8 @@ from pyams_utils.interfaces.data import IObjectData
 from pyams_utils.registry import get_utility
 from pyams_utils.url import absolute_url
 from pyams_viewlet.viewlet import viewlet_config
-from pyams_zfiles.interfaces import ICatalogPropertiesIndexesContainer, ICatalogPropertyIndex, IDocumentContainer, \
-    MANAGE_APPLICATION_PERMISSION
+from pyams_zfiles.interfaces import ICatalogPropertiesIndexesContainer, ICatalogPropertiesIndexesContainerTarget, \
+    ICatalogPropertyIndex, IDocumentContainer, MANAGE_APPLICATION_PERMISSION
 from pyams_zfiles.zmi.interfaces import ICatalogPropertiesIndexesTable
 from pyams_zmi.form import AdminModalAddForm
 from pyams_zmi.helper.container import delete_container_element
@@ -48,7 +48,7 @@ from pyams_zfiles import _
 #
 
 @viewlet_config(name='catalog-indexes.menu',
-                context=IDocumentContainer, layer=IAdminLayer,
+                context=ICatalogPropertiesIndexesContainerTarget, layer=IAdminLayer,
                 manager=IPropertiesMenu, weight=10,
                 permission=MANAGE_APPLICATION_PERMISSION)
 class CatalogPropertiesIndexesMenu(NavigationMenuItem):
@@ -59,7 +59,7 @@ class CatalogPropertiesIndexesMenu(NavigationMenuItem):
 
 
 @pagelet_config(name='catalog-indexes.html',
-                context=IDocumentContainer, layer=IPyAMSLayer,
+                context=ICatalogPropertiesIndexesContainerTarget, layer=IPyAMSLayer,
                 permission=MANAGE_APPLICATION_PERMISSION)
 class CatalogPropertiesIndexesView(TableAdminView):
     """Catalog properties indexes view"""
@@ -77,7 +77,8 @@ class CatalogPropertiesIndexesView(TableAdminView):
 
 
 @viewlet_config(name='catalog-indexes.info',
-                context=IDocumentContainer, layer=IAdminLayer, view=CatalogPropertiesIndexesView,
+                context=ICatalogPropertiesIndexesContainerTarget, layer=IAdminLayer,
+                view=CatalogPropertiesIndexesView,
                 manager=IHelpViewletManager, weight=10)
 class CatalogPropertiesIndexesViewInfoMessage(AlertMessage):
     """Catalog properties indexes view information message"""
@@ -94,7 +95,8 @@ class CatalogPropertiesIndexesViewInfoMessage(AlertMessage):
 
 
 @viewlet_config(name='catalog-indexes.warning',
-                context=IDocumentContainer, layer=IAdminLayer, view=CatalogPropertiesIndexesView,
+                context=ICatalogPropertiesIndexesContainerTarget, layer=IAdminLayer,
+                view=CatalogPropertiesIndexesView,
                 manager=IHelpViewletManager, weight=20)
 class CatalogPropertiesIndexesViewHelp(AlertMessage):
     """Catalog properties indexes view warning message"""
@@ -114,7 +116,7 @@ class CatalogPropertiesIndexesTable(Table):
     display_if_empty = True
 
 
-@adapter_config(required=(IDocumentContainer, IAdminLayer, ICatalogPropertiesIndexesTable),
+@adapter_config(required=(ICatalogPropertiesIndexesContainerTarget, IAdminLayer, ICatalogPropertiesIndexesTable),
                 provides=IValues)
 class CatalogPropertiesIndexesValues(ContextRequestViewAdapter):
     """Catalog properties indexes table values"""
@@ -126,26 +128,26 @@ class CatalogPropertiesIndexesValues(ContextRequestViewAdapter):
 
 
 @adapter_config(name='name',
-                required=(IDocumentContainer, IAdminLayer, ICatalogPropertiesIndexesTable),
+                required=(ICatalogPropertiesIndexesContainerTarget, IAdminLayer, ICatalogPropertiesIndexesTable),
                 provides=IColumn)
 class CatalogPropertiesIndexesNameColumn(NameColumn):
     """Catalog properties indexes name column"""
 
 
 @adapter_config(name='trash',
-                required=(IDocumentContainer, IAdminLayer, ICatalogPropertiesIndexesTable),
+                required=(ICatalogPropertiesIndexesContainerTarget, IAdminLayer, ICatalogPropertiesIndexesTable),
                 provides=IColumn)
 class CatalogPropertiesIndexesTrashColumn(TrashColumn):
-    """Maps manager layers trash column"""
+    """Catalog properties indexes trash column"""
     
     permission = MANAGE_APPLICATION_PERMISSION
 
 
 @view_config(name='delete-element.json',
-             context=IDocumentContainer, request_type=IPyAMSLayer,
+             context=ICatalogPropertiesIndexesContainerTarget, request_type=IPyAMSLayer,
              permission=MANAGE_APPLICATION_PERMISSION, renderer='json', xhr=True)
 def delete_catalog_index(request):
-    """Delete map layer"""
+    """Delete catalog index"""
     return delete_container_element(request, ICatalogPropertiesIndexesContainer)
 
 
@@ -154,7 +156,7 @@ def delete_catalog_index(request):
 #
 
 @viewlet_config(name='add-catalog-index.action',
-                context=IDocumentContainer, layer=IAdminLayer, view=ICatalogPropertiesIndexesTable,
+                context=ICatalogPropertiesIndexesContainerTarget, layer=IAdminLayer, view=ICatalogPropertiesIndexesTable,
                 manager=IToolbarViewletManager, weight=10,
                 permission=MANAGE_APPLICATION_PERMISSION)
 class CatalogPropertyIndexAddAction(ContextAddAction):
@@ -165,7 +167,7 @@ class CatalogPropertyIndexAddAction(ContextAddAction):
 
 
 @ajax_form_config(name='add-catalog-index.html',
-                  context=IDocumentContainer, layer=IPyAMSLayer,
+                  context=ICatalogPropertiesIndexesContainerTarget, layer=IPyAMSLayer,
                   permission=MANAGE_APPLICATION_PERMISSION)
 @implementer(IObjectData)
 class CatalogPropertyIndexAddForm(AdminModalAddForm):
@@ -199,7 +201,7 @@ def handle_new_catalog_index_data(event):
         event.form.widgets.errors += (Invalid(_("Catalog index with specified property name already exists!")))
 
 
-@adapter_config(required=(IDocumentContainer, IAdminLayer, CatalogPropertyIndexAddForm),
+@adapter_config(required=(ICatalogPropertiesIndexesContainerTarget, IAdminLayer, CatalogPropertyIndexAddForm),
                 provides=IAJAXFormRenderer)
 class CatalogPropertyIndexAddFormRenderer(ContextRequestViewAdapter):
     """Catalog property add form AJAX renderer"""

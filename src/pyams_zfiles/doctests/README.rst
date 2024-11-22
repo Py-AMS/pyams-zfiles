@@ -400,6 +400,104 @@ Deleting documents
     []
 
 
+Properties extractors
+---------------------
+
+Extractors are components which can be used to extract a document properties from it's internal content.
+The first step is to have an IDocumentExtractor which can be used to convert document content into a basic
+text representation on which we will apply regular expressions to extract properties:
+
+    >>> import os
+    >>> import base64
+    >>> from pyams_zfiles.tests.test_utilsdocs import CURRENT_DIR
+
+    >>> path = os.path.join(CURRENT_DIR, '..', 'doctests', 'data', 'document.txt')
+    >>> with open(path, 'rb') as datafile:
+    ...     data = datafile.read()
+    >>> properties = {
+    ...     'application_name': 'PyAMS test application',
+    ...     'title': 'Test document',
+    ...     'owner': 'admin:admin',
+    ...     'filename': 'document.txt',
+    ...     'properties': {'Custom 1': 'Value 1'},
+    ...     'created_time': '2024-01-01'
+    ... }
+    >>> document = utility.add_document(data, properties, request)
+    >>> transaction.commit()
+
+    >>> from pyams_zfiles.interfaces import IDocumentExtractor, IDocumentPropertyExtractorInfo, IDocumentPropertyExtractorContainer
+
+    >>> extractor_info = create_object(IDocumentPropertyExtractorInfo)
+    >>> extractor_info.name = 'Filter 1'
+    >>> extractor_info.property_name = 'document_id'
+    >>> extractor_info.regex = " - document_id: ([a-zA-Z0-9]+)"
+    >>> extractor_info.application_names = ['PyAMS test application']
+
+    >>> container = IDocumentPropertyExtractorContainer(utility)
+    >>> container_name = container.append(extractor_info)
+
+    >>> new_properties = container.extract_properties(document)
+    >>> new_properties
+    {'document_id': '0x123456'}
+
+    >>> extractor_info = create_object(IDocumentPropertyExtractorInfo)
+    >>> extractor_info.name = 'Filter 2'
+    >>> extractor_info.property_name = 'version_id'
+    >>> extractor_info.regex = " - version_id: ([a-z]+)"
+    >>> container_name = container.append(extractor_info)
+
+    >>> new_properties = container.extract_properties(document)
+    >>> pprint(new_properties)
+    {'document_id': '0x123456',
+     'version_id': 'abcdef'}
+
+    >>> extractor_info.active = False
+    >>> new_properties = container.extract_properties(document)
+    >>> pprint(new_properties)
+    {'document_id': '0x123456'}
+
+    >>> extractor_info = create_object(IDocumentPropertyExtractorInfo)
+    >>> extractor_info.name = 'Filter 3'
+    >>> extractor_info.properties = {'Custom 1': 'Value 1'}
+    >>> extractor_info.property_name = 'multiple_id'
+    >>> extractor_info.regex = r" - multiple_key: ([a-zA-Z0-9\s]+)\n"
+    >>> container_name = container.append(extractor_info)
+
+    >>> new_properties = container.extract_properties(document)
+    >>> pprint(new_properties)
+    {'document_id': '0x123456', 'multiple_id': 'value 1;value 2'}
+
+We can disable searching of all occurrences of our regexp to only extract the first value:
+
+    >>> extractor_info.search_all_occurrences = False
+
+    >>> new_properties = container.extract_properties(document)
+    >>> pprint(new_properties)
+    {'document_id': '0x123456', 'multiple_id': 'value 1'}
+
+    >>> extractor_info.search_all_occurrences = True
+
+
+We now create another extractor which doesn't match our document:
+
+    >>> extractor_info = create_object(IDocumentPropertyExtractorInfo)
+    >>> extractor_info.name = 'Filter 4'
+    >>> extractor_info.properties = {'Custom 1': 'Value 2'}
+    >>> extractor_info.property_name = 'multiple_id'
+    >>> extractor_info.regex = r" - multiple_key: ([a-zA-Z0-9\s]+)\n"
+    >>> container_name = container.append(extractor_info)
+
+We can now create a new document from scratch:
+
+    >>> document = utility.add_document(data, properties, request)
+    >>> transaction.commit()
+
+    >>> pprint(document.to_json().get('properties'))
+    {'Custom 1': 'Value 1',
+     'document_id': '0x123456',
+     'multiple_id': 'value 1;value 2'}
+
+
 Tests cleanup:
 
     >>> set_local_registry(None)

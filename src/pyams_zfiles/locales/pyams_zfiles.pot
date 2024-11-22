@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2024-10-19 02:32+0200\n"
+"POT-Creation-Date: 2024-11-22 14:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -403,7 +403,8 @@ msgstr ""
 msgid "Principals which are granted permission to call this configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:500
+#: ./src/pyams_zfiles/interfaces.py:500 ./src/pyams_zfiles/interfaces.py:547
+#: ./src/pyams_zfiles/interfaces.py:583 ./src/pyams_zfiles/zmi/extractor.py:181
 msgid "Property name"
 msgstr ""
 
@@ -411,7 +412,89 @@ msgstr ""
 msgid "Name of the property used to create index"
 msgstr ""
 
-#: ./src/pyams_zfiles/utility.py:250
+#: ./src/pyams_zfiles/interfaces.py:538
+msgid "Extractor name"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:539
+msgid "Unique name of the properties extractor"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:542
+msgid "Active extractor?"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:543
+msgid "Uncheck this option to disable this extractor..."
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:548
+msgid "Name of the property which should be set by this extractor"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:551
+msgid "Override current value?"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:552
+msgid ""
+"If 'yes', the property will be extracted even if it is already defined into "
+"current document properties"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:557
+msgid "Extractor RegEx"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:558
+msgid ""
+"Regular expression to use to extract property value from document content; if"
+" the expression returns several results from the document content, they will "
+"be set as a list in document properties"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:563
+msgid "Multiline?"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:564
+msgid "If 'yes', given expression will use RegExp MULTILINE option"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:568
+msgid "Search for all occurrences?"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:569
+msgid ""
+"If 'yes', all occurrences will be extracted; otherwise, only the first "
+"occurrence will be extracted"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:574
+msgid "Selected applications"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:575
+msgid "List of applications for which this extractor should be applied"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:579
+msgid "Selected properties"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:580
+msgid ""
+"List of current document properties for which this extractor should be "
+"applied; you can define properties using the \"name=value\" syntax, with a "
+"newline between each property"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:584
+msgid "Property value"
+msgstr ""
+
+#: ./src/pyams_zfiles/utility.py:251
 msgid "Document content update"
 msgstr ""
 
@@ -464,56 +547,56 @@ msgid ""
 "the currently published or archived versions."
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:92
+#: ./src/pyams_zfiles/zmi/synchronizer.py:91
 msgid "Click icon to enable or disable configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:120
+#: ./src/pyams_zfiles/zmi/synchronizer.py:119
 msgid "Users roles"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:133
+#: ./src/pyams_zfiles/zmi/synchronizer.py:132
 msgid "Name"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:146
+#: ./src/pyams_zfiles/zmi/synchronizer.py:145
 msgid "Target"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:175
+#: ./src/pyams_zfiles/zmi/synchronizer.py:174
 msgid "Synchronizer configurations"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:192
+#: ./src/pyams_zfiles/zmi/synchronizer.py:191
 msgid "Add configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:202
+#: ./src/pyams_zfiles/zmi/synchronizer.py:201
 msgid "New configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:203
+#: ./src/pyams_zfiles/zmi/synchronizer.py:202
 msgid "New configuration properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:220
+#: ./src/pyams_zfiles/zmi/synchronizer.py:219
 msgid "Documents synchronizer"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:229
+#: ./src/pyams_zfiles/zmi/synchronizer.py:228
 msgid "Provided name is already used!"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:247
+#: ./src/pyams_zfiles/zmi/synchronizer.py:246
 #, python-format
 msgid "Configuration: {}"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:249
+#: ./src/pyams_zfiles/zmi/synchronizer.py:248
 msgid "Configuration properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/synchronizer.py:293
+#: ./src/pyams_zfiles/zmi/synchronizer.py:292
 #, python-format
 msgid "Synchronizer configuration: {} "
 msgstr ""
@@ -530,31 +613,31 @@ msgstr ""
 msgid "List of catalog properties indexes"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/index.py:85
+#: ./src/pyams_zfiles/zmi/index.py:86
 msgid ""
 "By default, ZFiles is using a single index to reference properties of all documents, which can lead to increase conflict errors if you have many documents which share common properties.<br />\n"
 "Instead, you can choose to create dedicated catalog indexes for a set of selected properties."
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/index.py:102
+#: ./src/pyams_zfiles/zmi/index.py:104
 msgid ""
 "**WARNING**: adding or removing property indexes require rebuild of one or "
 "two catalog indexes, which can be quite long if you have many documents!"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/index.py:163
+#: ./src/pyams_zfiles/zmi/index.py:165
 msgid "Add new catalog property index"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/index.py:177
+#: ./src/pyams_zfiles/zmi/index.py:179
 msgid "New property index"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/index.py:179
+#: ./src/pyams_zfiles/zmi/index.py:181
 msgid "New index properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/index.py:199
+#: ./src/pyams_zfiles/zmi/index.py:201
 msgid "Catalog index with specified property name already exists!"
 msgstr ""
 
@@ -704,20 +787,117 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/__init__.py:87 ./src/pyams_zfiles/zmi/__init__.py:110
+#: ./src/pyams_zfiles/zmi/__init__.py:90 ./src/pyams_zfiles/zmi/__init__.py:113
 msgid "Documents container"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/__init__.py:121
+#: ./src/pyams_zfiles/zmi/__init__.py:124
 msgid "Configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/__init__.py:132
+#: ./src/pyams_zfiles/zmi/__init__.py:135
 msgid "Documents container configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/zmi/__init__.py:133
+#: ./src/pyams_zfiles/zmi/__init__.py:136
 msgid "Base configuration"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:72
+msgid "Properties extractors"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:82
+msgid "Document properties extractors"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:84
+msgid "List of documents properties extractors"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:103
+msgid ""
+"You can use properties extractors to extract properties from a document "
+"content.<br />This option requires a \"content extractor\", to convert "
+"document content into a text representation on which regular expressions will"
+" be used to extract new properties; extractors actually exist for text and "
+"PDF files."
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:147
+msgid "CLick icon to enable or disable property extractor"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:194
+msgid "This extractor can override an existing property"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:211
+msgid "This extractor is multi-lines"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:228
+msgid "This extractor can extract several values"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:245
+msgid ""
+"This extractor is used only for documents matching selected applications of "
+"properties"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:285
+msgid "Add new document property extractor"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:302
+msgid "New property extractor"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:304
+msgid "New exctractor properties"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:320
+msgid "Property extractor with specified name already exists!"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:356
+#, python-format
+msgid "Property extractor: {}"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:358
+msgid "Property extractor properties"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:400
+msgid "Documents properties extractors"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:427
+msgid "Test properties extractors"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:440
+msgid "Document properties extraction test"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:441
+#: ./src/pyams_zfiles/zmi/extractor.py:475
+msgid "Extractors test output"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:449
+msgid "Extracted properties"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:450
+msgid "Values of properties extracted for this document"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/extractor.py:487
+msgid "No property was extracted for this document!"
 msgstr ""
 
 #: ./src/pyams_zfiles/zmi/document.py:94

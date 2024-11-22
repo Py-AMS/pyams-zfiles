@@ -20,7 +20,7 @@ from enum import Enum
 from zope.container.constraints import containers, contains
 from zope.container.interfaces import IBTreeContainer
 from zope.interface import Attribute, Interface, implementer
-from zope.schema import Bool, Choice, Dict, List, Password, TextLine
+from zope.schema import Bool, Choice, Dict, List, Password, Text, TextLine
 from zope.schema.interfaces import IDict
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
@@ -512,3 +512,96 @@ class ICatalogPropertiesIndexesContainer(IBTreeContainer):
 
 class ICatalogPropertiesIndexesContainerTarget(Interface):
     """Catalog properties indexes container target marker interface"""
+
+
+#
+# Custom documents extraction tools
+#
+
+DOCUMENT_EXTRACTORS_KEY = 'pyams_zfiles.extractors'
+
+
+class IDocumentExtractor(Interface):
+    """Document extractor adapter interface"""
+
+    def extract(self, pages=None):
+        """Extract text from document content
+        
+        If set, *pages* is a tuple which specifies the 0-based list of document pages for which
+        text is requested.
+        """
+
+
+class IDocumentPropertyExtractorInfo(Interface):
+    """Document property extractor interface"""
+
+    name = TextLine(title=_("Extractor name"),
+                    description=_("Unique name of the properties extractor"),
+                    required=True)
+
+    active = Bool(title=_("Active extractor?"),
+                  description=_("Uncheck this option to disable this extractor..."),
+                  required=True,
+                  default=True)
+
+    property_name = TextLine(title=_("Property name"),
+                             description=_("Name of the property which should be set by this extractor"),
+                             required=True)
+
+    override = Bool(title=_("Override current value?"),
+                    description=_("If 'yes', the property will be extracted even if it is already defined "
+                                  "into current document properties"),
+                    required=True,
+                    default=False)
+
+    regex = Text(title=_("Extractor RegEx"),
+                 description=_("Regular expression to use to extract property value from document content; "
+                               "if the expression returns several results from the document content, "
+                               "they will be set as a list in document properties"),
+                 required=True)
+
+    multiline = Bool(title=_("Multiline?"),
+                     description=_("If 'yes', given expression will use RegExp MULTILINE option"),
+                     required=True,
+                     default=False)
+
+    search_all_occurrences = Bool(title=_("Search for all occurrences?"),
+                                  description=_("If 'yes', all occurrences will be extracted; otherwise, only the first "
+                                                "occurrence will be extracted"),
+                                  required=True,
+                                  default=True)
+
+    application_names = List(title=_("Selected applications"),
+                             description=_("List of applications for which this extractor should be applied"),
+                             value_type=Choice(vocabulary=PYAMS_ZFILES_APPLICATIONS_VOCABULARY),
+                             required=False)
+
+    properties = Dict(title=_("Selected properties"),
+                      description=_("List of current document properties for which this extractor should be applied; "
+                                    "you can define properties using the \"name=value\" syntax, with a newline "
+                                    "between each property"),
+                      key_type=TextLine(title=_("Property name")),
+                      value_type=TextLine(title=_("Property value")),
+                      required=False)
+
+    def matches(self, document):
+        """Check if extractor is matching given document"""
+
+    def apply(self, content):
+        """Apply extractor Regex to given content"""
+
+
+class IDocumentPropertyExtractorContainer(IBTreeContainer):
+    """Document properties extractor container interface"""
+
+    contains(IDocumentPropertyExtractorInfo)
+
+    def get_active_items(self):
+        """Get iterator over active items"""
+
+    def extract_properties(self, document, force=False):
+        """Extract properties values for given document"""
+
+
+class IDocumentPropertyExtractorContainerTarget(Interface):
+    """Document property extractor container target marker interface"""

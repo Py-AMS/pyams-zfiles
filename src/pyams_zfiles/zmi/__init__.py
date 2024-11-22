@@ -22,6 +22,7 @@ from pyams_form.field import Fields
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
 from pyams_site.interfaces import ISiteRoot
+from pyams_skin.interfaces.view import IModalPage
 from pyams_skin.interfaces.viewlet import IBreadcrumbItem
 from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import get_utility, query_utility
@@ -31,11 +32,13 @@ from pyams_viewlet.viewlet import viewlet_config
 from pyams_zfiles.interfaces import IDocumentContainer, MANAGE_APPLICATION_PERMISSION, \
     MANAGE_DOCUMENT_PERMISSION
 from pyams_zmi.form import AdminEditForm
-from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
+from pyams_zmi.interfaces import IAdminLayer, IObjectLabel, TITLE_SPAN_BREAK
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IControlPanelMenu, IMenuHeader, IPropertiesMenu, \
     ISiteManagementMenu
 from pyams_zmi.table import TableElementEditor
+from pyams_zmi.utils import get_object_label
 from pyams_zmi.zmi.viewlet.breadcrumb import AdminLayerBreadcrumbItem
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 

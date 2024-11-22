@@ -47,8 +47,8 @@ from pyams_workflow.versions import get_last_version
 from pyams_zfiles.document import Document, DocumentVersion, get_hash
 from pyams_zfiles.folder import DocumentFolder
 from pyams_zfiles.interfaces import CREATE_DOCUMENT_WITH_OWNER_PERMISSION, ICatalogPropertiesIndexesContainerTarget, \
-    IDocumentContainer, IDocumentContainerRoles, \
-    IDocumentFolder, IDocumentVersion, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, STATE
+    IDocumentContainer, IDocumentContainerRoles, IDocumentFolder, IDocumentPropertyExtractorContainerTarget, \
+    IDocumentVersion, MANAGE_DOCUMENT_PERMISSION, READ_DOCUMENT_PERMISSION, STATE
 from pyams_zfiles.search import make_query
 
 __docformat__ = 'restructuredtext'
@@ -57,7 +57,8 @@ from pyams_zfiles import _
 
 
 @factory_config(IDocumentContainer)
-@implementer(IDefaultProtectionPolicy, ICatalogPropertiesIndexesContainerTarget)
+@implementer(IDefaultProtectionPolicy, ICatalogPropertiesIndexesContainerTarget,
+             IDocumentPropertyExtractorContainerTarget)
 class DocumentContainer(ProtectedObjectMixin, Folder):
     """Document container utility"""
 

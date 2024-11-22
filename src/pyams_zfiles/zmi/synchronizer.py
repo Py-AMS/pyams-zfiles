@@ -46,12 +46,11 @@ from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IToolbarViewletManager
 from pyams_zmi.table import ActionColumn, AttributeSwitcherColumn, I18nColumnMixin, \
     InnerTableAdminView, Table, TableElementEditor, TrashColumn
-from pyams_zmi.utils import get_object_label
-
 
 __docformat__ = 'restructuredtext'
 
 from pyams_zfiles import _  # pylint: disable=ungrouped-imports
+from pyams_zmi.utils import get_object_label
 
 
 class DocumentSynchronizerConfigurationTable(Table):

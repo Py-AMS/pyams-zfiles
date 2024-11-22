@@ -46,7 +46,8 @@ from pyams_utils.url import absolute_url
 from pyams_utils.vocabulary import vocabulary_config
 from pyams_workflow.interfaces import IWorkflowInfo, IWorkflowState
 from pyams_zfiles.interfaces import ACCESS_MODE, DocumentContainerError, ICatalogPropertiesIndexesContainer, IDocument, \
-    IDocumentContainer, IDocumentRoles, IDocumentVersion, MANAGE_APPLICATION_PERMISSION, \
+    IDocumentContainer, IDocumentPropertyExtractorContainer, IDocumentRoles, IDocumentVersion, \
+    MANAGE_APPLICATION_PERMISSION, \
     MANAGE_DOCUMENT_PERMISSION, PYAMS_ZFILES_APPLICATIONS_VOCABULARY, READ_DOCUMENT_PERMISSION, \
     ZFILES_WORKFLOW_NAME
 from pyams_zfiles.workflow import ZFILES_WORKFLOW
@@ -188,6 +189,7 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
         self.update_security_policy(properties, request)
         self.update_status(properties, request)
         self.update_properties(properties, request)
+        self.extract_properties(properties, request)
         return IWorkflowState(self)
 
     def update_roles(self, properties, request=None):  # pylint: disable=unused-argument
@@ -276,6 +278,17 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
                     if val is None:
                         del self_props[key]
                 self.properties = self_props or None
+                
+    def extract_properties(self, properties, request=None):
+        """Use extractors to get properties fron document content"""
+        manager = get_utility(IDocumentContainer)
+        extractors = IDocumentPropertyExtractorContainer(manager, None)
+        if extractors is not None:
+            props = extractors.extract_properties(self)
+            if props:
+                self_props = self.properties or {}
+                self_props.update(props)
+                self.properties = self_props or {}
 
     def to_json(self, fields=None, request=None):
         """Get document properties in JSON format"""

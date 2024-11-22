@@ -15,3 +15,7 @@ __docformat__ = 'restructuredtext'
 
 class ICatalogPropertiesIndexesTable(ITable):
     """Catalog properties index table marker interface"""
+
+
+class IDocumentPropertiesExtractorsTable(ITable):
+    """Document properties extractors table marker interface"""
