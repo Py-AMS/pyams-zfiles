@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.0
+-----
+ - added document properties extractors, which can be used to extract some of a document properties
+   from it's associated file content
+
 2.2.1
 -----
  - updated doctests
