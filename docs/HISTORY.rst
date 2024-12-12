@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.1
+-----
+ - update RPC API permissions checker methods to return a boolean value instead of an ACL
+ - added support for Python 3.12
+
 2.3.0
 -----
  - added document properties extractors, which can be used to extract some of a document properties
