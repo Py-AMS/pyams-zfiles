@@ -129,7 +129,7 @@ def get_document(request, oid, version=None, status=None, permission=READ_DOCUME
 def can_read(request, oid, version=None, status=None):
     """Check read access on document"""
     document = get_document(request, oid, version, status, permission=None)
-    return request.has_permission(READ_DOCUMENT_PERMISSION, context=document)
+    return bool(request.has_permission(READ_DOCUMENT_PERMISSION, context=document))
 
 
 @jsonrpc_method(endpoint=JSONRPC_ENDPOINT,
@@ -141,7 +141,7 @@ def can_read(request, oid, version=None, status=None):
 def can_write(request, oid, version=None, status=None):
     """Check write access on document"""
     document = get_document(request, oid, version, status, permission=None)
-    return request.has_permission(MANAGE_DOCUMENT_PERMISSION, context=document)
+    return bool(request.has_permission(MANAGE_DOCUMENT_PERMISSION, context=document))
 
 
 @jsonrpc_method(endpoint=JSONRPC_ENDPOINT,
