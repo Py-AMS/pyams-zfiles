@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.4.0
+-----
+ - allow setting of document title or filename from properties or from current datetime
+   using formatting strings
+
 2.3.1
 -----
  - update RPC API permissions checker methods to return a boolean value instead of an ACL
