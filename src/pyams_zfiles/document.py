@@ -17,6 +17,7 @@ This module defines ZFiles documents.
 
 import io
 from cgi import FieldStorage
+from datetime import datetime, timezone
 from hashlib import sha512
 
 from hypatia.interfaces import ICatalog
@@ -41,6 +42,7 @@ from pyams_utils.factory import factory_config
 from pyams_utils.interfaces.form import NOT_CHANGED
 from pyams_utils.registry import get_utility
 from pyams_utils.request import check_request
+from pyams_utils.timezone import tztime
 from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_utils.vocabulary import vocabulary_config
@@ -190,6 +192,7 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
         self.update_status(properties, request)
         self.update_properties(properties, request)
         self.extract_properties(properties, request)
+        self.update_title(properties, request)
         return IWorkflowState(self)
 
     def update_roles(self, properties, request=None):  # pylint: disable=unused-argument
@@ -289,6 +292,19 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
                 self_props = self.properties or {}
                 self_props.update(props)
                 self.properties = self_props or {}
+                
+    def update_title(self, properties, request=None):
+        """Update document title from properties"""
+        properties = (self.properties or {}).copy()
+        properties['now'] = tztime(datetime.now(timezone.utc))
+        try:
+            self.title = self.title.format(**properties)
+        except KeyError:
+            pass
+        try:
+            self.data.filename = self.data.filename.format(**properties)
+        except KeyError:
+            pass
 
     def to_json(self, fields=None, request=None):
         """Get document properties in JSON format"""

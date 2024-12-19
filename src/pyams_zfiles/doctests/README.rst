@@ -498,6 +498,31 @@ We can now create a new document from scratch:
      'multiple_id': 'value 1;value 2'}
 
 
+Dynamic attributes
+------------------
+
+We can set some file attributes values, as *title* and *filename*, with values which can
+be defined dynamically based on other document properties:
+
+    >>> from datetime import datetime, timezone
+    >>> now = datetime.now(timezone.utc)
+
+    >>> with open(path, 'rb') as datafile:
+    ...     data = datafile.read()
+    >>> properties = {
+    ...     'application_name': 'PyAMS test application',
+    ...     'title': 'Test document {Custom 5}',
+    ...     'owner': 'admin:admin',
+    ...     'filename': 'document-{now:%Y%m%d}.txt',
+    ...     'properties': {'Custom 5': 'Value 5'}
+    ... }
+    >>> document = utility.add_document(data, properties, request)
+    >>> document.to_json().get('title')
+    'Test document Value 5'
+    >>> document.to_json().get('filename') == f'document-{now:%Y%m%d}.txt'
+    True
+
+
 Tests cleanup:
 
     >>> set_local_registry(None)
