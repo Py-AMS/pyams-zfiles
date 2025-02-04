@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.4.1
+-----
+ - added columns to display index size in indexed properties view
+
 2.4.0
 -----
  - allow setting of document title or filename from properties or from current datetime
