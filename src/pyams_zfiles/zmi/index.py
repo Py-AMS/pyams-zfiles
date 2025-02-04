@@ -8,6 +8,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 
+from hypatia.interfaces import ICatalog
 from pyramid.events import subscriber
 from pyramid.view import view_config
 from zope.interface import Invalid, implementer
@@ -20,6 +21,7 @@ from pyams_pagelet.pagelet import pagelet_config
 from pyams_skin.interfaces.viewlet import IHelpViewletManager
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_skin.viewlet.help import AlertMessage
+from pyams_table.column import GetAttrColumn
 from pyams_table.interfaces import IColumn, IValues
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
 from pyams_utils.factory import factory_config
@@ -132,6 +134,52 @@ class CatalogPropertiesIndexesValues(ContextRequestViewAdapter):
                 provides=IColumn)
 class CatalogPropertiesIndexesNameColumn(NameColumn):
     """Catalog properties indexes name column"""
+
+    css_classes = {
+        'th': 'w-100'
+    }
+    
+
+@adapter_config(name='size',
+                required=(ICatalogPropertiesIndexesContainerTarget, IAdminLayer, ICatalogPropertiesIndexesTable),
+                provides=IColumn)
+class CatalogPropertiesIndexesSizeColumn(GetAttrColumn):
+    """Catalog properties indexes size column"""
+    
+    header = _("Documents count")
+    
+    css_classes = {
+        'th': 'pl-2 pr-4',
+        'td': 'text-right pr-4'
+    }
+    weight = 20
+    
+    def get_value(self, item):
+        """Column value getter"""
+        catalog = get_utility(ICatalog)
+        index_name = f'zfile_property::{item.property_name}'
+        return catalog[index_name]._num_docs()
+
+
+@adapter_config(name='values',
+                required=(ICatalogPropertiesIndexesContainerTarget, IAdminLayer, ICatalogPropertiesIndexesTable),
+                provides=IColumn)
+class CatalogPropertiesIndexesValuesColumn(GetAttrColumn):
+    """Catalog properties indexes values column"""
+    
+    header = _("Distinct values")
+    
+    css_classes = {
+        'th': 'pl-2 pr-4',
+        'td': 'text-right pr-4'
+    }
+    weight = 30
+    
+    def get_value(self, item):
+        """Column value getter"""
+        catalog = get_utility(ICatalog)
+        index_name = f'zfile_property::{item.property_name}'
+        return catalog[index_name].word_count()
 
 
 @adapter_config(name='trash',
