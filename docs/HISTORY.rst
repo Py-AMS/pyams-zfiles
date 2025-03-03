@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.4.3
+-----
+ - updated Gitlab-CI for Python 3.12
+
 2.4.2
 -----
  - avoid document content extraction without any matching filter
