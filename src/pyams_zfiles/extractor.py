@@ -111,10 +111,12 @@ class DocumentPropertyExtractorContainer(SimpleContainerMixin, BTreeContainer):
         if extractor is None:
             return None
         result = {}
-        content = extractor.extract()
+        content = None
         for filter in self.get_active_items():
             if not filter.matches(document, force=force):
                 continue
+            if content is None:
+                content = extractor.extract()
             for key, value in (filter.apply(content) or {}).items():
                 update_dict(result, key, value)
         return result
