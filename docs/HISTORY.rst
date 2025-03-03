@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.4.2
+-----
+ - avoid document content extraction without any matching filter
+
 2.4.1
 -----
  - added columns to display index size in indexed properties view
