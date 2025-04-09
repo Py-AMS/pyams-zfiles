@@ -84,6 +84,7 @@ def publish_action(wf, context):  # pylint: disable=invalid-name,unused-argument
     publication_info = IWorkflowPublicationInfo(context)
     publication_info.publication_date = datetime.now(timezone.utc)
     publication_info.publisher = request.principal.id
+    publication_info.apply_first_publication_date()
     version_id = IWorkflowState(context).version_id
     for version in IWorkflowVersions(context).get_versions((STATE.PUBLISHED.value, )):
         if version is not context:
