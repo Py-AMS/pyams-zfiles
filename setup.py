@@ -28,6 +28,7 @@ version = '2.5.0'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
+    'pyams_alchemy',
     'pyams_form',
     'pyams_pagelet',
     'pyams_scheduler >= 2.7.0',
