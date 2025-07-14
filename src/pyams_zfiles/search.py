@@ -38,7 +38,7 @@ LIST_SEPARATOR = ','
 
 
 def get_list(value):
-    """Check and convert given value to a set, if required
+    """Check and convert the given value to a set, if required
 
     >>> from pyams_zfiles.search import get_list
     >>> get_list(None) is None
@@ -216,7 +216,7 @@ INDEX_ARGS = {
     'oid': (get_list, Any, 'zfile_oid'),
     'version': (get_version, Eq, 'workflow_version'),
     'title': (str.strip, Eq, 'zfile_title'),
-    'application_name': (str.strip, Eq, 'zfile_application'),
+    'application_name': (get_list, Eq, 'zfile_application'),
     'hash': (str.strip, Eq, 'zfile_hash'),
     'properties': (get_properties, InPropertiesList, 'zfile_properties'),
     'tags': (get_list, All, 'zfile_tags'),
