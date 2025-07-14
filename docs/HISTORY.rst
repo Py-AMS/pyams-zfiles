@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.5.0
+-----
+ - added scheduler task to check for orphaned documents
+ - updated application_name search argument to allow multiple values search
+ - use new PyAMS_workflow method to apply first publication date on published content
+
 2.4.4
 -----
  - updated Gitlab-CI for Python 3.12
