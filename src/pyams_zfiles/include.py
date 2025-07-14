@@ -203,6 +203,7 @@ def include_package(config):
 
     try:
         import pyams_scheduler  # pylint: disable=import-outside-toplevel,unused-import
+        import pyams_alchemy  # pylint: disable=import-outside-toplevel,unused-import
     except ImportError:
         ignored.append('pyams_zfiles.task')
 
