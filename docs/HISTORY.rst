@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.5.1
+-----
+ - packaging issue
+ - added conditional include on pyams_alchemy to pyams_zfiles.task
+
 2.5.0
 -----
  - added scheduler task to check for orphaned documents
