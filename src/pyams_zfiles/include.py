@@ -15,6 +15,8 @@
 This module is used for Pyramid integration.
 """
 
+import re
+
 from pyramid_rpc.xmlrpc import XMLRPCRenderer
 
 from pyams_security.interfaces.base import MANAGE_ROLES_PERMISSION, ROLE_ID
@@ -192,9 +194,16 @@ def include_package(config):
                                                             XMLRPC_PATH),
                                default_renderer='xmlrpc-with-none')
 
+    # package scan
+    ignored = []
     try:
         import pyams_zmi  # pylint: disable=import-outside-toplevel,unused-import
     except ImportError:
-        config.scan(ignore='pyams_zfiles.zmi')
-    else:
-        config.scan()
+        ignored.append(re.compile(r'pyams_zfiles\..*\.zmi\.?.*').search)
+
+    try:
+        import pyams_scheduler  # pylint: disable=import-outside-toplevel,unused-import
+    except ImportError:
+        ignored.append('pyams_zfiles.task')
+
+    config.scan(ignore=ignored)

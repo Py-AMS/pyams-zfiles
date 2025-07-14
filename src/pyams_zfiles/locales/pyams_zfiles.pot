@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2025-02-04 11:16+0100\n"
+"POT-Creation-Date: 2025-07-12 11:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,117 +16,121 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 4.15.0\n"
 
-#: ./src/pyams_zfiles/workflow.py:92
+#: ./src/pyams_zfiles/workflow.py:93
 #, python-format
 msgid "Published version {0}"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:119
+#: ./src/pyams_zfiles/workflow.py:120
 msgid "Initialize"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:122
+#: ./src/pyams_zfiles/workflow.py:123
 msgid "Draft creation"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:125
+#: ./src/pyams_zfiles/workflow.py:126
 msgid "Publish"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:132
+#: ./src/pyams_zfiles/workflow.py:133
 msgid "Content published"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:136
+#: ./src/pyams_zfiles/workflow.py:137
 msgid "Archive content"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:142
+#: ./src/pyams_zfiles/workflow.py:143
 msgid "Content archived"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:146 ./src/pyams_zfiles/workflow.py:158
+#: ./src/pyams_zfiles/workflow.py:147 ./src/pyams_zfiles/workflow.py:159
 msgid "Create new version"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:154 ./src/pyams_zfiles/workflow.py:166
+#: ./src/pyams_zfiles/workflow.py:155 ./src/pyams_zfiles/workflow.py:167
 msgid "New version created"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:170
+#: ./src/pyams_zfiles/workflow.py:171
 msgid "Delete version"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:177
+#: ./src/pyams_zfiles/workflow.py:178
 msgid "Version deleted"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:194
+#: ./src/pyams_zfiles/workflow.py:195
 msgid "ZFiles document workflow"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:240 ./src/pyams_zfiles/workflow.py:273
+#: ./src/pyams_zfiles/workflow.py:241 ./src/pyams_zfiles/workflow.py:274
 #, python-format
 msgid "{state} {date}"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:244 ./src/pyams_zfiles/workflow.py:269
+#: ./src/pyams_zfiles/workflow.py:245 ./src/pyams_zfiles/workflow.py:270
 msgid "Unknown state"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:267
+#: ./src/pyams_zfiles/workflow.py:268
 msgid "new version created"
 msgstr ""
 
-#: ./src/pyams_zfiles/workflow.py:271
+#: ./src/pyams_zfiles/workflow.py:272
 msgid "publication refused"
+msgstr ""
+
+#: ./src/pyams_zfiles/task.py:45
+msgid "ZFiles source application checker"
 msgstr ""
 
 #: ./src/pyams_zfiles/utility.py:251
 msgid "Document content update"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:158
+#: ./src/pyams_zfiles/interfaces.py:160
 msgid "Draft"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:159
+#: ./src/pyams_zfiles/interfaces.py:161
 msgid "Published"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:160
+#: ./src/pyams_zfiles/interfaces.py:162
 msgid "Archived"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:161
+#: ./src/pyams_zfiles/interfaces.py:163
 msgid "Deleted"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:165
+#: ./src/pyams_zfiles/interfaces.py:167
 msgid "draft created"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:166
+#: ./src/pyams_zfiles/interfaces.py:168
 msgid "published"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:167
+#: ./src/pyams_zfiles/interfaces.py:169
 msgid "archived"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:197
+#: ./src/pyams_zfiles/interfaces.py:199
 msgid "Private"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:198
+#: ./src/pyams_zfiles/interfaces.py:200
 msgid "Protected"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:199
+#: ./src/pyams_zfiles/interfaces.py:201
 msgid "Public"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:227 ./src/pyams_zfiles/interfaces.py:319
+#: ./src/pyams_zfiles/interfaces.py:229 ./src/pyams_zfiles/interfaces.py:321
 #: ./src/pyams_zfiles/api/graph.py:71 ./src/pyams_zfiles/api/graph.py:129
 #: ./src/pyams_zfiles/api/graph.py:147 ./src/pyams_zfiles/api/graph.py:207
 #: ./src/pyams_zfiles/zmi/search.py:66
@@ -135,311 +139,361 @@ msgstr ""
 
 #. 
 #. read-write attributes
-#: ./src/pyams_zfiles/interfaces.py:230 ./src/pyams_zfiles/api/graph.py:58
+#: ./src/pyams_zfiles/interfaces.py:232 ./src/pyams_zfiles/api/graph.py:58
 #: ./src/pyams_zfiles/api/graph.py:173 ./src/pyams_zfiles/api/graph.py:209
 #: ./src/pyams_zfiles/zmi/search.py:72
 msgid "Document title"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:231 ./src/pyams_zfiles/zmi/search.py:73
+#: ./src/pyams_zfiles/interfaces.py:233 ./src/pyams_zfiles/zmi/search.py:73
 msgid "User friendly name of the document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:234 ./src/pyams_zfiles/api/graph.py:59
+#: ./src/pyams_zfiles/interfaces.py:236 ./src/pyams_zfiles/api/graph.py:59
 msgid "Source application name"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:235 ./src/pyams_zfiles/zmi/search.py:77
+#: ./src/pyams_zfiles/interfaces.py:237 ./src/pyams_zfiles/zmi/search.py:77
 msgid "Name of the application which submitted the document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:239
+#: ./src/pyams_zfiles/interfaces.py:241
 msgid "Document data"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:240
+#: ./src/pyams_zfiles/interfaces.py:242
 msgid "This is where document content is stored"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:243
+#: ./src/pyams_zfiles/interfaces.py:245
 msgid "Document data hash"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:244
+#: ./src/pyams_zfiles/interfaces.py:246
 msgid "This unique signature is built using SHA512 algorithm"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:247
+#: ./src/pyams_zfiles/interfaces.py:249
 msgid "Access mode"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:248
+#: ./src/pyams_zfiles/interfaces.py:250
 msgid "Access mode on this document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:253
+#: ./src/pyams_zfiles/interfaces.py:255
 msgid "Update mode"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:254
+#: ./src/pyams_zfiles/interfaces.py:256
 msgid "Update mode on this document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:259 ./src/pyams_zfiles/zmi/search.py:86
+#: ./src/pyams_zfiles/interfaces.py:261 ./src/pyams_zfiles/zmi/search.py:86
 #: ./src/pyams_zfiles/zmi/document.py:76
 msgid "Properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:260
+#: ./src/pyams_zfiles/interfaces.py:262
 msgid ""
 "List of free additional properties which can be applied to the document; "
 "these properties can't be used for searching"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:267 ./src/pyams_zfiles/api/graph.py:62
+#: ./src/pyams_zfiles/interfaces.py:269 ./src/pyams_zfiles/api/graph.py:62
 msgid "Document tags"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:268
+#: ./src/pyams_zfiles/interfaces.py:270
 msgid ""
 "List of free additional tags which can be applied to the document; these tags"
 " can be used for searching"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:273
+#: ./src/pyams_zfiles/interfaces.py:275
 msgid "Last document updater"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:274
+#: ./src/pyams_zfiles/interfaces.py:276
 msgid "Name of the last principal which updated the document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:291
+#: ./src/pyams_zfiles/interfaces.py:293
 msgid "Document creator"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:292 ./src/pyams_zfiles/zmi/search.py:105
+#: ./src/pyams_zfiles/interfaces.py:294 ./src/pyams_zfiles/zmi/search.py:105
 msgid "Name of the principal which created the document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:296
+#: ./src/pyams_zfiles/interfaces.py:298
 msgid "Document owner"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:297
+#: ./src/pyams_zfiles/interfaces.py:299
 msgid "Name of the principal which is owner of the document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:301
+#: ./src/pyams_zfiles/interfaces.py:303
 msgid "Document readers"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:302
+#: ./src/pyams_zfiles/interfaces.py:304
 msgid "Name of principals allowed to read the document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:306
+#: ./src/pyams_zfiles/interfaces.py:308
 msgid "Document managers"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:307
+#: ./src/pyams_zfiles/interfaces.py:309
 msgid "Name of principals allowed to update the document"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:342
+#: ./src/pyams_zfiles/interfaces.py:344
 msgid "Documents OID prefix"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:343
+#: ./src/pyams_zfiles/interfaces.py:345
 msgid ""
 "Prefix used to identify documents which were created locally (unlike "
 "documents which were created into another documents container and "
 "synchronized with this container)"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:349
+#: ./src/pyams_zfiles/interfaces.py:351
 msgid "Access menu from home"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:350
+#: ./src/pyams_zfiles/interfaces.py:352
 msgid ""
 "If 'yes', a menu will be displayed to get access to documents container from "
 "site admin home page"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:383
+#: ./src/pyams_zfiles/interfaces.py:385
 msgid "Application managers"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:384
+#: ./src/pyams_zfiles/interfaces.py:386
 msgid ""
 "These principals can only manage application properties; documents manager "
 "role is required to manage documents!"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:391
+#: ./src/pyams_zfiles/interfaces.py:393
 msgid "Documents creators"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:392
+#: ./src/pyams_zfiles/interfaces.py:394
 msgid "These principals will be allowed to create or import new documents"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:397
+#: ./src/pyams_zfiles/interfaces.py:399
 msgid "Documents managers"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:398
+#: ./src/pyams_zfiles/interfaces.py:400
 msgid "These principals will be allowed to manage any document properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:403
+#: ./src/pyams_zfiles/interfaces.py:405
 msgid "Documents readers"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:404
+#: ./src/pyams_zfiles/interfaces.py:406
 msgid "These principals will be allowed to read any document properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:440
+#: ./src/pyams_zfiles/interfaces.py:442
 msgid "Configuration name"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:441
+#: ./src/pyams_zfiles/interfaces.py:443
 msgid "Unique name of the configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:445
+#: ./src/pyams_zfiles/interfaces.py:447
 msgid "Remote XML-RPC endpoint"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:446
+#: ./src/pyams_zfiles/interfaces.py:448
 msgid ""
 "URL of the remote documents container XML-RPC endpoint used for "
 "synchronization"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:450
+#: ./src/pyams_zfiles/interfaces.py:452
 msgid "User name"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:451
+#: ./src/pyams_zfiles/interfaces.py:453
 msgid "Name of the remote user used for synchronization"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:454
+#: ./src/pyams_zfiles/interfaces.py:456
 msgid "Password"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:455
+#: ./src/pyams_zfiles/interfaces.py:457
 msgid "Password of the remote user used for synchronization"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:458
+#: ./src/pyams_zfiles/interfaces.py:460
 msgid "Enabled configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:459
+#: ./src/pyams_zfiles/interfaces.py:461
 msgid "If 'no', this configuration will not be usable for synchronization"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:471
+#: ./src/pyams_zfiles/interfaces.py:473
 msgid "Configuration users"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:472
+#: ./src/pyams_zfiles/interfaces.py:474
 msgid "Principals which are granted permission to call this configuration"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:500 ./src/pyams_zfiles/interfaces.py:547
-#: ./src/pyams_zfiles/interfaces.py:583 ./src/pyams_zfiles/zmi/extractor.py:181
+#: ./src/pyams_zfiles/interfaces.py:502 ./src/pyams_zfiles/interfaces.py:549
+#: ./src/pyams_zfiles/interfaces.py:585 ./src/pyams_zfiles/zmi/extractor.py:181
 msgid "Property name"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:501
+#: ./src/pyams_zfiles/interfaces.py:503
 msgid "Name of the property used to create index"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:538
+#: ./src/pyams_zfiles/interfaces.py:540
 msgid "Extractor name"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:539
+#: ./src/pyams_zfiles/interfaces.py:541
 msgid "Unique name of the properties extractor"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:542
+#: ./src/pyams_zfiles/interfaces.py:544
 msgid "Active extractor?"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:543
+#: ./src/pyams_zfiles/interfaces.py:545
 msgid "Uncheck this option to disable this extractor..."
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:548
+#: ./src/pyams_zfiles/interfaces.py:550
 msgid "Name of the property which should be set by this extractor"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:551
+#: ./src/pyams_zfiles/interfaces.py:553
 msgid "Override current value?"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:552
+#: ./src/pyams_zfiles/interfaces.py:554
 msgid ""
 "If 'yes', the property will be extracted even if it is already defined into "
 "current document properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:557
+#: ./src/pyams_zfiles/interfaces.py:559
 msgid "Extractor RegEx"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:558
+#: ./src/pyams_zfiles/interfaces.py:560
 msgid ""
 "Regular expression to use to extract property value from document content; if"
 " the expression returns several results from the document content, they will "
 "be set as a list in document properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:563
+#: ./src/pyams_zfiles/interfaces.py:565
 msgid "Multiline?"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:564
+#: ./src/pyams_zfiles/interfaces.py:566
 msgid "If 'yes', given expression will use RegExp MULTILINE option"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:568
+#: ./src/pyams_zfiles/interfaces.py:570
 msgid "Search for all occurrences?"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:569
+#: ./src/pyams_zfiles/interfaces.py:571
 msgid ""
 "If 'yes', all occurrences will be extracted; otherwise, only the first "
 "occurrence will be extracted"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:574
+#: ./src/pyams_zfiles/interfaces.py:576
 msgid "Selected applications"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:575
+#: ./src/pyams_zfiles/interfaces.py:577
 msgid "List of applications for which this extractor should be applied"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:579
+#: ./src/pyams_zfiles/interfaces.py:581
 msgid "Selected properties"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:580
+#: ./src/pyams_zfiles/interfaces.py:582
 msgid ""
 "List of current document properties for which this extractor should be "
 "applied; you can define properties using the \"name=value\" syntax, with a "
 "newline between each property"
 msgstr ""
 
-#: ./src/pyams_zfiles/interfaces.py:584
+#: ./src/pyams_zfiles/interfaces.py:586
 msgid "Property value"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:619
+msgid "Application names"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:620
+msgid "Name of the source application"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:624
+msgid "SQL engine"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:625
+msgid "Name of the registered SQL engine used to extract documents OIDs"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:630
+msgid "Table name"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:631
+msgid "Name of the table or view containing documents OIDs"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:636
+msgid "Field name"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:637
+msgid "Name of table field containing documents OIDs"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:641
+msgid "Dry run"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:642
+msgid ""
+"If 'no', documents missing from source table will be deleted; otherwise, "
+"their OID will only be returned in task execution log"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:648
+msgid "Verbose output?"
+msgstr ""
+
+#: ./src/pyams_zfiles/interfaces.py:649
+msgid "If 'Yes', task execution logs will be filled with more verbose output"
 msgstr ""
 
 #: ./src/pyams_zfiles/include.py:43
@@ -890,6 +944,14 @@ msgstr ""
 
 #: ./src/pyams_zfiles/zmi/extractor.py:487
 msgid "No property was extracted for this document!"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/task.py:45
+msgid "Source application checker task settings"
+msgstr ""
+
+#: ./src/pyams_zfiles/zmi/task.py:56
+msgid "Add ZFiles source application checker task..."
 msgstr ""
 
 #: ./src/pyams_zfiles/zmi/__init__.py:90 ./src/pyams_zfiles/zmi/__init__.py:113
