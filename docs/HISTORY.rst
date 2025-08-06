@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.5.2
+-----
+ - updated scheduler task principal ID
+
 2.5.1
 -----
  - packaging issue
