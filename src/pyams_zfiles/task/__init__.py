@@ -18,6 +18,7 @@ from zope.schema.fieldproperty import FieldProperty
 from pyams_alchemy.engine import get_user_session
 from pyams_scheduler.interfaces.task import TASK_STATUS_EMPTY, TASK_STATUS_FAIL, TASK_STATUS_OK
 from pyams_scheduler.task import Task
+from pyams_security.interfaces.names import INTERNAL_USER_ID
 from pyams_utils.factory import factory_config
 from pyams_utils.registry import query_utility
 from pyams_utils.request import query_request
@@ -53,6 +54,7 @@ class SourceApplicationCheckerTask(Task):
     dry_run = FieldProperty(ISourceApplicationCheckerTask['dry_run'])
     verbose_output = FieldProperty(ISourceApplicationCheckerTask['verbose_output'])
 
+    principal_id = INTERNAL_USER_ID
     is_zodb_task = True
 
     def run(self, report, **kwargs):
