@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.5.3
+-----
+ - updated scheduler task execution result format
+
 2.5.2
 -----
  - updated scheduler task principal ID
