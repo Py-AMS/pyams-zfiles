@@ -17,8 +17,11 @@ from zope.schema.fieldproperty import FieldProperty
 
 from pyams_alchemy.engine import get_user_session
 from pyams_scheduler.interfaces.task import TASK_STATUS_EMPTY, TASK_STATUS_FAIL, TASK_STATUS_OK
+from pyams_scheduler.interfaces.task.pipeline import IPipelineOutput
 from pyams_scheduler.task import Task
+from pyams_scheduler.task.pipeline import BasePipelineOutput
 from pyams_security.interfaces.names import INTERNAL_USER_ID
+from pyams_utils.adapter import adapter_config
 from pyams_utils.factory import factory_config
 from pyams_utils.registry import query_utility
 from pyams_utils.request import query_request
@@ -111,7 +114,10 @@ class SourceApplicationCheckerTask(Task):
                         except Exception as exc:
                             report.writeln(f"  + {oid}: UNKNOWN ERROR: {exc}")
                 report.writeln('\n')
-                return TASK_STATUS_OK, list(zfiles_orphan_oids)
+                return TASK_STATUS_OK, {
+                    'missing': list(zfiles_missing_oids),
+                    'orphaned': list(zfiles_orphan_oids)
+                }
             except ResourceClosedError:
                 report.writeln("SQL query returned no result.", suffix='\n')
                 return TASK_STATUS_EMPTY, None
@@ -121,3 +127,9 @@ class SourceApplicationCheckerTask(Task):
             return TASK_STATUS_FAIL, None
         finally:
             session.rollback()
+
+
+@adapter_config(required=ISourceApplicationCheckerTask,
+                provides=IPipelineOutput)
+class SourceApplicationCheckerTaskPipelineOutput(BasePipelineOutput):
+    """Source application checker task pipeline output"""
