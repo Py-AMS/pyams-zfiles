@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.6.0
+-----
+ - added mode to documents synchronizer to handle two-ways synchronizations
+ - updated scheduler task execution log format
+
 2.5.3
 -----
  - updated scheduler task execution result format
