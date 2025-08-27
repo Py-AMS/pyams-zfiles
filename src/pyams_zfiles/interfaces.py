@@ -352,10 +352,10 @@ class IDocumentContainer(IBTreeContainer):
                           required=True,
                           default=False)
 
-    def add_document(self, data, properties, request):
+    def add_document(self, data, properties, request=None):
         """Add new document"""
 
-    def import_document(self, oid, data, properties, request):
+    def import_document(self, oid, data, properties, request=None):
         """Import document from outer ZFiles database"""
 
     def find_documents(self, params, request=None):
@@ -373,7 +373,7 @@ class IDocumentContainer(IBTreeContainer):
                         check_permission=True):
         """Update document data or properties"""
 
-    def delete_document(self, oid):
+    def delete_document(self, oid, request=None):
         """Delete document or version"""
 
 
