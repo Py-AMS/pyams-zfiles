@@ -45,7 +45,7 @@ from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IToolbarViewletManager
 from pyams_zmi.table import ActionColumn, AttributeSwitcherColumn, I18nColumnMixin, \
-    InnerTableAdminView, Table, TableElementEditor, TrashColumn
+    IconColumn, InnerTableAdminView, Table, TableElementEditor, TrashColumn
 
 __docformat__ = 'restructuredtext'
 
@@ -147,6 +147,29 @@ class DocumentSynchronizerConfigurationTargetColumn(I18nColumnMixin, GetAttrColu
     weight = 30
 
 
+@adapter_config(name='mode',
+                required=(IDocumentSynchronizer, IAdminLayer,
+                          DocumentSynchronizerConfigurationTable),
+                provides=IColumn)
+class DocumentSynchronizerConfigurationModeColumn(IconColumn):
+    """Synchronizer configurations mode column"""
+    
+    export_icon_class = 'fas fa-file-export'
+    export_hint = _("Export mode")
+    
+    import_icon_class = 'fas fa-file-import'
+    import_hint = _("Import mode")
+    
+    weight = 40
+    
+    def get_icon_class(self, item):
+        return self.import_icon_class if item.mode == 'import' else self.export_icon_class
+    
+    def get_icon_hint(self, item):
+        translate = self.request.localizer.translate
+        return translate(self.import_hint if item.mode == 'import' else self.export_hint)
+    
+    
 @adapter_config(name='trash',
                 required=(IDocumentSynchronizer, IAdminLayer,
                           DocumentSynchronizerConfigurationTable),

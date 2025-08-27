@@ -416,6 +416,7 @@ class DocumentContainerError(Exception):
 #
 
 IMPORT_MODE = 'import'
+EXPORT_MODE = 'export'
 DELETE_MODE = 'delete'
 
 
@@ -455,6 +456,15 @@ class IDocumentSynchronizerConfiguration(Interface):
                         description=_("Password of the remote user used for synchronization"),
                         required=False)
 
+    mode = Choice(title=_("Synchronization mode"),
+                  description=_("Synchronization mode used for synchronization"),
+                  required=True,
+                  vocabulary=SimpleVocabulary([
+                      SimpleTerm(value=EXPORT_MODE, title=_("Export mode")),
+                      SimpleTerm(value=IMPORT_MODE, title=_("Import mode"))
+                  ]),
+                  default=EXPORT_MODE)
+    
     enabled = Bool(title=_("Enabled configuration"),
                    description=_("If 'no', this configuration will not be usable for "
                                  "synchronization"),
@@ -480,8 +490,11 @@ class IDocumentSynchronizer(IBTreeContainer):
 
     contains(IDocumentSynchronizerConfiguration)
 
-    def synchronize(self, oid, mode=IMPORT_MODE, request=None, configuration=None):
-        """Synchronize given OID to remote container"""
+    def push(self, oid, mode=IMPORT_MODE, request=None, configuration=None):
+        """Push document with given OID to remote container"""
+        
+    def pull(self, oid, mode=IMPORT_MODE, request=None, configuration=None):
+        """Get document with given OID from remote container"""
 
     def synchronize_all(self, imported=None, deleted=None, request=None, configuration=None):
         """Synchronize all imported and deleted OIDs with remote container"""

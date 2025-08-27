@@ -20,25 +20,26 @@ from xmlrpc.client import Binary, Fault
 
 from ZODB.POSException import POSError
 from persistent import Persistent
+from pyramid.httpexceptions import HTTPNotFound
 from zope.container.contained import Contained
 from zope.container.folder import Folder
 from zope.interface import implementer
+from zope.schema import getFieldNames
 from zope.schema.fieldproperty import FieldProperty
 from zope.traversing.interfaces import ITraversable
 
-from pyams_security.interfaces import IDefaultProtectionPolicy, IRolesPolicy, \
-    IViewContextPermissionChecker
+from pyams_security.interfaces import IDefaultProtectionPolicy, IRolesPolicy, IViewContextPermissionChecker
 from pyams_security.interfaces.names import UNCHANGED_PASSWORD
 from pyams_security.property import RolePrincipalsFieldProperty
 from pyams_security.security import ProtectedObjectMixin, ProtectedObjectRoles
 from pyams_utils.adapter import ContextAdapter, adapter_config, get_annotation_adapter
 from pyams_utils.factory import factory_config
 from pyams_utils.protocol.xmlrpc import get_client
-from pyams_zfiles.interfaces import DELETE_MODE, DOCUMENT_SYNCHRONIZER_KEY, IDocumentContainer, \
-    IDocumentSynchronizer, IDocumentSynchronizerConfiguration, \
-    IDocumentSynchronizerConfigurationRoles, IMPORT_MODE, \
+from pyams_utils.traversing import get_parent
+from pyams_zfiles.interfaces import DELETE_MODE, DOCUMENT_SYNCHRONIZER_KEY, EXPORT_MODE, IDocumentContainer, \
+    IDocumentRoles, IDocumentSynchronizer, IDocumentSynchronizerConfiguration, IDocumentSynchronizerConfigurationRoles, \
+    IDocumentVersion, IMPORT_MODE, \
     MANAGE_APPLICATION_PERMISSION, SynchronizerStatus
-
 
 __docformat__ = 'restructuredtext'
 
@@ -57,6 +58,7 @@ class DocumentSynchronizerConfiguration(ProtectedObjectMixin, Persistent, Contai
     target = FieldProperty(IDocumentSynchronizerConfiguration['target'])
     username = FieldProperty(IDocumentSynchronizerConfiguration['username'])
     _password = FieldProperty(IDocumentSynchronizerConfiguration['password'])
+    mode = FieldProperty(IDocumentSynchronizerConfiguration['mode'])
     enabled = FieldProperty(IDocumentSynchronizerConfiguration['enabled'])
 
     @property
@@ -116,14 +118,14 @@ class DocumentSynchronizer(Folder):
 
     __name__ = '++synchronizer++'
 
-    def synchronize(self, oid, mode=IMPORT_MODE, request=None, configuration=None):  # pylint: disable=unused-argument
-        """Synchronize given OID to remote container"""
+    def push(self, oid, mode=IMPORT_MODE, request=None, configuration=None):  # pylint: disable=unused-argument
+        """Push document with given OID to remote container"""
         if configuration is None:
             return mode, SynchronizerStatus.ERROR.value
-        client = configuration.get_client()
         try:
+            client = configuration.get_client()
             if mode == IMPORT_MODE:
-                document = self.__parent__.get_document(oid)
+                document = IDocumentContainer(self.__parent__).get_document(oid)
                 if document is None:
                     return mode, SynchronizerStatus.NOT_FOUND.value
                 data = Binary(document.data.data)
@@ -137,14 +139,51 @@ class DocumentSynchronizer(Folder):
         except Fault:
             return mode, SynchronizerStatus.ERROR.value
 
+    def pull(self, oid, mode=IMPORT_MODE, request=None, configuration=None):
+        """Get document with given OID from remote container"""
+        if configuration is None:
+            return mode, SynchronizerStatus.ERROR.value
+        container = IDocumentContainer(self.__parent__)
+        try:
+            if mode == IMPORT_MODE:
+                client = configuration.get_client()
+                properties = client.getFileProperties(oid, None, None, None, True)
+                data = properties.pop('data', None)
+                if isinstance(data, Binary):
+                    data = data.data
+                if not data:
+                    return mode, SynchronizerStatus.NO_DATA.value
+                schema = getFieldNames(IDocumentVersion) + getFieldNames(IDocumentRoles) + [
+                    'filename', 'created_time', 'status'
+                ]
+                for name in list(properties.keys()):
+                    if name not in schema:
+                        properties.pop(name)
+                document = container.get_document(oid)
+                if document is None:
+                    container.import_document(oid, data, properties)
+                else:
+                    properties.pop('created_time', None)
+                    container.update_document(oid, None, data, properties)
+            elif mode == DELETE_MODE:
+                container.delete_document(oid)
+            return mode, SynchronizerStatus.OK.value
+        except POSError:
+            return mode, SynchronizerStatus.NO_DATA.value
+        except Fault:
+            return mode, SynchronizerStatus.ERROR.value
+
     def synchronize_all(self, imported=None, deleted=None, request=None,
                         configuration=None):
-        """Synchronize given OIDs, in import or delete modes, with remote container"""
+        """Synchronize given OIDs, in import or delete modes, with a remote container"""
+        if configuration is None:
+            raise HTTPNotFound()
+        action = self.push if configuration.mode == EXPORT_MODE else self.pull
         result = {}
         for oid in (imported or ()):
-            result[oid] = self.synchronize(oid, IMPORT_MODE, request, configuration)
+            result[oid] = action(oid, IMPORT_MODE, request, configuration)
         for oid in (deleted or ()):
-            result[oid] = self.synchronize(oid, DELETE_MODE, request, configuration)
+            result[oid] = action(oid, DELETE_MODE, request, configuration)
         return result
 
 

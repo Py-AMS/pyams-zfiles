@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PyAMS zfiles 1.0.0\n"
-"POT-Creation-Date: 2025-07-12 11:53+0200\n"
+"POT-Creation-Date: 2025-08-27 10:16+0200\n"
 "Last-Translator: Thierry Florac <tflorac@ulthar.net>\n"
 "Language-Team: FRENCH <FR@li.org>\n"
 "Language: French\n"
@@ -82,55 +82,51 @@ msgstr "nouvelle version créée"
 msgid "publication refused"
 msgstr "publication refusée"
 
-#: src/pyams_zfiles/task.py:45
-msgid "ZFiles source application checker"
-msgstr "Vérification de documents ZFiles"
-
 #: src/pyams_zfiles/utility.py:251
 msgid "Document content update"
 msgstr "Mise à jour du contenu du document"
 
-#: src/pyams_zfiles/interfaces.py:160
+#: src/pyams_zfiles/interfaces.py:158
 msgid "Draft"
 msgstr "Brouillon"
 
-#: src/pyams_zfiles/interfaces.py:161
+#: src/pyams_zfiles/interfaces.py:159
 msgid "Published"
 msgstr "Publié"
 
-#: src/pyams_zfiles/interfaces.py:162
+#: src/pyams_zfiles/interfaces.py:160
 msgid "Archived"
 msgstr "Archivé"
 
-#: src/pyams_zfiles/interfaces.py:163
+#: src/pyams_zfiles/interfaces.py:161
 msgid "Deleted"
 msgstr "Supprimé"
 
-#: src/pyams_zfiles/interfaces.py:167
+#: src/pyams_zfiles/interfaces.py:165
 msgid "draft created"
 msgstr "brouillon créé"
 
-#: src/pyams_zfiles/interfaces.py:168
+#: src/pyams_zfiles/interfaces.py:166
 msgid "published"
 msgstr "publié"
 
-#: src/pyams_zfiles/interfaces.py:169
+#: src/pyams_zfiles/interfaces.py:167
 msgid "archived"
 msgstr "archivé"
 
-#: src/pyams_zfiles/interfaces.py:199
+#: src/pyams_zfiles/interfaces.py:197
 msgid "Private"
 msgstr "Privé"
 
-#: src/pyams_zfiles/interfaces.py:200
+#: src/pyams_zfiles/interfaces.py:198
 msgid "Protected"
 msgstr "Protégé"
 
-#: src/pyams_zfiles/interfaces.py:201
+#: src/pyams_zfiles/interfaces.py:199
 msgid "Public"
 msgstr "Public"
 
-#: src/pyams_zfiles/interfaces.py:229 src/pyams_zfiles/interfaces.py:321
+#: src/pyams_zfiles/interfaces.py:227 src/pyams_zfiles/interfaces.py:319
 #: src/pyams_zfiles/api/graph.py:71 src/pyams_zfiles/api/graph.py:129
 #: src/pyams_zfiles/api/graph.py:147 src/pyams_zfiles/api/graph.py:207
 #: src/pyams_zfiles/zmi/search.py:66
@@ -139,62 +135,62 @@ msgstr "Identifiant unique du document"
 
 #.
 #. read-write attributes
-#: src/pyams_zfiles/interfaces.py:232 src/pyams_zfiles/api/graph.py:58
+#: src/pyams_zfiles/interfaces.py:230 src/pyams_zfiles/api/graph.py:58
 #: src/pyams_zfiles/api/graph.py:173 src/pyams_zfiles/api/graph.py:209
 #: src/pyams_zfiles/zmi/search.py:72
 msgid "Document title"
 msgstr "Libellé du document"
 
-#: src/pyams_zfiles/interfaces.py:233 src/pyams_zfiles/zmi/search.py:73
+#: src/pyams_zfiles/interfaces.py:231 src/pyams_zfiles/zmi/search.py:73
 msgid "User friendly name of the document"
 msgstr "Libellé utilisateur associé au document"
 
-#: src/pyams_zfiles/interfaces.py:236 src/pyams_zfiles/api/graph.py:59
+#: src/pyams_zfiles/interfaces.py:234 src/pyams_zfiles/api/graph.py:59
 msgid "Source application name"
 msgstr "Application source"
 
-#: src/pyams_zfiles/interfaces.py:237 src/pyams_zfiles/zmi/search.py:77
+#: src/pyams_zfiles/interfaces.py:235 src/pyams_zfiles/zmi/search.py:77
 msgid "Name of the application which submitted the document"
 msgstr "Nom de l'application ayant soumis le document"
 
-#: src/pyams_zfiles/interfaces.py:241
+#: src/pyams_zfiles/interfaces.py:239
 msgid "Document data"
 msgstr "Contenu du document"
 
-#: src/pyams_zfiles/interfaces.py:242
+#: src/pyams_zfiles/interfaces.py:240
 msgid "This is where document content is stored"
 msgstr "Contenu utile du document"
 
-#: src/pyams_zfiles/interfaces.py:245
+#: src/pyams_zfiles/interfaces.py:243
 msgid "Document data hash"
 msgstr "Hash"
 
-#: src/pyams_zfiles/interfaces.py:246
+#: src/pyams_zfiles/interfaces.py:244
 msgid "This unique signature is built using SHA512 algorithm"
 msgstr "Signature du contenu du fichier basé sur l'algorithme SHA512"
 
-#: src/pyams_zfiles/interfaces.py:249
+#: src/pyams_zfiles/interfaces.py:247
 msgid "Access mode"
 msgstr "Mode d'accès"
 
-#: src/pyams_zfiles/interfaces.py:250
+#: src/pyams_zfiles/interfaces.py:248
 msgid "Access mode on this document"
 msgstr "Mode d'accès au document en lecture"
 
-#: src/pyams_zfiles/interfaces.py:255
+#: src/pyams_zfiles/interfaces.py:253
 msgid "Update mode"
 msgstr "Mode de mise à jour"
 
-#: src/pyams_zfiles/interfaces.py:256
+#: src/pyams_zfiles/interfaces.py:254
 msgid "Update mode on this document"
 msgstr "Mode d'accès au document en modification"
 
-#: src/pyams_zfiles/interfaces.py:261 src/pyams_zfiles/zmi/search.py:86
+#: src/pyams_zfiles/interfaces.py:259 src/pyams_zfiles/zmi/search.py:86
 #: src/pyams_zfiles/zmi/document.py:76
 msgid "Properties"
 msgstr "Propriétés"
 
-#: src/pyams_zfiles/interfaces.py:262
+#: src/pyams_zfiles/interfaces.py:260
 msgid ""
 "List of free additional properties which can be applied to the document; "
 "these properties can't be used for searching"
@@ -203,11 +199,11 @@ msgstr ""
 "sont libres mais ne sont pas indexées et donc non utilisables pour effectuer "
 "des recherches"
 
-#: src/pyams_zfiles/interfaces.py:269 src/pyams_zfiles/api/graph.py:62
+#: src/pyams_zfiles/interfaces.py:267 src/pyams_zfiles/api/graph.py:62
 msgid "Document tags"
 msgstr "Tags"
 
-#: src/pyams_zfiles/interfaces.py:270
+#: src/pyams_zfiles/interfaces.py:268
 msgid ""
 "List of free additional tags which can be applied to the document; these "
 "tags can be used for searching"
@@ -215,51 +211,51 @@ msgstr ""
 "Liste de tags appliqués au document ; ces tags peuvent être appliqués pour "
 "effectuer des recherches"
 
-#: src/pyams_zfiles/interfaces.py:275
+#: src/pyams_zfiles/interfaces.py:273
 msgid "Last document updater"
 msgstr "Mise à jour"
 
-#: src/pyams_zfiles/interfaces.py:276
+#: src/pyams_zfiles/interfaces.py:274
 msgid "Name of the last principal which updated the document"
 msgstr "Nom du dernier mandataire ayant mis à jour le document"
 
-#: src/pyams_zfiles/interfaces.py:293
+#: src/pyams_zfiles/interfaces.py:291
 msgid "Document creator"
 msgstr "Créateur"
 
-#: src/pyams_zfiles/interfaces.py:294 src/pyams_zfiles/zmi/search.py:105
+#: src/pyams_zfiles/interfaces.py:292 src/pyams_zfiles/zmi/search.py:105
 msgid "Name of the principal which created the document"
 msgstr "Nom du mandataire ayant créé le document"
 
-#: src/pyams_zfiles/interfaces.py:298
+#: src/pyams_zfiles/interfaces.py:296
 msgid "Document owner"
 msgstr "Propriétaire"
 
-#: src/pyams_zfiles/interfaces.py:299
+#: src/pyams_zfiles/interfaces.py:297
 msgid "Name of the principal which is owner of the document"
 msgstr "Nom du mandataire propriétaire du document"
 
-#: src/pyams_zfiles/interfaces.py:303
+#: src/pyams_zfiles/interfaces.py:301
 msgid "Document readers"
 msgstr "Lecteurs"
 
-#: src/pyams_zfiles/interfaces.py:304
+#: src/pyams_zfiles/interfaces.py:302
 msgid "Name of principals allowed to read the document"
 msgstr "Nom des mandataire autorisés à lire le contenu du document"
 
-#: src/pyams_zfiles/interfaces.py:308
+#: src/pyams_zfiles/interfaces.py:306
 msgid "Document managers"
 msgstr "Contributeurs"
 
-#: src/pyams_zfiles/interfaces.py:309
+#: src/pyams_zfiles/interfaces.py:307
 msgid "Name of principals allowed to update the document"
 msgstr "Nom des mandataires autorisés à modifier le document"
 
-#: src/pyams_zfiles/interfaces.py:344
+#: src/pyams_zfiles/interfaces.py:342
 msgid "Documents OID prefix"
 msgstr "Préfixe des OID"
 
-#: src/pyams_zfiles/interfaces.py:345
+#: src/pyams_zfiles/interfaces.py:343
 msgid ""
 "Prefix used to identify documents which were created locally (unlike "
 "documents which were created into another documents container and "
@@ -269,11 +265,11 @@ msgstr ""
 "importer des documents en provenance d'un autre conteneur de documents, à la "
 "condition qu'ils utilisent un préfixe différent"
 
-#: src/pyams_zfiles/interfaces.py:351
+#: src/pyams_zfiles/interfaces.py:349
 msgid "Access menu from home"
 msgstr "Accès depuis l'accueil"
 
-#: src/pyams_zfiles/interfaces.py:352
+#: src/pyams_zfiles/interfaces.py:350
 msgid ""
 "If 'yes', a menu will be displayed to get access to documents container from "
 "site admin home page"
@@ -281,11 +277,11 @@ msgstr ""
 "Si 'oui', un menu d'accès au conteneur de documents sera affiché depuis la "
 "page d'accueil de l'interface d'administration du site"
 
-#: src/pyams_zfiles/interfaces.py:385
+#: src/pyams_zfiles/interfaces.py:383
 msgid "Application managers"
 msgstr "Gestionnaires de l'application"
 
-#: src/pyams_zfiles/interfaces.py:386
+#: src/pyams_zfiles/interfaces.py:384
 msgid ""
 "These principals can only manage application properties; documents manager "
 "role is required to manage documents!"
@@ -294,46 +290,46 @@ msgstr ""
 "ils peuvent également gérer les propriétés des documents, et créer de "
 "nouveaux documents au nom d'autres utilisateurs"
 
-#: src/pyams_zfiles/interfaces.py:393
+#: src/pyams_zfiles/interfaces.py:391
 msgid "Documents creators"
 msgstr "Créateurs de documents"
 
-#: src/pyams_zfiles/interfaces.py:394
+#: src/pyams_zfiles/interfaces.py:392
 msgid "These principals will be allowed to create or import new documents"
 msgstr ""
 "Ces mandataires sont autorisés à créer ou importer de nouveaux documents, en "
 "leur nom propre ou au nom d'autres mandataires"
 
-#: src/pyams_zfiles/interfaces.py:399
+#: src/pyams_zfiles/interfaces.py:397
 msgid "Documents managers"
 msgstr "Gestionnaires de documents"
 
-#: src/pyams_zfiles/interfaces.py:400
+#: src/pyams_zfiles/interfaces.py:398
 msgid "These principals will be allowed to manage any document properties"
 msgstr ""
 "Ces mandataires sont autorisés à gérer les propriétés de tous les documents"
 
-#: src/pyams_zfiles/interfaces.py:405
+#: src/pyams_zfiles/interfaces.py:403
 msgid "Documents readers"
 msgstr "Lecteurs de documents"
 
-#: src/pyams_zfiles/interfaces.py:406
+#: src/pyams_zfiles/interfaces.py:404
 msgid "These principals will be allowed to read any document properties"
 msgstr "Ces mandataires sont autorisés à consulter tous les documents"
 
-#: src/pyams_zfiles/interfaces.py:442
+#: src/pyams_zfiles/interfaces.py:441
 msgid "Configuration name"
 msgstr "Nom de la configuration"
 
-#: src/pyams_zfiles/interfaces.py:443
+#: src/pyams_zfiles/interfaces.py:442
 msgid "Unique name of the configuration"
 msgstr "Nom unique donné à la configuration"
 
-#: src/pyams_zfiles/interfaces.py:447
+#: src/pyams_zfiles/interfaces.py:446
 msgid "Remote XML-RPC endpoint"
 msgstr "Point d'accès XML-RPC"
 
-#: src/pyams_zfiles/interfaces.py:448
+#: src/pyams_zfiles/interfaces.py:447
 msgid ""
 "URL of the remote documents container XML-RPC endpoint used for "
 "synchronization"
@@ -341,74 +337,90 @@ msgstr ""
 "URL du point d'accès XML-RPC du conteneur distant vers lequel doit "
 "s'effectuer la synchronisation"
 
-#: src/pyams_zfiles/interfaces.py:452
+#: src/pyams_zfiles/interfaces.py:451
 msgid "User name"
 msgstr "Code utilisateur"
 
-#: src/pyams_zfiles/interfaces.py:453
+#: src/pyams_zfiles/interfaces.py:452
 msgid "Name of the remote user used for synchronization"
 msgstr "Nom de l'utilisateur distant utilisé pour la synchronisation"
 
-#: src/pyams_zfiles/interfaces.py:456
+#: src/pyams_zfiles/interfaces.py:455
 msgid "Password"
 msgstr "Mot de passe"
 
-#: src/pyams_zfiles/interfaces.py:457
+#: src/pyams_zfiles/interfaces.py:456
 msgid "Password of the remote user used for synchronization"
 msgstr "Mot de passe de l'utilisateur distant"
 
+#: src/pyams_zfiles/interfaces.py:459
+msgid "Synchronization mode"
+msgstr "Mode de synchronisation"
+
 #: src/pyams_zfiles/interfaces.py:460
+msgid "Synchronization mode used for synchronization"
+msgstr "Mode utilisé pour la synchronisation"
+
+#: src/pyams_zfiles/interfaces.py:463
+msgid "Export mode"
+msgstr "Exporter les données vers la GED distante"
+
+#: src/pyams_zfiles/interfaces.py:464
+msgid "Import mode"
+msgstr "Importer les données de la GED distante"
+
+#: src/pyams_zfiles/interfaces.py:468
 msgid "Enabled configuration"
 msgstr "Configuration active"
 
-#: src/pyams_zfiles/interfaces.py:461
+#: src/pyams_zfiles/interfaces.py:469
 msgid "If 'no', this configuration will not be usable for synchronization"
 msgstr ""
 "Si 'non', cette configuration sera désactivée et ne pourra pas être utilisée "
 "pour effectuer une synchronisation de documents"
 
-#: src/pyams_zfiles/interfaces.py:473
+#: src/pyams_zfiles/interfaces.py:481
 msgid "Configuration users"
 msgstr "Synchroniseurs"
 
-#: src/pyams_zfiles/interfaces.py:474
+#: src/pyams_zfiles/interfaces.py:482
 msgid "Principals which are granted permission to call this configuration"
 msgstr "Liste des mandataires autorisés à utiliser cette configuration"
 
-#: src/pyams_zfiles/interfaces.py:502 src/pyams_zfiles/interfaces.py:549
-#: src/pyams_zfiles/interfaces.py:585 src/pyams_zfiles/zmi/extractor.py:181
+#: src/pyams_zfiles/interfaces.py:513 src/pyams_zfiles/interfaces.py:560
+#: src/pyams_zfiles/interfaces.py:596 src/pyams_zfiles/zmi/extractor.py:181
 msgid "Property name"
 msgstr "Propriété"
 
-#: src/pyams_zfiles/interfaces.py:503
+#: src/pyams_zfiles/interfaces.py:514
 msgid "Name of the property used to create index"
 msgstr "Nom de la propriété utilisée pour créer l'index"
 
-#: src/pyams_zfiles/interfaces.py:540
+#: src/pyams_zfiles/interfaces.py:551
 msgid "Extractor name"
 msgstr "Nom de l'extracteur"
 
-#: src/pyams_zfiles/interfaces.py:541
+#: src/pyams_zfiles/interfaces.py:552
 msgid "Unique name of the properties extractor"
 msgstr "Nom unique donné à l'extracteur"
 
-#: src/pyams_zfiles/interfaces.py:544
+#: src/pyams_zfiles/interfaces.py:555
 msgid "Active extractor?"
 msgstr "Extracteur actif ?"
 
-#: src/pyams_zfiles/interfaces.py:545
+#: src/pyams_zfiles/interfaces.py:556
 msgid "Uncheck this option to disable this extractor..."
 msgstr "Activer/désactiver l'extracteur"
 
-#: src/pyams_zfiles/interfaces.py:550
+#: src/pyams_zfiles/interfaces.py:561
 msgid "Name of the property which should be set by this extractor"
 msgstr "Nom de la propriété alimentée par cet extracteur"
 
-#: src/pyams_zfiles/interfaces.py:553
+#: src/pyams_zfiles/interfaces.py:564
 msgid "Override current value?"
 msgstr "Remplacer une valeur existante"
 
-#: src/pyams_zfiles/interfaces.py:554
+#: src/pyams_zfiles/interfaces.py:565
 msgid ""
 "If 'yes', the property will be extracted even if it is already defined into "
 "current document properties"
@@ -416,11 +428,11 @@ msgstr ""
 "Si 'oui', cet extracteur sera appliqué même si la propriété correspondante "
 "existe déjà dans le document"
 
-#: src/pyams_zfiles/interfaces.py:559
+#: src/pyams_zfiles/interfaces.py:570
 msgid "Extractor RegEx"
 msgstr "Expression rationnelle"
 
-#: src/pyams_zfiles/interfaces.py:560
+#: src/pyams_zfiles/interfaces.py:571
 msgid ""
 "Regular expression to use to extract property value from document content; "
 "if the expression returns several results from the document content, they "
@@ -432,21 +444,21 @@ msgstr ""
 "plusieurs valeurs du document, elles seront séparées par un caractère ';' au "
 "sein du document et pourront être indexées et interrogées séparément"
 
-#: src/pyams_zfiles/interfaces.py:565
+#: src/pyams_zfiles/interfaces.py:576
 msgid "Multiline?"
 msgstr "Multi-lignes"
 
-#: src/pyams_zfiles/interfaces.py:566
+#: src/pyams_zfiles/interfaces.py:577
 msgid "If 'yes', given expression will use RegExp MULTILINE option"
 msgstr ""
 "Si l'expression recherchée au sein du document peut contenir des sauts de "
 "lignes (caractère '\\n'), vous devez sélectionner cette option"
 
-#: src/pyams_zfiles/interfaces.py:570
+#: src/pyams_zfiles/interfaces.py:581
 msgid "Search for all occurrences?"
 msgstr "Chercher toutes les occurrences"
 
-#: src/pyams_zfiles/interfaces.py:571
+#: src/pyams_zfiles/interfaces.py:582
 msgid ""
 "If 'yes', all occurrences will be extracted; otherwise, only the first "
 "occurrence will be extracted"
@@ -455,22 +467,22 @@ msgstr ""
 "seront extraites ; dans le cas contraire, seule la première occurrence sera "
 "utilisée"
 
-#: src/pyams_zfiles/interfaces.py:576
+#: src/pyams_zfiles/interfaces.py:587
 msgid "Selected applications"
 msgstr "Applications sélectionnées"
 
-#: src/pyams_zfiles/interfaces.py:577
+#: src/pyams_zfiles/interfaces.py:588
 msgid "List of applications for which this extractor should be applied"
 msgstr ""
 "Liste des applications pour lesquelles cet extracteur doit s'appliquer ; "
 "laisser cette sélection vide pour que l'extraction se fasse quelle que soit "
 "l'application associée au document"
 
-#: src/pyams_zfiles/interfaces.py:581
+#: src/pyams_zfiles/interfaces.py:592
 msgid "Selected properties"
 msgstr "Propriétés sélectionnées"
 
-#: src/pyams_zfiles/interfaces.py:582
+#: src/pyams_zfiles/interfaces.py:593
 msgid ""
 "List of current document properties for which this extractor should be "
 "applied; you can define properties using the \"name=value\" syntax, with a "
@@ -482,123 +494,59 @@ msgstr ""
 "de ligne ; laisser cette zone vide pour que l'extraction se fasse quelle que "
 "soit la valeur initiale des propriétés du document"
 
-#: src/pyams_zfiles/interfaces.py:586
+#: src/pyams_zfiles/interfaces.py:597
 msgid "Property value"
 msgstr "Valeur de la propriété"
 
-#: src/pyams_zfiles/interfaces.py:619
-msgid "Application names"
-msgstr "Applications sélectionnées"
-
-#: src/pyams_zfiles/interfaces.py:620
-msgid "Name of the source application"
-msgstr ""
-"Sélection des applications émettrices concernées pour extraire la liste des documents "
-"correspondant contenus dans la GED"
-
-#: src/pyams_zfiles/interfaces.py:624
-msgid "SQL engine"
-msgstr "Source SQL"
-
-#: src/pyams_zfiles/interfaces.py:625
-msgid "Name of the registered SQL engine used to extract documents OIDs"
-msgstr ""
-"Nom de la source de données utilisée pour extraire la liste des identifiants "
-"de documents"
-
-#: src/pyams_zfiles/interfaces.py:630
-msgid "Table name"
-msgstr "Nom de la table"
-
-#: src/pyams_zfiles/interfaces.py:631
-msgid "Name of the table or view containing documents OIDs"
-msgstr ""
-"Nom de la table ou de la vue contenant la liste des identifiants de documents référencés "
-"par les applications sélectionnées"
-
-#: src/pyams_zfiles/interfaces.py:636
-msgid "Field name"
-msgstr "Nom du champ"
-
-#: src/pyams_zfiles/interfaces.py:637
-msgid "Name of table field containing documents OIDs"
-msgstr ""
-"Nom du champ au sein de la table ou de la vue sélectionnée contenant la liste des "
-"identifiants de documents référencés par les applications sélectionnées"
-
-#: src/pyams_zfiles/interfaces.py:641
-msgid "Dry run"
-msgstr "Tir à blanc"
-
-#: src/pyams_zfiles/interfaces.py:642
-msgid ""
-"If 'no', documents missing from source table will be deleted; otherwise, "
-"their OID will only be returned in task execution log"
-msgstr ""
-"En mode 'tir à blanc', la tâche ne fait que renvoyer un état des lieux avec la liste "
-"des identifiants sélectionnés et leur statut dans la GED ; en mode 'normal', les "
-"documents stockés en GED qui ne sont plus référencés dans les applications sélectionnées "
-"seront supprimés définitivement"
-
-#: src/pyams_zfiles/interfaces.py:648
-msgid "Verbose output?"
-msgstr "Rapport d'exécution détaillé"
-
-#: src/pyams_zfiles/interfaces.py:649
-msgid "If 'Yes', task execution logs will be filled with more verbose output"
-msgstr ""
-"Si 'oui', le rapport d'exécution de la tâche contiendra plus d'informations "
-"sur les documents traités"
-
-#: src/pyams_zfiles/include.py:43
+#: src/pyams_zfiles/include.py:45
 msgid "Manage ZFiles application"
 msgstr "Gérer l'application ZFiles"
 
-#: src/pyams_zfiles/include.py:47
+#: src/pyams_zfiles/include.py:49
 msgid "Synchronize documents"
 msgstr "Synchroniser des documents"
 
-#: src/pyams_zfiles/include.py:51
+#: src/pyams_zfiles/include.py:53
 msgid "Create new document"
 msgstr "Créer un nouveau document"
 
-#: src/pyams_zfiles/include.py:55
+#: src/pyams_zfiles/include.py:57
 msgid "Create new document (with specified owner)"
 msgstr "Créer un nouveau document (avec un propriétaire spécifique)"
 
-#: src/pyams_zfiles/include.py:59
+#: src/pyams_zfiles/include.py:61
 msgid "Manage document"
 msgstr "Gérer les documents"
 
-#: src/pyams_zfiles/include.py:63
+#: src/pyams_zfiles/include.py:65
 msgid "Read document"
 msgstr "Voir les documents"
 
-#: src/pyams_zfiles/include.py:79
+#: src/pyams_zfiles/include.py:81
 msgid "ZFiles application manager (role)"
 msgstr "Gestionnaire ZFiles (rôle)"
 
-#: src/pyams_zfiles/include.py:92
+#: src/pyams_zfiles/include.py:94
 msgid "Documents synchronizer (role)"
 msgstr "Synchroniseur de documents (rôle)"
 
-#: src/pyams_zfiles/include.py:104
+#: src/pyams_zfiles/include.py:106
 msgid "Documents importer (role)"
 msgstr "Importateur de documents (rôle)"
 
-#: src/pyams_zfiles/include.py:119
+#: src/pyams_zfiles/include.py:121
 msgid "Document manager (role)"
 msgstr "Gestionnaire de document (rôle)"
 
-#: src/pyams_zfiles/include.py:133
+#: src/pyams_zfiles/include.py:135
 msgid "Document creator (role)"
 msgstr "Créateur de document (rôle)"
 
-#: src/pyams_zfiles/include.py:142
+#: src/pyams_zfiles/include.py:144
 msgid "Document owner (role)"
 msgstr "Propriétaire de document (rôle)"
 
-#: src/pyams_zfiles/include.py:155
+#: src/pyams_zfiles/include.py:157
 msgid "Document reader (role)"
 msgstr "Lecteur de document (rôle)"
 
@@ -1026,14 +974,6 @@ msgstr "Valeur des propriétés extraites de ce document"
 msgid "No property was extracted for this document!"
 msgstr "Aucune propriété n'a été extraite de ce document !"
 
-#: src/pyams_zfiles/zmi/task.py:45
-msgid "Source application checker task settings"
-msgstr "Paramètres de la source"
-
-#: src/pyams_zfiles/zmi/task.py:56
-msgid "Add ZFiles source application checker task..."
-msgstr "Vérification de documents ZFiles"
-
 #: src/pyams_zfiles/zmi/__init__.py:90 src/pyams_zfiles/zmi/__init__.py:113
 msgid "Documents container"
 msgstr "Conteneur de documents"
@@ -1169,6 +1109,83 @@ msgstr "Propriétés du nouvel index"
 #: src/pyams_zfiles/zmi/index.py:249
 msgid "Catalog index with specified property name already exists!"
 msgstr "Cette propriété est déjà indexée !"
+
+#: src/pyams_zfiles/task/__init__.py:50
+msgid "ZFiles source application checker"
+msgstr "Vérification de documents ZFiles"
+
+#: src/pyams_zfiles/task/interfaces.py:26
+msgid "Application names"
+msgstr "Applications sélectionnées"
+
+#: src/pyams_zfiles/task/interfaces.py:27
+msgid "Name of the source application"
+msgstr ""
+"Sélection des applications émettrices concernées pour extraire la liste des "
+"documents correspondant contenus dans la GED"
+
+#: src/pyams_zfiles/task/interfaces.py:31
+msgid "SQL engine"
+msgstr "Source SQL"
+
+#: src/pyams_zfiles/task/interfaces.py:32
+msgid "Name of the registered SQL engine used to extract documents OIDs"
+msgstr ""
+"Nom de la source de données utilisée pour extraire la liste des identifiants "
+"de documents"
+
+#: src/pyams_zfiles/task/interfaces.py:37
+msgid "Table name"
+msgstr "Nom de la table"
+
+#: src/pyams_zfiles/task/interfaces.py:38
+msgid "Name of the table or view containing documents OIDs"
+msgstr ""
+"Nom de la table ou de la vue contenant la liste des identifiants de "
+"documents référencés par les applications sélectionnées"
+
+#: src/pyams_zfiles/task/interfaces.py:43
+msgid "Field name"
+msgstr "Nom du champ"
+
+#: src/pyams_zfiles/task/interfaces.py:44
+msgid "Name of table field containing documents OIDs"
+msgstr ""
+"Nom du champ au sein de la table ou de la vue sélectionnée contenant la "
+"liste des identifiants de documents référencés par les applications "
+"sélectionnées"
+
+#: src/pyams_zfiles/task/interfaces.py:48
+msgid "Dry run"
+msgstr "Tir à blanc"
+
+#: src/pyams_zfiles/task/interfaces.py:49
+msgid ""
+"If 'no', documents missing from source table will be deleted; otherwise, "
+"their OID will only be returned in task execution log"
+msgstr ""
+"En mode 'tir à blanc', la tâche ne fait que renvoyer un état des lieux avec "
+"la liste des identifiants sélectionnés et leur statut dans la GED ; en mode "
+"'normal', les documents stockés en GED qui ne sont plus référencés dans les "
+"applications sélectionnées seront supprimés définitivement"
+
+#: src/pyams_zfiles/task/interfaces.py:55
+msgid "Verbose output?"
+msgstr "Rapport d'exécution détaillé"
+
+#: src/pyams_zfiles/task/interfaces.py:56
+msgid "If 'Yes', task execution logs will be filled with more verbose output"
+msgstr ""
+"Si 'oui', le rapport d'exécution de la tâche contiendra plus d'informations "
+"sur les documents traités"
+
+#: src/pyams_zfiles/task/zmi/__init__.py:46
+msgid "Source application checker task settings"
+msgstr "Paramètres de la source"
+
+#: src/pyams_zfiles/task/zmi/__init__.py:57
+msgid "Add ZFiles source application checker task..."
+msgstr "Vérification de documents ZFiles"
 
 #~ msgid ""
 #~ "**WARNING**: il you add or remove property indexes for properties already "
