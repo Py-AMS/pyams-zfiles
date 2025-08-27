@@ -96,23 +96,23 @@ class SourceApplicationCheckerTask(Task):
                 report.writeln(f"- ZFiles missing documents: **{len(zfiles_missing_oids)}**")
                 if self.verbose_output:
                     for oid in sorted(zfiles_missing_oids):
-                        report.writeln(f"  + {oid}")
+                        report.writeln(f"    + {oid}")
                 # check orphan OIDs
                 zfiles_orphan_oids = zfiles_oids - application_oids
                 report.writeln(f"- ZFiles orphan documents: **{len(zfiles_orphan_oids)}**")
                 for oid in sorted(zfiles_orphan_oids):
                     if self.dry_run:
-                        report.writeln(f"  + {oid}: TO BE DELETED")
+                        report.writeln(f"    + {oid}: TO BE DELETED")
                     else:
                         try:
                             container.delete_document(oid, request)
-                            report.writeln(f"  + {oid}: DELETED")
+                            report.writeln(f"    + {oid}: DELETED")
                         except HTTPNotFound:
-                            report.writeln(f"  + {oid}: NOT FOUND")
+                            report.writeln(f"    + {oid}: NOT FOUND")
                         except HTTPUnauthorized:
-                            report.writeln(f"  + {oid}: UNAUTHORIZED")
+                            report.writeln(f"    + {oid}: UNAUTHORIZED")
                         except Exception as exc:
-                            report.writeln(f"  + {oid}: UNKNOWN ERROR: {exc}")
+                            report.writeln(f"    + {oid}: UNKNOWN ERROR: {exc}")
                 report.writeln('\n')
                 return TASK_STATUS_OK, {
                     'missing': list(zfiles_missing_oids),
