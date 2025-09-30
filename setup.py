@@ -24,7 +24,7 @@ DOCS = os.path.join(os.path.dirname(__file__),
 README = os.path.join(DOCS, 'README.rst')
 HISTORY = os.path.join(DOCS, 'HISTORY.rst')
 
-version = '2.6.0'
+version = '2.6.1'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
@@ -77,7 +77,7 @@ setup(name='pyams_zfiles',
           'hypatia',
           'persistent',
           'pyams_catalog',
-          'pyams_file',
+          'pyams_file >= 2.4.0',
           'pyams_form',
           'pyams_layer',
           'pyams_security >= 1.10.5',

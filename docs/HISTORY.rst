@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.6.1
+-----
+ - allow unknown images formats to be stored as standard files
+
 2.6.0
 -----
  - added mode to documents synchronizer to handle two-ways synchronizations
