@@ -91,7 +91,7 @@ class DocumentVersion(ProtectedObjectMixin, Persistent, Contained):
 
     title = FieldProperty(IDocumentVersion['title'])
     application_name = FieldProperty(IDocumentVersion['application_name'])
-    _data = FileProperty(IDocumentVersion['data'])
+    _data = FileProperty(IDocumentVersion['data'], accept_unknown_image_as_file=True)
     hash = FieldProperty(IDocumentVersion['hash'])
     access_mode = FieldProperty(IDocumentVersion['access_mode'])
     update_mode = FieldProperty(IDocumentVersion['update_mode'])
