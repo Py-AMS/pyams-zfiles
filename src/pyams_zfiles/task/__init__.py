@@ -83,7 +83,8 @@ class SourceApplicationCheckerTask(Task):
                 application_oids = set((
                     result.oid
                     for result in session.execute(text(f'select distinct {self.field_name} as oid '
-                                                       f'from {self.table_name}'))
+                                                       f'from {self.table_name} '
+                                                       f'where {self.field_name} is not null'))
                 ))
                 report.writeln(f"- Source application OIDs: **{len(application_oids)}**")
                 # get ZFiles OIDs
