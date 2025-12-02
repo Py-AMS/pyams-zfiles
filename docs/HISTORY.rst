@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.6.2
+-----
+ - improved scheduler task execution using catalog indexes
+
 2.6.1
 -----
  - allow unknown images formats to be stored as standard files
