@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.6.4
+-----
+ - added filter for null values in task OIDs SQL extractor
+
 2.6.3
 -----
  - added boolean filter in task OIDs extractor to exclude null values
