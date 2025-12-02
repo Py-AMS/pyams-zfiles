@@ -90,10 +90,10 @@ class SourceApplicationCheckerTask(Task):
                 report.writeln(f"- ZFiles applications: {', '.join(self.application_names)}")
                 zfiles_apps_index = catalog['zfile_application']
                 zfiles_oids_index = catalog['zfile_oid']
-                zfiles_oids = set((
+                zfiles_oids = set(filter(bool, (
                     zfiles_oids_index._rev_index.get(intid)
                     for intid in zfiles_apps_index.any(self.application_names).execute()
-                ))
+                )))
                 report.writeln(f"- ZFiles documents OIDs: **{len(zfiles_oids)}**")
                 # check missing OIDs
                 zfiles_missing_oids = application_oids - zfiles_oids
