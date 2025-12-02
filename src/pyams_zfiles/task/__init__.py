@@ -10,6 +10,7 @@
 
 import sys
 
+from hypatia.interfaces import ICatalog
 from pyramid.httpexceptions import HTTPNotFound, HTTPUnauthorized
 from sqlalchemy.exc import ResourceClosedError, SQLAlchemyError
 from sqlalchemy.sql import text
@@ -23,7 +24,7 @@ from pyams_scheduler.task.pipeline import BasePipelineOutput
 from pyams_security.interfaces.names import INTERNAL_USER_ID
 from pyams_utils.adapter import adapter_config
 from pyams_utils.factory import factory_config
-from pyams_utils.registry import query_utility
+from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.request import query_request
 from pyams_zfiles.interfaces import IDocumentContainer
 from pyams_zfiles.task.interfaces import ISourceApplicationCheckerTask
@@ -71,6 +72,7 @@ class SourceApplicationCheckerTask(Task):
                 container = query_utility(IDocumentContainer)
                 if container is None:
                     raise LookupError("Can't find documents container")
+                catalog = get_utility(ICatalog)
                 request = query_request()
                 report.writeln('ZFiles application documents checker', prefix='### ', suffix='\n')
                 if self.dry_run:
@@ -86,9 +88,11 @@ class SourceApplicationCheckerTask(Task):
                 report.writeln(f"- Source application OIDs: **{len(application_oids)}**")
                 # get ZFiles OIDs
                 report.writeln(f"- ZFiles applications: {', '.join(self.application_names)}")
+                zfiles_apps_index = catalog['zfile_application']
+                zfiles_oids_index = catalog['zfile_oid']
                 zfiles_oids = set((
-                    document.oid
-                    for document in container.find_documents({'application_name': self.application_names})
+                    zfiles_oids_index._rev_index.get(intid)
+                    for intid in zfiles_apps_index.any(self.application_names).execute()
                 ))
                 report.writeln(f"- ZFiles documents OIDs: **{len(zfiles_oids)}**")
                 # check missing OIDs
