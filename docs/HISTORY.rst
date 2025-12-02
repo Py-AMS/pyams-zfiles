@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.6.3
+-----
+ - added boolean filter in task OIDs extractor to exclude null values
+ - updated Gitlab CI
+
 2.6.2
 -----
  - improved scheduler task execution using catalog indexes
