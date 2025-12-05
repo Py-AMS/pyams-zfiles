@@ -50,6 +50,12 @@ REST_DOCUMENT_ROUTE = 'pyams_zfiles.rest.document'
 REST_DOCUMENT_PATH = '/api/zfiles/rest/{oid}*version'
 '''ZFiles document REST API default path'''
 
+REST_DOCUMENT_DATA_ROUTE = 'pyams_zfiles.rest.document_data'
+'''ZFiles document data API route name'''
+
+REST_DOCUMENT_DATA_PATH = '/api/zfiles/{oid}/data'
+'''ZFiles document data API default path'''
+
 REST_SYNCHRONIZER_ROUTE = 'pyams_zfiles.rest.synchronizer'
 '''ZFiles synchronizer REST API route name'''
 
