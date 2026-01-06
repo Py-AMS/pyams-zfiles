@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.8.0
+-----
+ - added PyAMS monitoring extension
+
 2.7.0
 -----
  - added route to get direct access to content of published document version
